@@ -1,0 +1,6 @@
+[run]
+source = opencert
+omit = 
+    tests/*
+    autoapp.py
+
