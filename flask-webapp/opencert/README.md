@@ -40,7 +40,7 @@ A docker volume `node-modules` is created to store NPM packages and is reused ac
 
 Go to `http://localhost:8080`. You will see a pretty welcome screen.
 
-### Running locally
+## Running locally
 
 Run the following commands to bootstrap your environment if you are unable to run the application using Docker
 
