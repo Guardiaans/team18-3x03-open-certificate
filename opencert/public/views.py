@@ -63,8 +63,11 @@ def register():
             password=form.password.data,
             active=True,
         )
-        flash("Thank you for registering. You can now log in.", "success")
-        return redirect(url_for("public.home"))
+        # flash("Thank you for registering. You can now log in.", "success")
+        # Log the user in after registering
+        user = User.query.filter_by(email=form.email.data).first()
+        login_user(user)
+        return redirect(url_for("public.two_factor_setup"))
     else:
         flash_errors(form)
     return render_template("public/register.html", form=form)
@@ -75,3 +78,11 @@ def about():
     """About page."""
     form = LoginForm(request.form)
     return render_template("public/about.html", form=form)
+
+
+@blueprint.route("/two-factor/")
+@login_required
+def two_factor_setup():
+    """2FA page."""
+    form = LoginForm(request.form)
+    return render_template("public/two_factor_setup.html", form=form)
