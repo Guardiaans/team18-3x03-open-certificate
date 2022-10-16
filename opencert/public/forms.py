@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired
+from wtforms import PasswordField, StringField, SubmitField
+from wtforms.validators import DataRequired, Length
 
 from opencert.user.models import User
 
@@ -12,6 +12,7 @@ class LoginForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
+    token = StringField("Token", validators=[DataRequired(), Length(6, 6)])
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
