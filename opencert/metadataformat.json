@@ -1,0 +1,40 @@
+{
+   "description":"Arowana Certificate",
+   "external_url":"",
+   "image":"https://gateway.pinata.cloud/ipfs/",
+   "name":"Test Patent",
+   "attributes":[
+      {
+         "trait_type":"Certificate Number",
+         "value":""
+      },
+      {
+         "trait_type":"Breed",
+         "value":""
+      },
+      {
+         "trait_type":"Generation",
+         "value":""
+      },
+      {
+        "trait_type":"Gender",
+        "value":""
+     },
+     {
+        "trait_type":"Farm",
+        "value":""
+     },
+     {
+        "trait_type":"AVA Tag Registred Number",
+        "value":""
+     },
+     {
+        "trait_type":"CITES Tag Number",
+        "value":""
+     },
+     {
+        "trait_type":"Date Of Issue",
+        "value":""
+     }
+   ]
+}

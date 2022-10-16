@@ -5,7 +5,7 @@ import sys
 
 from flask import Flask, render_template
 
-from opencert import commands, public, user
+from opencert import commands, public, user, minting
 from opencert.extensions import (
     bcrypt,
     cache,
@@ -51,6 +51,7 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
+    app.register_blueprint(minting.views.blueprint)
     return None
 
 
