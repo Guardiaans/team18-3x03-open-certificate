@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 """User models."""
+import base64
 import datetime as dt
+import os
+import onetimepass
 
+
+from flask import (
+    current_app,
+)
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -39,10 +46,26 @@ class User(UserMixin, PkModel):
     wallet_add = Column(db.String(500), nullable=True)
     active = Column(db.Boolean(), default=False)
     is_admin = Column(db.Boolean(), default=False)
+    otp_secret = Column(db.String(16))
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        if self.otp_secret is None:
+            # generate a random secret
+            self.otp_secret = base64.b32encode(os.urandom(10)).decode("utf-8")
+
+    def get_totp_uri(self):
+        return "otpauth://totp/open-cert:{0}?secret={1}&issuer=open-cert".format(
+            self.username, self.otp_secret
+        )
+
+    def verify_totp(self, token):
+        return onetimepass.valid_totp(token, self.otp_secret)
 
     @hybrid_property
     def password(self):
         """Hashed password."""
+        current_app.logger.info("getting password")
         return self._password
 
     @password.setter
