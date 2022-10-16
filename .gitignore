@@ -55,4 +55,4 @@ env/
 .env
 
 # Development database
-# *.db
+*.db
