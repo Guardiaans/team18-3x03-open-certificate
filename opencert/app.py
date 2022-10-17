@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
+import email
 import logging
 import sys
 
 from flask import Flask, render_template
-
-from opencert import commands, public, user, auth
+from flask_mail import Mail
+from opencert import commands, public, user, auth, email
 from opencert.extensions import (
     bcrypt,
     cache,
@@ -31,6 +32,7 @@ def create_app(config_object="opencert.settings"):
     register_shellcontext(app)
     register_commands(app)
     configure_logger(app)
+    Mail(app)
     return app
 
 
@@ -53,6 +55,7 @@ def register_blueprints(app):
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
+    app.register_blueprint(email.views.blueprint)
     return None
 
 

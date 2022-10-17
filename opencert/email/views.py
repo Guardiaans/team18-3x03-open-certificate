@@ -1,12 +1,7 @@
 from flask import (
     Blueprint,
-    current_app,
     flash,
-    redirect,
     render_template,
-    request,
-    url_for,
-    abort,
 )
 
 from opencert.email.forms import confirm_token
