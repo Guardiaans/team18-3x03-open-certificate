@@ -61,19 +61,15 @@ def login():
         # if user is logged in we get out of here
         return redirect(url_for("public.home"))
     form = LoginForm(request.form)
-    if form.validate_on_submit():
-        # log a message to the console
-        current_app.logger.info("checking login")
+    if form.validate_on_submit():  # this is where the form is validated
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.verify_totp(form.token.data):
-            current_app.logger.info("invalid login")
-            flash("Invalid username, password or token.")
-            return redirect(url_for("public.login"))
-
         # log user in
         login_user(user)
         flash("You are now logged in!")
         return redirect(url_for("public.home"))
+    else:
+        flash_errors(form)
+        
     return render_template("public/login.html", form=form)
 
 
