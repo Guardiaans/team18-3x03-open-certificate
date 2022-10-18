@@ -3,6 +3,8 @@
 import base64
 import datetime as dt
 import os
+
+from sqlalchemy import ForeignKey
 import onetimepass
 
 
@@ -21,8 +23,6 @@ class Role(PkModel):
 
     __tablename__ = "roles"
     name = Column(db.String(80), unique=True, nullable=False)
-    user_id = reference_col("users", nullable=True)
-    user = relationship("User", backref="roles")
 
     def __init__(self, name, **kwargs):
         """Create instance."""
@@ -48,6 +48,8 @@ class User(UserMixin, PkModel):
     active = Column(db.Boolean(), default=False)
     is_admin = Column(db.Boolean(), default=False)
     otp_secret = Column(db.String(16))
+    role_id = reference_col("roles", nullable=False)
+    role = relationship("Role", backref="users")
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

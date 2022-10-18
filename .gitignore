@@ -58,3 +58,6 @@ env/
 *.db
 instance/
 Scripts
+
+# Migrations
+/Migrations

@@ -97,7 +97,6 @@ def register():
         RECAPTCHA_URL =os.environ.get("RECAPTCHA_VERIFY_URL")
         #verify its not a bot
         verify_response = requests.post(url=f'{RECAPTCHA_URL}?secret={SECRET_KEY}&response={secret_response}').json()
-        print(verify_response['score'])
         if verify_response['success'] == False or verify_response['score'] < 0.5:
             abort(401)
         new_user_email = form.email.data
@@ -110,6 +109,7 @@ def register():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             active=True,
+            role_id = request.form.get("user_type")
         )
         # flash("Thank you for registering. You can now log in.", "success")
         # Log the user in after registering
