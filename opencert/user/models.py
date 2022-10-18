@@ -4,7 +4,6 @@ import base64
 import datetime as dt
 import os
 
-from sqlalchemy import ForeignKey
 import onetimepass
 
 
