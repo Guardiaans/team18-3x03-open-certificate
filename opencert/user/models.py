@@ -3,6 +3,7 @@
 import base64
 import datetime as dt
 import os
+
 import onetimepass
 
 
@@ -21,8 +22,6 @@ class Role(PkModel):
 
     __tablename__ = "roles"
     name = Column(db.String(80), unique=True, nullable=False)
-    user_id = reference_col("users", nullable=True)
-    user = relationship("User", backref="roles")
 
     def __init__(self, name, **kwargs):
         """Create instance."""
@@ -39,14 +38,17 @@ class User(UserMixin, PkModel):
     __tablename__ = "users"
     username = Column(db.String(80), unique=True, nullable=False)
     email = Column(db.String(80), unique=True, nullable=False)
+    email_confirmed = db.Column(db.Boolean(), default=False)
     _password = Column("password", db.LargeBinary(128), nullable=True)
     created_at = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
-    first_name = Column(db.String(30), nullable=True)
-    last_name = Column(db.String(30), nullable=True)
-    wallet_add = Column(db.String(500), nullable=True)
+    first_name = Column(db.String(20), nullable=False)
+    last_name = Column(db.String(20), nullable=False)
+    wallet_add = Column(db.String(500), nullable=False)
     active = Column(db.Boolean(), default=False)
     is_admin = Column(db.Boolean(), default=False)
     otp_secret = Column(db.String(16))
+    role_id = reference_col("roles", nullable=False)
+    role = relationship("Role", backref="users")
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
