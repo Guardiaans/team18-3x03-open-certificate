@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
 <div class="container-narrow">
     <h2 class="mt-5"> Step 3</h2><br/>
     <form id="MintingForm2" class="form form-minting3" method="POST" action="">
       <h5 class="mt-2">Certificate Metadata CID:</h5>
-      <input type="text" class="form-control" id="metadataipfs" value="{{ cid2 }}"><br/>
+      <input type="text" class="form-control" id="metadataipfs" value="{{ cid2 }}" required readonly><br/>
     </form>
     <button type="button" class="btn btn-primary" id="mint">Mint Cert</button>
   </div>

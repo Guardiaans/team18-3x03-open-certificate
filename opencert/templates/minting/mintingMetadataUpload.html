@@ -5,23 +5,23 @@
   <form id="MintingForm2" class="form form-minting2" method="POST" action="">
     <div class="mb-3">
       <h5 class="mt-2">Certificate Image CID:</h5>
-      <input type="text" class="form-control" id="imageHash" name="imageHash" value="{{ cid }}">
+      <input type="text" class="form-control" id="imageHash" name="imageHash" value="{{ cid }}" required readonly>
       <h5 class="mt-2">Certificate Number:</h5>
-      <input type="text" class="form-control" name="certNum">
+      <input type="text" class="form-control" name="certNum" required>
       <h5 class="mt-2">Breed:</h5>
-      <input type="text" class="form-control" id="breed" name="breed">
+      <input type="text" class="form-control" id="breed" name="breed" required>
       <h5 class="mt-2">Generation:</h5>
-      <input type="text" class="form-control" id="generation" name="generation">
+      <input type="text" class="form-control" id="generation" name="generation" required>
       <h5 class="mt-2">Gender:</h5>
-      <input type="text" class="form-control" id="gender" name="gender">
+      <input type="text" class="form-control" id="gender" name="gender" required>
       <h5 class="mt-2">Farm Name:</h5>
-      <input type="text" class="form-control" id="farm" name="farm">
+      <input type="text" class="form-control" id="farm" name="farm" required>
       <h5 class="mt-2">AVA Registered Tag Number:</h5>
-      <input type="text" class="form-control" id="AVATag" name="AVATag">
+      <input type="text" class="form-control" id="AVATag" name="AVATag" required>
       <h5 class="mt-2">CITES Registration Number:</h5>
-      <input type="text" class="form-control" id="CITESTag" name="CITESTag">
+      <input type="text" class="form-control" id="CITESTag" name="CITESTag" required>
       <h5 class="mt-2">Date of Issue:</h5>
-      <input type="text" class="form-control" id="DOI" name="DOI">
+      <input type="text" class="form-control" id="DOI" name="DOI" required>
     </div>
     <button type="submit" class="btn btn-primary">Upload Metadata</button>
   </form>
