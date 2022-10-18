@@ -57,3 +57,9 @@ env/
 # Development database
 # *.db
 Scripts
+
+#imageUploaded
+/opencert/uploads
+
+#imageMetaDataUploaded
+/opencert/metadataUploads
