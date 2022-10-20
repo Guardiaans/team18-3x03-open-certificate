@@ -1,0 +1,30 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container-narrow">
+  <h1 class="mt-5">Login</h1>
+  <br />
+  <form
+    id="LoginForm"
+    class="form form-login"
+    method="POST"
+    action=""
+    role="form"
+  >
+    {{ form.csrf_token }}
+    <div class="form-group">
+      {{form.username.label}} {{form.username(placeholder="Username",
+      class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{form.password.label}} {{form.password(placeholder="Password",
+      class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{form.token.label}} {{form.token(placeholder="OTP Token",
+      class_="form-control")}}
+    </div>
+    <p><input class="btn btn-primary" type="submit" value="Login" /></p>
+  </form>
+  <p><em>Forgot your password?</em> Click <a href="/">here</a>.</p>
+</div>
+
+{% endblock %}
