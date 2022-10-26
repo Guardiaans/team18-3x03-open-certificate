@@ -170,3 +170,13 @@ def mint3():
     else:
         cid2 = session.get("cid2")
         return render_template("minting/mintNFT.html", cid2=cid2)
+
+@blueprint.route("/mintfail", methods=["GET"])
+def deletefail():
+    """Mint failed page"""
+    return render_template("minting/mintfail.html")
+
+@blueprint.route("/mintsuccess", methods=["GET"])
+def deletesucces():
+    """Mint succeeded page"""
+    return render_template("minting/mintsuccess.html")
