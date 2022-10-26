@@ -55,11 +55,16 @@ env/
 .env
 
 # Development database
+
 # *.db
 Scripts
+instance/
 
 #imageUploaded
 /opencert/uploads
 
 #imageMetaDataUploaded
 /opencert/metadataUploads
+
+# Migrations
+/Migrations

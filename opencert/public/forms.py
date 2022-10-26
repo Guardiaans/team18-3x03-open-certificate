@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired
+from wtforms import PasswordField, StringField, SubmitField
+from wtforms.validators import DataRequired, Length
+from flask import flash
 
 from opencert.user.models import User
 
@@ -12,6 +13,7 @@ class LoginForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
+    token = PasswordField("Token", validators=[DataRequired(), Length(6, 6)])
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
@@ -31,6 +33,10 @@ class LoginForm(FlaskForm):
 
         if not self.user.check_password(self.password.data):
             self.password.errors.append("Invalid password")
+            return False
+
+        if not self.user.verify_totp(self.token.data):
+            self.token.errors.append("Invalid token")
             return False
 
         if not self.user.active:
