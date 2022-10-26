@@ -15,13 +15,13 @@ from flask import (
 from flask_login import login_required, login_user, logout_user, current_user
 import os, requests
 from opencert.extensions import login_manager
-from opencert.public.forms import LoginForm
+from opencert.public.forms import ForgetPasswordForm, LoginForm
 from opencert.user.forms import RegisterForm
 from opencert.user.models import User
 from opencert.utils import flash_errors
 import pyqrcode
-from opencert.email.forms import generate_confirmation_token, send_email
-
+from opencert.email.forms import ResetPasswordForm, generate_confirmation_token, send_email
+from threading import Thread
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 
@@ -172,3 +172,21 @@ def qrcode():
             "Expires": "0",
         },
     )
+
+@blueprint.route("/forget_password", methods=["GET", "POST"])
+def forget_password():
+    form = ForgetPasswordForm(request.form)
+
+    if form.validate_on_submit():
+        email = form.email.data
+        token = generate_confirmation_token(email)
+        # confirm_url = url_for('email.reset_password', token=token, _external=True)
+        html = render_template('email/link_reset_password.html', token=token)
+        subject = "Password Reset"
+        send_email(email, subject, html)
+        
+        flash("We have send instruction to your email ", "success")
+        return redirect(url_for("public.home"))
+    else:
+        flash_errors(form)
+    return render_template("public/forget_password.html", form = form)
