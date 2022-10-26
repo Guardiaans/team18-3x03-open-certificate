@@ -36,3 +36,14 @@ def load_user(user_id):
 def transfer():
     """Transfer certificate page"""
     return render_template("transfer/transfer.html")
+
+@blueprint.route("/transferfail", methods=["GET"])
+def transferfail():
+    """Transfer failed page"""
+    return render_template("transfer/transferfail.html")
+
+
+@blueprint.route("/transfersuccess", methods=["GET"])
+def transfersucces():
+    """Transfer succeeded page"""
+    return render_template("transfer/transfersuccess.html")
