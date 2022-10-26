@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Email forms."""
 
+from flask import copy_current_request_context
 from flask_mail import Message
 import os
 from itsdangerous import URLSafeTimedSerializer
@@ -8,6 +9,7 @@ from opencert import app
 from flask_wtf import FlaskForm
 from wtforms import PasswordField
 from wtforms.validators import DataRequired, Length, EqualTo
+from threading import Thread
 
 def generate_confirmation_token(email): 
     serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY")) 
@@ -29,8 +31,13 @@ def send_email(to, subject, template):
         html=template,
         sender=os.environ.get('MAIL_DEFAULT_SENDER')
     )
-    mail = app.Mail()
-    mail.send(msg)
+    
+    @copy_current_request_context
+    def async_send_message(message):
+        mail = app.Mail()
+        mail.send(message)
+    
+    Thread(target=async_send_message, args=[msg]).start()
     
 class ResetPasswordForm(FlaskForm):
     "Forget password form"
