@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="{{url_for('static', filename='smartDeleteFunction.js')}}"></script>
+<div class="container-narrow">
+  <h2 class="mt-5">Delete Certificate</h2><br/>
+  <form id="DeleteForm" class="form form-delete" method="POST" action="">
+    <div class="mb-3">
+      <h5 class="mt-2">Certificate ID:</h5>
+      <input type="number" class="form-control" id="certId" name="certId" value="" required>
+    </div>
+    <button type="button" class="btn btn-primary" id="delete">Delete Certificate</button>
+    <br/>
+    <br/>
+      <div id="id_input_error"class="alert alert-danger" role="alert" style="display:none;">
+          Please enter a valid id.
+    </div>
+  </form>
+
+
+</div>
+{% endblock %}
