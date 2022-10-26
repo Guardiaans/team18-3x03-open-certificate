@@ -480,8 +480,8 @@ const ABI = [
 }
 ]
 
-//const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
-const ADDRESS = "0x746032b8a9D1f24Aaa221559cb99E65c22202464";
+const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
+//const ADDRESS = "0x746032b8a9D1f24Aaa221559cb99E65c22202464";
 
 var transferCert = async () => {
     // contract.methods.safeMint(account, metadataipfs).send({ from: account});
