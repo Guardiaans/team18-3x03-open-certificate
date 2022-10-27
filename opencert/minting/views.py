@@ -14,20 +14,23 @@ from flask import (
 
 from opencert.minting.forms import MintingForm
 from opencert.utils import flash_errors
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,abort, session
 from flask_login import login_required
+from flask_session import Session
 
 
 import os
 import json
 from werkzeug.utils import secure_filename
 import requests
+import imghdr
+import re
 
 
 
 
 #JWT token
-JWT_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI2MTEzYjZhMS0wOGFmLTQ5N2EtODVjZS0xMzMzNzkzYzkzOTAiLCJlbWFpbCI6IjIwMDA1NDRAc2l0LnNpbmdhcG9yZXRlY2guZWR1LnNnIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjNmZGU4ZTMzMmQ5MmViY2UxNDk0Iiwic2NvcGVkS2V5U2VjcmV0IjoiNGMyMjVkYzA3OTU4MjYyMzExOTQ4NGJiMmFiZDRkYTU2NTk5M2M3ZjAxYzQ3YmNhM2ExMmY5MWMzMDBlYzhmMSIsImlhdCI6MTY2MjkwMTk4Mn0.WFA3sUCm3r_1_I7i56adA85oYIdQguYnzZdl-6s2qzk"
+#JWT_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI2MTEzYjZhMS0wOGFmLTQ5N2EtODVjZS0xMzMzNzkzYzkzOTAiLCJlbWFpbCI6IjIwMDA1NDRAc2l0LnNpbmdhcG9yZXRlY2guZWR1LnNnIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjNmZGU4ZTMzMmQ5MmViY2UxNDk0Iiwic2NvcGVkS2V5U2VjcmV0IjoiNGMyMjVkYzA3OTU4MjYyMzExOTQ4NGJiMmFiZDRkYTU2NTk5M2M3ZjAxYzQ3YmNhM2ExMmY5MWMzMDBlYzhmMSIsImlhdCI6MTY2MjkwMTk4Mn0.WFA3sUCm3r_1_I7i56adA85oYIdQguYnzZdl-6s2qzk"
 
 # Folder for NFT Image
 UPLOAD_IMAGE_FOLDER = './opencert/uploads/'
@@ -35,10 +38,19 @@ UPLOAD_IMAGE_FOLDER = './opencert/uploads/'
 # Folder for NFT metadata
 UPLOAD_METADATA_FOLDER = './opencert/metadataUploads/'
 
-#json format
-metadata = {"description":"Arowana Certificate","external_url":"","image":"https://gateway.pinata.cloud/ipfs/","name":"Test Patent","attributes":[{"trait_type":"Certificate Number","value":""},{"trait_type":"Breed","value":""},{"trait_type":"Generation","value":""},{"trait_type":"Gender","value":""},{"trait_type":"Farm","value":""},{"trait_type":"AVA Tag Registred Number","value":""},{"trait_type":"CITES Tag Number","value":""},{"trait_type":"Date Of Issue","value":""}]}
+#accepted file format
+ACCEPTED_FILE_FORMAT = ['.jpg','.png']
 
 
+
+#check file content
+def validate_image(stream):
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return '.' + (format if format != 'jpeg' else 'jpg')
 
 
 blueprint = Blueprint("minting", __name__, static_folder="../static")
@@ -52,19 +64,28 @@ def mint1():
         # Save the file to the server first
         file = request.files['file']
         filename = secure_filename(file.filename)
-        print(filename)
-        fileLoc = os.path.join(UPLOAD_IMAGE_FOLDER, filename)
-        file.save(fileLoc)
+        
+        #check file ext n content
+        if filename != '':
+            file_ext = os.path.splitext(filename)[1]
+            if file_ext not in ACCEPTED_FILE_FORMAT or file_ext != validate_image(file.stream):
+                return render_template("minting/mintingImageUpload.html")
+            else:
+                fileLoc = os.path.join(UPLOAD_IMAGE_FOLDER, filename)
+                file.save(fileLoc)
 
-        # Upload the file to Pinata
-        url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
-        payload = {}
-        files=[('file',(filename ,open(fileLoc,'rb'),'application/octet-stream'))]
-        headers = {'Authorization': 'Bearer ' + JWT_KEY}
-        response = requests.request("POST", url, headers=headers, data=payload, files=files)
-        json_data = json.loads(response.text)
-        cid = json_data['IpfsHash']
-        return redirect(url_for("minting.mint2", cid=cid))
+                # Upload the file to Pinata
+                url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
+                payload = {}
+                files=[('file',(filename ,open(fileLoc,'rb'),'application/octet-stream'))]
+                headers = {'Authorization': 'Bearer ' + os.environ.get("JWT_KEY")}
+                response = requests.request("POST", url, headers=headers, data=payload, files=files)
+                json_data = json.loads(response.text)
+                cid = json_data['IpfsHash']
+                session["cid"] = cid
+                return redirect(url_for("minting.mint2"))
+        else:
+            return render_template("minting/mintingImageUpload.html") 
     else:
         return render_template("minting/mintingImageUpload.html")
          
@@ -73,19 +94,42 @@ def mint1():
 #@login_required
 def mint2():
     "Upload Metadata Page"
+    m = re.compile(r'[()$%_.+@!#^&*;:{}~ `]*$')
+    c = re.compile(r'[()$%_.+@!#^&*;:{}~`]*$')
     if request.method == 'POST':
         # Save the file to the server first
         imageCID = str(request.form.get("imageHash"))
         certNum = str(request.form.get("certNum"))
         breed = str(request.form.get("breed"))
         generation = str(request.form.get("generation"))
-        gender = str(request.form.get("gender"))
         farm = str(request.form.get("farm"))
-        AVATag = str(request.form.get("AVATag"))
         CITESTag = str(request.form.get("CITESTag"))
         DOI = str(request.form.get("DOI"))
 
-        metadataString = '{"description":"Arowana Certificate","external_url":"","image":"https://gateway.pinata.cloud/ipfs/' + imageCID + '","name":"Test Patent","attributes":[{"trait_type":"Certificate Number","value":"' + certNum + '"},{"trait_type":"Breed","value":"' + breed + '"},{"trait_type":"Generation","value":"' + generation + '"},{"trait_type":"Gender","value":"' + gender + '"},{"trait_type":"Farm","value":"' + farm + '"},{"trait_type":"AVA Tag Registred Number","value":"' + AVATag + '"},{"trait_type":"CITES Tag Number","value":"' + CITESTag + '"},{"trait_type":"Date Of Issue","value":"' + DOI + '"}]}'
+        #if len(imageCID) != 0 or len(certNum) != 0 or len(breed) != 0 or len(generation) != 0 or len(farm) != 0 or len(CITESTag) != 0 or len(DOI) != 0 :
+        if len(imageCID) < 46 or len(imageCID) > 46 or imageCID.isalnum() == False:
+            cid = session.get("cid")
+            return render_template("minting/mintingMetadataUpload.html", cid=cid)
+        if len(certNum) < 7 or len(certNum) > 7 or certNum.isalnum() == False:
+            cid = session.get("cid")
+            return render_template("minting/mintingMetadataUpload.html", cid=cid)            
+        if len(breed) < 6 or len(breed) > 15 or c.match(breed):
+            cid = session.get("cid")
+            return render_template("minting/mintingMetadataUpload.html", cid=cid)
+        if len(generation) < 5 or len(generation) > 10 or generation.isalnum() == False:
+            cid = session.get("cid")
+            return render_template("minting/mintingMetadataUpload.html", cid=cid)
+        if len(farm) < 5 or len(farm) > 30 or c.match(farm):
+            cid = session.get("cid")
+            return render_template("minting/mintingMetadataUpload.html", cid=cid)
+        if len(CITESTag) < 6 or len(CITESTag) > 6 or CITESTag.isalnum() == False:
+            cid = session.get("cid")
+            return render_template("minting/mintingMetadataUpload.html", cid=cid)        
+        if len(DOI) < 10 or len(DOI) > 10 or m.match(DOI):
+            cid = session.get("cid")
+            return render_template("minting/mintingMetadataUpload.html", cid=cid)  
+
+        metadataString = '{"description":"Arowana Certificate","external_url":"","image":"https://gateway.pinata.cloud/ipfs/' + imageCID + '","name":"Test Patent","attributes":[{"trait_type":"Certificate Number","value":"' + certNum + '"},{"trait_type":"Breed","value":"' + breed + '"},{"trait_type":"Generation","value":"' + generation + '"},{"trait_type":"Farm","value":"' + farm + '"},{"trait_type":"CITES Tag Number","value":"' + CITESTag + '"},{"trait_type":"Date Of Issue","value":"' + DOI + '"}]}'
 
         try:
             with open('opencert/metadataUploads/' + imageCID + '.json', 'w') as f:
@@ -103,13 +147,14 @@ def mint2():
         url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
         payload = {}
         files=[('file',(filename ,open(fileLoc2,'rb'),'application/octet-stream'))]
-        headers = {'Authorization': 'Bearer ' + JWT_KEY}
+        headers = {'Authorization': 'Bearer ' + os.environ.get("JWT_KEY")}
         response = requests.request("POST", url, headers=headers, data=payload, files=files)
         json_data = json.loads(response.text)
-        cid2 = json_data['IpfsHash']      
-        return redirect(url_for("minting.mint3", cid2=cid2))
+        cid2 = json_data['IpfsHash']
+        session["cid2"] = cid2      
+        return redirect(url_for("minting.mint3"))
     else:
-        cid = request.args.get('cid')
+        cid = session.get("cid")
         return render_template("minting/mintingMetadataUpload.html", cid=cid)
 
 
@@ -123,5 +168,15 @@ def mint3():
         return redirect(url_for("minting.mint3", cid2=cid2))
 
     else:
-        cid2 = request.args.get('cid2')
+        cid2 = session.get("cid2")
         return render_template("minting/mintNFT.html", cid2=cid2)
+
+@blueprint.route("/mintfail", methods=["GET"])
+def deletefail():
+    """Mint failed page"""
+    return render_template("minting/mintfail.html")
+
+@blueprint.route("/mintsuccess", methods=["GET"])
+def deletesucces():
+    """Mint succeeded page"""
+    return render_template("minting/mintsuccess.html")
