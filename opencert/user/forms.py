@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """User forms."""
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField
+from wtforms import PasswordField, StringField, RadioField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 from .models import User
@@ -31,6 +31,10 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField(
         "Verify password",
         [DataRequired(), EqualTo("password", message="Passwords must match")],
+    )
+    user_type = RadioField(
+        'Role:', 
+        default="2", choices=[('2','Buyer'),('3','Seller')]
     )
 
     def __init__(self, *args, **kwargs):
