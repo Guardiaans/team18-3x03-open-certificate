@@ -68,3 +68,6 @@ instance/
 
 # Migrations
 /Migrations
+
+#static
+opencert/static
