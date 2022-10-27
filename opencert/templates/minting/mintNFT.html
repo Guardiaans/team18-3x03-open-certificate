@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="{{url_for('static', filename='smartMintFunction.js')}}"></script>
+<div class="container-narrow">
+    <h2 class="mt-5"> Step 3</h2><br/>
+	<p class="lead">Mint Certificate</p>
+    <form id="MintingForm2" class="form form-minting3" method="POST" action="">
+      <h5 class="mt-2">Certificate Metadata CID:</h5>
+      <input type="text" class="form-control" id="metadataipfs" value="{{ cid2 }}" required maxlength="46" pattern=".{46,}"   required title="46 characters minimum"><br/>
+      <button type="button" class="btn btn-primary" id="mint">Mint Cert</button>
+      <br/>
+      <br/>
+        <div id="id_input_error"class="alert alert-danger" role="alert" style="display:none;">
+            Metadata has been tampered.
+      </div>
+    </form>
+  </div>
+{% endblock %}

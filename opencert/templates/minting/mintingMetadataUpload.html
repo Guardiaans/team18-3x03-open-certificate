@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-narrow">
+  <h2 class="mt-5"> Step 2</h2><br/>
+  <p class="lead">Input Metadata for Certificate's attribute</p>
+  <form id="MintingForm2" class="form form-minting2" method="POST" action="">
+    <div class="mb-3">
+      <h5 class="mt-2">Certificate Image CID:</h5>
+      <input type="text" class="form-control" id="imageHash" name="imageHash" value="{{ cid }}" required readonly maxlength="46" pattern=".{46,}" required title="46 characters Minimum">
+      <h5 class="mt-2">Certificate Number:</h5>
+      <input type="text" class="form-control" name="certNum" required maxlength="7" pattern=".{7,}"   required title="7 characters Minimum">
+      <h5 class="mt-2">Breed:</h5>
+      <input type="text" class="form-control" id="breed" name="breed" required maxlength="15" pattern=".{6,}"   required title="6 characters Minimum">
+      <h5 class="mt-2">Generation:</h5>
+      <input type="text" class="form-control" id="generation" name="generation" required maxlength="10" pattern=".{5,}"   required title="5 characters Minimum">
+      <h5 class="mt-2">Farm Name:</h5>
+      <input type="text" class="form-control" id="farm" name="farm" required maxlength="30" pattern=".{5,}"   required title="5 characters Minimum">
+      <h5 class="mt-2">CITES Registration Number:</h5>
+      <input type="text" class="form-control" id="CITESTag" name="CITESTag" required maxlength="6" pattern=".{6,}"   required title="6 characters Minimum">
+      <h5 class="mt-2">Date of Issue:</h5>
+      <input type="date" class="form-control" id="DOI" name="DOI" required maxlength="10" pattern=".{10,}"   required title="10 characters Minimum">
+    </div>
+    <button type="submit" class="btn btn-primary">Upload Metadata</button>
+  </form>
+</div>
+{% endblock %}

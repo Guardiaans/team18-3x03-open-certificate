@@ -55,9 +55,23 @@ env/
 .env
 
 # Development database
-*.db
-instance/
+
+# *.db
 Scripts
+instance/
+
+#imageUploaded
+/opencert/uploads
+
+#imageMetaDataUploaded
+/opencert/metadataUploads
 
 # Migrations
 /Migrations
+
+#static
+opencert/static
+
+#venv config
+
+pyvenv.cfg

@@ -5,8 +5,10 @@ import logging
 import sys
 
 from flask import Flask, render_template
+
 from flask_mail import Mail
-from opencert import commands, public, user, auth, email, transfer
+from opencert import commands, public, user, auth, email, minting, delete, verify, transfer
+
 from opencert.extensions import (
     bcrypt,
     cache,
@@ -54,9 +56,12 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
+    app.register_blueprint(minting.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
     app.register_blueprint(email.views.blueprint)
     app.register_blueprint(transfer.views.blueprint)
+    app.register_blueprint(verify.views.blueprint)
+    app.register_blueprint(delete.views.blueprint)
     return None
 
 
