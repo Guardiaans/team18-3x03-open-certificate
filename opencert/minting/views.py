@@ -57,7 +57,7 @@ blueprint = Blueprint("minting", __name__, static_folder="../static")
 
 
 @blueprint.route("/minting",methods=["GET", "POST"])
-#@login_required
+@login_required
 def mint1():
     "Upload Image Page"
     if request.method == 'POST':
@@ -91,7 +91,7 @@ def mint1():
          
 
 @blueprint.route("/mintingMetadataUpload",methods=["GET", "POST"])
-#@login_required
+@login_required
 def mint2():
     "Upload Metadata Page"
     m = re.compile(r'[()$%_.+@!#^&*;:{}~ `]*$')
@@ -160,7 +160,7 @@ def mint2():
 
     
 @blueprint.route("/mintNFT",methods=["GET", "POST"])
-#@login_required
+@login_required
 def mint3():
     "Mint Arowana Cert/ NFT"
     if request.method == 'POST':
