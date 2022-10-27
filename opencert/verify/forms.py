@@ -7,12 +7,8 @@ from wtforms.validators import DataRequired
 
 class VerifyForm(FlaskForm):
     """Verify form."""
+
     def __init__(self, *args, **kwargs):
         """Create instance."""
-        #super(VerifyForm, self).__init__(*args, **kwargs)
+        # super(VerifyForm, self).__init__(*args, **kwargs)
         self.user = None
-
-    
-
-
-

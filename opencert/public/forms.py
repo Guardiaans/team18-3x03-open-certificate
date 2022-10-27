@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
+from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField
-from wtforms.validators import DataRequired, Length, Email
-from flask import flash
+from wtforms.validators import DataRequired, Email, Length
 
 from opencert.user.models import User
 
@@ -44,6 +44,7 @@ class LoginForm(FlaskForm):
             return False
         return True
 
+
 class ForgetPasswordForm(FlaskForm):
     "Forget password form"
     email = StringField(
@@ -60,14 +61,10 @@ class ForgetPasswordForm(FlaskForm):
         initial_validation = super(ForgetPasswordForm, self).validate()
         if not initial_validation:
             return False
-        
+
         user = User.query.filter_by(email=self.email.data).first()
         if not user:
             self.email.errors.append("Please try again")
             return False
 
-
-       
         return True
-
-        

@@ -1,44 +1,52 @@
 # -*- coding: utf-8 -*-
 """Email forms."""
 
-from flask import copy_current_request_context
-from flask_mail import Message
 import os
-from itsdangerous import URLSafeTimedSerializer
-from opencert import app
-from flask_wtf import FlaskForm
-from wtforms import PasswordField
-from wtforms.validators import DataRequired, Length, EqualTo
 from threading import Thread
 
-def generate_confirmation_token(email): 
-    serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY")) 
-    return serializer.dumps(email, salt=os.environ.get('SECURITY_PASSWORD_SALT')) 
-    
-def confirm_token(token, expiration=180): 
-    serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY")) 
-    try: 
-        email = serializer.loads(  token,  salt=os.environ.get('SECURITY_PASSWORD_SALT'),  max_age=expiration ) 
-    except: 
-        return False 
-        
+from flask import copy_current_request_context
+from flask_mail import Message
+from flask_wtf import FlaskForm
+from itsdangerous import URLSafeTimedSerializer
+from wtforms import PasswordField
+from wtforms.validators import DataRequired, EqualTo, Length
+
+from opencert import app
+
+
+def generate_confirmation_token(email):
+    serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY"))
+    return serializer.dumps(email, salt=os.environ.get("SECURITY_PASSWORD_SALT"))
+
+
+def confirm_token(token, expiration=180):
+    serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY"))
+    try:
+        email = serializer.loads(
+            token, salt=os.environ.get("SECURITY_PASSWORD_SALT"), max_age=expiration
+        )
+    except:
+        return False
+
     return email
+
 
 def send_email(to, subject, template):
     msg = Message(
         subject,
         recipients=[to],
         html=template,
-        sender=os.environ.get('MAIL_DEFAULT_SENDER')
+        sender=os.environ.get("MAIL_DEFAULT_SENDER"),
     )
-    
+
     @copy_current_request_context
     def async_send_message(message):
         mail = app.Mail()
         mail.send(message)
-    
+
     Thread(target=async_send_message, args=[msg]).start()
-    
+
+
 class ResetPasswordForm(FlaskForm):
     "Forget password form"
     password = PasswordField(

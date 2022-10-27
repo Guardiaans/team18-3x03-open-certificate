@@ -5,10 +5,19 @@ import logging
 import sys
 
 from flask import Flask, render_template
-
 from flask_mail import Mail
-from opencert import commands, public, user, auth, email, minting, delete, verify, transfer
 
+from opencert import (
+    auth,
+    commands,
+    delete,
+    email,
+    minting,
+    public,
+    transfer,
+    user,
+    verify,
+)
 from opencert.extensions import (
     bcrypt,
     cache,

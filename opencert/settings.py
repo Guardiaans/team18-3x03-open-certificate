@@ -19,13 +19,13 @@ BCRYPT_LOG_ROUNDS = env.int("BCRYPT_LOG_ROUNDS", default=13)
 DEBUG_TB_ENABLED = DEBUG
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
-SQLALCHEMY_TRACK_MODIFICATIONS = False 
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 WTF_CSRF_ENABLED = False
 
-#MAIL
-MAIL_SERVER = 'smtp.gmail.com'
+# MAIL
+MAIL_SERVER = "smtp.gmail.com"
 MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
-MAIL_USERNAME= "2020projectconfig@gmail.com"
-MAIL_PASSWORD= "oqlozkghaqmclnvu"
+MAIL_USERNAME = "2020projectconfig@gmail.com"
+MAIL_PASSWORD = "oqlozkghaqmclnvu"

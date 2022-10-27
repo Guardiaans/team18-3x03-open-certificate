@@ -1,27 +1,29 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
+import os
 from io import BytesIO
+
+import pyqrcode
+import requests
 from flask import (
     Blueprint,
+    abort,
     current_app,
     flash,
     redirect,
     render_template,
     request,
-    url_for,
     session,
-    abort,
+    url_for,
 )
-from flask_login import login_required, login_user, logout_user, current_user
-import os, requests
+from flask_login import current_user, login_required, login_user, logout_user
+
+from opencert.email.forms import generate_confirmation_token, send_email
 from opencert.extensions import login_manager
 from opencert.public.forms import LoginForm
 from opencert.user.forms import RegisterForm
 from opencert.user.models import User
 from opencert.utils import flash_errors
-import pyqrcode
-from opencert.email.forms import generate_confirmation_token, send_email
-
 
 blueprint = Blueprint("transfer", __name__, static_folder="../static")
 
@@ -36,6 +38,7 @@ def load_user(user_id):
 def transfer():
     """Transfer certificate page"""
     return render_template("transfer/transfer.html")
+
 
 @blueprint.route("/transferfail", methods=["GET"])
 def transferfail():

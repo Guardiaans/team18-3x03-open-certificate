@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
+from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired, Length
-from flask import flash
 
 from opencert.user.models import User
 
