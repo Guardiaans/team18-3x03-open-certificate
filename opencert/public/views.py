@@ -13,15 +13,15 @@ from flask import (
     abort,
 )
 from flask_login import login_required, login_user, logout_user, current_user
-import os, requests
+import os
 from opencert.extensions import login_manager
 from opencert.public.forms import ForgetPasswordForm, LoginForm
 from opencert.user.forms import RegisterForm
 from opencert.user.models import User
 from opencert.utils import flash_errors
 import pyqrcode
-from opencert.email.forms import ResetPasswordForm, generate_confirmation_token, send_email
-from threading import Thread
+from opencert.email.forms import generate_confirmation_token, send_email
+from opencert.recaptcha.forms import recaptcha
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 
@@ -90,16 +90,10 @@ def register():
     form = RegisterForm(request.form)
     
     if form.validate_on_submit():
-        #get recaptcha response
-        secret_response = request.form['g-recaptcha-response']
-        #get key from env
-        SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
-        RECAPTCHA_URL =os.environ.get("RECAPTCHA_VERIFY_URL")
-        #verify its not a bot
-        verify_response = requests.post(url=f'{RECAPTCHA_URL}?secret={SECRET_KEY}&response={secret_response}').json()
-        if verify_response['success'] == False or verify_response['score'] < 0.5:
+        check = recaptcha()
+        if check[0] == False or check[1] < 0.5:
             abort(401)
-        new_user_email = form.email.data
+        print(check)
         User.create(
             username=form.username.data,
             email=form.email.data,
@@ -114,11 +108,11 @@ def register():
         # flash("Thank you for registering. You can now log in.", "success")
         # Log the user in after registering
         user = User.query.filter_by(email=form.email.data).first()
-        token = generate_confirmation_token(new_user_email)
+        token = generate_confirmation_token(form.email.data)
         confirm_url = url_for('email.confirm_email', token=token, _external=True)
         html = render_template('email/confirm.html', confirm_url=confirm_url)
         subject = "Please confirm your email"
-        send_email(new_user_email, subject, html)
+        send_email(form.email.data, subject, html)
         flash("Thank you for registering. Please check your email and activate your account.", "success")
         # login_user(user)
         session["username"] = user.username
