@@ -68,3 +68,10 @@ instance/
 
 # Migrations
 /Migrations
+
+#static
+opencert/static
+
+#venv config
+
+pyvenv.cfg
