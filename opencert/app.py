@@ -7,7 +7,7 @@ import sys
 from flask import Flask, render_template
 
 from flask_mail import Mail
-from opencert import commands, public, user, auth, email, minting, delete, verify
+from opencert import commands, public, user, auth, email, minting, delete, verify, transfer
 
 from opencert.extensions import (
     bcrypt,
@@ -59,6 +59,7 @@ def register_blueprints(app):
     app.register_blueprint(minting.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
     app.register_blueprint(email.views.blueprint)
+    app.register_blueprint(transfer.views.blueprint)
     app.register_blueprint(verify.views.blueprint)
     app.register_blueprint(delete.views.blueprint)
     return None

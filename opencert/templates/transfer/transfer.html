@@ -1,0 +1,35 @@
+{% extends "layout.html" %} {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="{{url_for('static', filename='smartTransferFunction.js')}}"></script>
+<div class="container-narrow">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Transfer</h1>
+            <p class="lead">Transfer a certificate NFT to another wallet</p>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="cert_id">Certificate ID</label>
+                <input type="text" class="form-control" id="cert_id" aria-describedby="Certificate ID"
+                    placeholder="Please enter the Certificate ID" required>
+            </div>
+            <div class="form-group">
+                <label for="recipient_addr">Recipient Wallet Address</label>
+                <input type="text" minlength="42" maxlength="42" class="form-control" id="recipient_addr" aria-describedby="Recipient Wallet Address"
+                    placeholder="Please enter the receiving wallet address" required>
+            </div>
+            <div class="form-group">
+                <button id="commit_transfer" type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <div class="container">
+            <div id="id_input_error"class="alert alert-danger" role="alert" style="display:none;">
+                Please enter a valid id.
+            </div>
+            <div id="rcpt_input_error"class="alert alert-danger" role="alert" style="display:none;">
+                Please enter a valid address.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
