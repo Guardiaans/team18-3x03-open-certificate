@@ -60,12 +60,6 @@ env/
 Scripts
 instance/
 
-#imageUploaded
-/opencert/uploads
-
-#imageMetaDataUploaded
-/opencert/metadataUploads
-
 # Migrations
 /Migrations
 
