@@ -3,7 +3,7 @@
 from msilib.schema import _Validation_records
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, Regexp
 from flask_login import current_user
 
 from .models import User
@@ -60,10 +60,10 @@ class UpdateForm(FlaskForm):
         "Wallet Address", validators=[Length(min=40, max=40)]
     )
     first_name = StringField(
-        "First Name", validators=[Length(min=1, max=20)]
+        "First Name", validators=[Regexp("^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", message="First name should only use alphabetical characters!"), Length(min=1, max=20)]
     )
     last_name = StringField(
-        "Last Name", validators=[Length(min=1, max=20)]
+        "Last Name", validators=[Regexp("^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", message="Last name should only use alphabetical characters!"), Length(min=1, max=20)]
     )
     curr_password = PasswordField(
         "Current password", validators=[Optional(), Length(min=6, max=40)]
