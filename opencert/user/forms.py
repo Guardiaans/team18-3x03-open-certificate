@@ -3,7 +3,6 @@
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
-from flask_login import current_user
 
 from .models import User
 
@@ -57,20 +56,20 @@ class UpdateForm(FlaskForm):
     """Register form."""
 
     wallet_add = StringField(
-        "Wallet Address", validators=[DataRequired(), Length(min=6, max=40)]
+        "Wallet Address", validators=[Length(min=40, max=40)]
     )
     first_name = StringField(
-        "First Name", validators=[DataRequired(), Length(min=1, max=20)]
+        "First Name", validators=[Length(min=1, max=20)]
     )
     last_name = StringField(
-        "Last Name", validators=[DataRequired(), Length(min=1, max=20)]
+        "Last Name", validators=[Length(min=1, max=20)]
     )
     password = PasswordField(
-        "Password", validators=[DataRequired(), Length(min=6, max=40)]
+        "Password", validators=[Length(min=6, max=40)]
     )
     confirm = PasswordField(
         "Verify password",
-        [DataRequired(), EqualTo("password", message="Passwords must match")],
+        [EqualTo("password", message="Passwords must match")],
     )
 
     def __init__(self, *args, **kwargs):

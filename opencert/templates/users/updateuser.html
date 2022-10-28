@@ -5,7 +5,6 @@
         <h1>Welcome {{ current_user.username }}</h1>
         <p>Update your user details here.</p>
     </div>
-    <br />
     <form id="updateForm" method="POST" action="" role="form">
         {{ form.csrf_token }}
         <div class="form-group">
@@ -30,10 +29,10 @@
         </div>
         <br>
         <!-- <button class="g-recaptcha btn btn-primary" data-sitekey="{{ site_key }}" type="submit" data-callback='onSubmit' data-action='submit'>Register</button> -->
-        <button class="btn-primary" type="submit">Submit</button>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
     </form>
-    <br>
-    <p><em>Already registered?</em> Click <a href="/">here</a> to login.</p>
 </div>
 <!-- <script>
     function onSubmit(token) {
