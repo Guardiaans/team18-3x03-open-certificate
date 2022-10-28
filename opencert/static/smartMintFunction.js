@@ -519,7 +519,7 @@ function testValues(){
     var idCheck = null;
     const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
     
-    if(isAlphaNumeric(metadataipfs) == false || metadataipfs == ""){
+    if(isAlphaNumeric(metadataipfs) == false || metadataipfs == "" || metadataipfs == null || metadataipfs == "None"){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{

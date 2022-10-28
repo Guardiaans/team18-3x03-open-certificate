@@ -25,9 +25,6 @@ from werkzeug.utils import secure_filename
 from opencert.minting.forms import MintingForm
 from opencert.utils import flash_errors
 
-# JWT token
-# JWT_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI2MTEzYjZhMS0wOGFmLTQ5N2EtODVjZS0xMzMzNzkzYzkzOTAiLCJlbWFpbCI6IjIwMDA1NDRAc2l0LnNpbmdhcG9yZXRlY2guZWR1LnNnIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjNmZGU4ZTMzMmQ5MmViY2UxNDk0Iiwic2NvcGVkS2V5U2VjcmV0IjoiNGMyMjVkYzA3OTU4MjYyMzExOTQ4NGJiMmFiZDRkYTU2NTk5M2M3ZjAxYzQ3YmNhM2ExMmY5MWMzMDBlYzhmMSIsImlhdCI6MTY2MjkwMTk4Mn0.WFA3sUCm3r_1_I7i56adA85oYIdQguYnzZdl-6s2qzk"
-
 # Folder for NFT Image
 UPLOAD_IMAGE_FOLDER = "./opencert/uploads/"
 
@@ -74,10 +71,12 @@ def mint1():
                 # Upload the file to Pinata
                 url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
                 payload = {}
+                #open file reader
+                uploadimagepinatafile = open(fileLoc, "rb")
                 files = [
                     (
                         "file",
-                        (filename, open(fileLoc, "rb"), "application/octet-stream"),
+                        (filename, uploadimagepinatafile, "application/octet-stream"),
                     )
                 ]
                 headers = {"Authorization": "Bearer " + os.environ.get("JWT_KEY")}
@@ -85,6 +84,13 @@ def mint1():
                     "POST", url, headers=headers, data=payload, files=files
                 )
                 json_data = json.loads(response.text)
+                #close file reader
+                uploadimagepinatafile.close()
+                #remove image file
+                if os.path.exists(fileLoc):
+                    os.remove(fileLoc)
+                else:
+                    print("The file does not exist")
                 cid = json_data["IpfsHash"]
                 session["cid"] = cid
                 return redirect(url_for("minting.mint2"))
@@ -165,12 +171,21 @@ def mint2():
         # Upload the file to Pinata
         url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
         payload = {}
-        files = [("file", (filename, open(fileLoc2, "rb"), "application/octet-stream"))]
+        #open file reader
+        uploadmetadatapinatafile = open(fileLoc2, "rb")
+        files = [("file", (filename, uploadmetadatapinatafile, "application/octet-stream"))]
         headers = {"Authorization": "Bearer " + os.environ.get("JWT_KEY")}
         response = requests.request(
             "POST", url, headers=headers, data=payload, files=files
         )
+        #close file reader
         json_data = json.loads(response.text)
+        uploadmetadatapinatafile.close()
+        #remove metadatafile
+        if os.path.exists(fileLoc2):
+            os.remove(fileLoc2)
+        else:
+            print("The file does not exist")
         cid2 = json_data["IpfsHash"]
         session["cid2"] = cid2
         return redirect(url_for("minting.mint3"))
@@ -183,22 +198,21 @@ def mint2():
 @login_required
 def mint3():
     "Mint Arowana Cert/ NFT"
-    if request.method == "POST":
-
-        return redirect(url_for("minting.mint3", cid2=cid2))
-
-    else:
-        cid2 = session.get("cid2")
-        return render_template("minting/mintNFT.html", cid2=cid2)
+    cid2 = session.get("cid2")
+    return render_template("minting/mintNFT.html", cid2=cid2)
 
 
 @blueprint.route("/mintfail", methods=["GET"])
 def deletefail():
     """Mint failed page"""
+    session.pop('cid', None)
+    session.pop('cid2', None)
     return render_template("minting/mintfail.html")
 
 
 @blueprint.route("/mintsuccess", methods=["GET"])
 def deletesucces():
     """Mint succeeded page"""
+    session.pop('cid', None)
+    session.pop('cid2', None)
     return render_template("minting/mintsuccess.html")
