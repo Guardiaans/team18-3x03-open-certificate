@@ -59,6 +59,7 @@ class UpdateForm(FlaskForm):
     wallet_add = StringField(
         "Wallet Address", validators=[Length(min=40, max=40)]
     )
+    # Use regexp to disallow malicious inputs
     first_name = StringField(
         "First Name", validators=[Regexp("^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", message="First name should only use alphabetical characters!"), Length(min=1, max=20)]
     )
