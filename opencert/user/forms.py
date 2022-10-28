@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """User forms."""
+from msilib.schema import _Validation_records
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
+from flask_login import current_user
 
 from .models import User
 
@@ -54,7 +56,6 @@ class RegisterForm(FlaskForm):
 
 class UpdateForm(FlaskForm):
     """Register form."""
-
     wallet_add = StringField(
         "Wallet Address", validators=[Length(min=40, max=40)]
     )
@@ -64,12 +65,15 @@ class UpdateForm(FlaskForm):
     last_name = StringField(
         "Last Name", validators=[Length(min=1, max=20)]
     )
+    curr_password = PasswordField(
+        "Current password", validators=[Optional(), Length(min=6, max=40)]
+    )
     password = PasswordField(
-        "Password", validators=[Length(min=6, max=40)]
+        "New password", validators=[Optional(), Length(min=6, max=40)]
     )
     confirm = PasswordField(
-        "Verify password",
-        [EqualTo("password", message="Passwords must match")],
+        "Verify new password",
+        [EqualTo("password", message="Passwords must match")]
     )
 
     def __init__(self, *args, **kwargs):
@@ -82,4 +86,11 @@ class UpdateForm(FlaskForm):
         initial_validation = super(UpdateForm, self).validate()
         if not initial_validation:
             return False
+
+        if self.curr_password.data != "":
+            self.user = User.query.filter_by(username=current_user.username).first_or_404()
+            if not self.user.check_password(self.curr_password.data):
+                self.curr_password.errors.append("Current password is incorrect!")
+                return False
+
         return True

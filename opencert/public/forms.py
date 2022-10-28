@@ -28,11 +28,11 @@ class LoginForm(FlaskForm):
 
         self.user = User.query.filter_by(username=self.username.data).first()
         if not self.user:
-            self.username.errors.append("Unknown username")
+            self.username.errors.append("Invalid username or password")
             return False
 
         if not self.user.check_password(self.password.data):
-            self.password.errors.append("Invalid password")
+            self.password.errors.append("Invalid username or password")
             return False
 
         if not self.user.verify_totp(self.token.data):
