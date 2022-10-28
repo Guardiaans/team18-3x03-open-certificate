@@ -517,9 +517,9 @@ var mintCert = async () => {
 // Validate values for Metamask
 function testValues(){
     var idCheck = null;
-    const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
+    const isAlphaNumeric = str => /^[A-Za-z0-9]*$/gi.test(str);
     
-    if(isAlphaNumeric(metadataipfs) == false || metadataipfs == "" || metadataipfs == null || metadataipfs == "None"){
+    if(isAlphaNumeric(metadataipfs) == false || metadataipfs.length >46 || metadataipfs.length <46){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{

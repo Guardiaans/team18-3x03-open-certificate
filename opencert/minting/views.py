@@ -188,6 +188,7 @@ def mint2():
             print("The file does not exist")
         cid2 = json_data["IpfsHash"]
         session["cid2"] = cid2
+        session.pop('cid', None)
         return redirect(url_for("minting.mint3"))
     else:
         cid = session.get("cid")
@@ -205,7 +206,6 @@ def mint3():
 @blueprint.route("/mintfail", methods=["GET"])
 def deletefail():
     """Mint failed page"""
-    session.pop('cid', None)
     session.pop('cid2', None)
     return render_template("minting/mintfail.html")
 
@@ -213,6 +213,5 @@ def deletefail():
 @blueprint.route("/mintsuccess", methods=["GET"])
 def deletesucces():
     """Mint succeeded page"""
-    session.pop('cid', None)
     session.pop('cid2', None)
     return render_template("minting/mintsuccess.html")

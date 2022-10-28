@@ -9,6 +9,7 @@
   <p class="lead">Input Metadata for Certificate's attribute</p>
   <form id="MintingForm2" class="form form-minting2" method="POST" action="">
     <div class="mb-3">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <h5 class="mt-2">Certificate Image CID:</h5>
       <input type="text" class="form-control" id="imageHash" name="imageHash" value="{{ cid }}" required readonly maxlength="46" pattern=".{46,}" required title="46 characters Minimum">
       <h5 class="mt-2">Certificate Number:</h5>

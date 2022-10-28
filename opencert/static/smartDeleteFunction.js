@@ -517,7 +517,7 @@ var deleteCert = async () => {
 function testValues(){
     var idCheck = null;
     
-    if(isNaN(certId) || certId == ""){
+    if(isNaN(certId) || certId == "" || certId.length <= 0 || certId.length > 4){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{
