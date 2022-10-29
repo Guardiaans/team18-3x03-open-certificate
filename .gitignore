@@ -65,3 +65,23 @@ instance/
 
 #venv config
 pyvenv.cfg
+
+# auto generated files
+opencert/static/cache_manifest.json
+
+opencert/static/smartMintFunction.js.gz
+opencert/static/smartMintFunction-*.js
+opencert/static/smartMintFunction-*.js.gz
+
+opencert/static/smartTransferFunction.js.gz
+opencert/static/smartTransferFunction-*.js
+opencert/static/smartTransferFunction-*.js.gz
+
+
+opencert/static/smartVerifyFunction.js.gz
+opencert/static/smartVerifyFunction-*.js
+opencert/static/smartVerifyFunction-*.js.gz
+
+opencert/static/smartDeleteFunction.js.gz
+opencert/static/smartDeleteFunction-*.js
+opencert/static/smartDeleteFunction-*.js.gz
