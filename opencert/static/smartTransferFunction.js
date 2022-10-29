@@ -522,7 +522,7 @@ function testValues(){
     var idCheck = null;
     var rcptCheck = null;
     
-    if(isNaN(id) || id == ""){
+    if(isNaN(id) || id == "" || id.length <= 0 || id.length > 4){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{

@@ -1,6 +1,6 @@
 var account = null;
 var contract = null;
-var certId = null;
+var metadataipfs = null;
 
 const ABI = [
 {
@@ -482,14 +482,18 @@ const ABI = [
 
 const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
 
-var verifyCert = async () => {
-    try {
-        const result = await contract.methods.ownerOf(certId).call({ from: account });
-        window.location.href = '/verifysuccess';
-      } catch(err) {
-        window.location.href = '/verifyfail';
-      }
+var mintCert = async () => {
+    // contract.methods.safeMint(account, metadataipfs).send({ from: account});
+    //const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
+    const result = await contract.methods.safeMint(account, metadataipfs).send({ from: account});
+    console.log(result.status);
+    if (result.status == true) {
+        window.location.href = '/mintsuccess';
+    } else {
+        window.location.href = '/mintfail';
+    }
 }
+
 (async () => {
     if (window.ethereum) {
         await window.ethereum.send('eth_requestAccounts');
@@ -499,12 +503,12 @@ var verifyCert = async () => {
         account = accounts[0];
 
         contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('verify').onclick = () => {
-        certId = document.getElementById('certId').value;
+        document.getElementById('mint').onclick = () => {
+        metadataipfs = document.getElementById('metadataipfs').value;
             
             var validate = testValues();
             if (validate != false){
-                verifyCert();
+                mintCert();
             }
         }
     }
@@ -513,8 +517,9 @@ var verifyCert = async () => {
 // Validate values for Metamask
 function testValues(){
     var idCheck = null;
+    const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
     
-    if(isNaN(certId) || certId == "" || certId.length <= 0 || certId.length > 4){
+    if(isAlphaNumeric(metadataipfs) == false || metadataipfs == "" || metadataipfs == null || metadataipfs == "None"){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{
