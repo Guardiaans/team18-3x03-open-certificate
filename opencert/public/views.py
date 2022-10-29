@@ -20,6 +20,7 @@ from opencert.user.forms import RegisterForm
 from opencert.user.models import User
 from opencert.utils import flash_errors
 import pyqrcode
+from opencert.admin.forms import OpencertLogger, sendlogs
 from opencert.email.forms import generate_confirmation_token, send_email
 
 
@@ -55,6 +56,7 @@ def logout():
     """Logout."""
     logout_user()
     flash("You are logged out.", "info")
+    sendlogs()
     return redirect(url_for("public.home"))
 
 
@@ -69,6 +71,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         # log user in
         login_user(user)
+        OpencertLogger()
         flash("You are now logged in!")
         return redirect(url_for("public.home"))
     else:
