@@ -36,12 +36,12 @@
     "@popperjs/core": "2.11.6"
   },
   "devDependencies": {
-    "@babel/core": "7.19.3",
-    "@babel/preset-env": "7.19.3",
+    "@babel/core": "7.19.6",
+    "@babel/preset-env": "7.19.4",
     "@babel/eslint-parser": "7.19.1",
     "babel-loader": "8.2.5",
     "chokidar": "3.5.3",
-    "concurrently": "7.4.0",
+    "concurrently": "7.5.0",
     "css-loader": "6.7.1",
     "eslint": "8.24.0",
     "eslint-config-airbnb-base": "15.0.0",
