@@ -14,5 +14,8 @@ def recaptcha():
     verify_response = requests.post(
         url=f"{RECAPTCHA_URL}?secret={SECRET_KEY}&response={secret_response}"
     ).json()
-    result = [verify_response["success"], verify_response["score"]]
-    return result
+
+    if verify_response["success"] == False or verify_response["score"] < 0.5:
+        return False
+    print(verify_response["score"])
+    return True
