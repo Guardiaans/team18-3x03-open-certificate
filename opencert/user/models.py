@@ -5,11 +5,7 @@ import datetime as dt
 import os
 
 import onetimepass
-
-
-from flask import (
-    current_app,
-)
+from flask import current_app
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 

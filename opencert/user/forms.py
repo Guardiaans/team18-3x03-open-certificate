@@ -2,7 +2,7 @@
 """User forms."""
 from msilib.schema import _Validation_records
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField
+from wtforms import PasswordField, StringField, RadioField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, Regexp
 from flask_login import current_user
 
@@ -11,6 +11,7 @@ from .models import User
 
 class RegisterForm(FlaskForm):
     """Register form."""
+
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=3, max=25)]
     )
@@ -33,6 +34,9 @@ class RegisterForm(FlaskForm):
         "Verify password",
         [DataRequired(), EqualTo("password", message="Passwords must match")],
     )
+    user_type = RadioField(
+        "Role:", default="2", choices=[("2", "Buyer"), ("3", "Seller")]
+    )
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
@@ -54,17 +58,31 @@ class RegisterForm(FlaskForm):
             return False
         return True
 
+
 class UpdateForm(FlaskForm):
     """Register form."""
-    wallet_add = StringField(
-        "Wallet Address", validators=[Length(min=40, max=40)]
-    )
+
+    wallet_add = StringField("Wallet Address", validators=[Length(min=40, max=40)])
     # Use regexp to disallow malicious inputs
     first_name = StringField(
-        "First Name", validators=[Regexp("^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", message="First name should only use alphabetical characters!"), Length(min=1, max=20)]
+        "First Name",
+        validators=[
+            Regexp(
+                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                message="First name should only use alphabetical characters!",
+            ),
+            Length(min=1, max=20),
+        ],
     )
     last_name = StringField(
-        "Last Name", validators=[Regexp("^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", message="Last name should only use alphabetical characters!"), Length(min=1, max=20)]
+        "Last Name",
+        validators=[
+            Regexp(
+                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                message="Last name should only use alphabetical characters!",
+            ),
+            Length(min=1, max=20),
+        ],
     )
     curr_password = PasswordField(
         "Current password", validators=[Optional(), Length(min=6, max=40)]
@@ -73,8 +91,7 @@ class UpdateForm(FlaskForm):
         "New password", validators=[Optional(), Length(min=6, max=40)]
     )
     confirm = PasswordField(
-        "Verify new password",
-        [EqualTo("password", message="Passwords must match")]
+        "Verify new password", [EqualTo("password", message="Passwords must match")]
     )
 
     def __init__(self, *args, **kwargs):
@@ -89,7 +106,9 @@ class UpdateForm(FlaskForm):
             return False
 
         if self.curr_password.data != "":
-            self.user = User.query.filter_by(username=current_user.username).first_or_404()
+            self.user = User.query.filter_by(
+                username=current_user.username
+            ).first_or_404()
             if not self.user.check_password(self.curr_password.data):
                 self.curr_password.errors.append("Current password is incorrect!")
                 return False

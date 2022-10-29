@@ -1,7 +1,6 @@
 import flask
-from flask_security import two_factor_verify_code_form
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_security import login_required
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_security import login_required, two_factor_verify_code_form
 
 # Write a two_factor_verify_code_form that inherits from LoginForm
 # and adds a field for the two factor code.
@@ -18,6 +17,7 @@ from flask_security import login_required
 #
 
 blueprint = Blueprint("auth", __name__, static_folder="../static")
+
 
 @blueprint.route("/tf-validate/", methods=["GET", "POST"])
 @login_required
