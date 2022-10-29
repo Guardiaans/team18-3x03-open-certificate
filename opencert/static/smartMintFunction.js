@@ -482,36 +482,45 @@ const ABI = [
 const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
 
 var mintCert = async () => {
-  // contract.methods.safeMint(account, metadataipfs).send({ from: account});
-  //const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
-  const result = await contract.methods
-    .safeMint(account, metadataipfs)
-    .send({ from: account });
-  console.log(result.status);
-  if (result.status == true) {
-    window.location.href = "/mintsuccess";
-  } else {
+  try {
+    const result = await contract.methods
+      .safeMint(account, metadataipfs)
+      .send({ from: account });
+    console.log(result.status);
+    if (result.status == true) {
+      window.location.href = "/mintsuccess";
+    } else {
+      window.location.href = "/mintfail";
+    }
+  } catch (er) {
     window.location.href = "/mintfail";
   }
 };
 
 (async () => {
-  if (window.ethereum) {
-    await window.ethereum.send("eth_requestAccounts");
-    window.web3 = new Web3(window.ethereum);
+  try {
+    if (window.ethereum) {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      window.web3 = new Web3(window.ethereum);
 
-    var accounts = await web3.eth.getAccounts();
-    account = accounts[0];
+      var accounts = await web3.eth.getAccounts();
+      account = accounts[0];
 
-    contract = new web3.eth.Contract(ABI, ADDRESS);
-    document.getElementById("mint").onclick = () => {
-      metadataipfs = document.getElementById("metadataipfs").value;
+      contract = new web3.eth.Contract(ABI, ADDRESS);
+      document.getElementById("mint").onclick = () => {
+        metadataipfs = document.getElementById("metadataipfs").value;
 
-      var validate = testValues();
-      if (validate != false) {
-        mintCert();
-      }
-    };
+        var validate = testValues();
+        if (validate != false) {
+          mintCert();
+          document.getElementById("mint").disabled = true;
+          document.getElementById("loading").style.display = "block";
+          document.getElementById("metadataipfs").disabled = "true";
+        }
+      };
+    }
+  } catch (error) {
+    window.location.href = "/mintfail";
   }
 })();
 
@@ -519,7 +528,6 @@ var mintCert = async () => {
 function testValues() {
   var idCheck = null;
   const isAlphaNumeric = (str) => /^[A-Za-z0-9]*$/gi.test(str);
-
   if (
     isAlphaNumeric(metadataipfs) == false ||
     metadataipfs.length > 46 ||
@@ -531,6 +539,16 @@ function testValues() {
     document.getElementById("id_input_error").style.display = "none";
   }
 
+  if (
+    isAlphaNumeric(metadataipfs) == false ||
+    metadataipfs.length > 46 ||
+    metadataipfs.length < 46
+  ) {
+    document.getElementById("id_input_error").style.display = "block";
+    idCheck = false;
+  } else {
+    document.getElementById("id_input_error").style.display = "none";
+  }
   if (idCheck == false) {
     return false;
   } else {
