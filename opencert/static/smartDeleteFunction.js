@@ -483,35 +483,40 @@ const ABI = [
 const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
 
 var deleteCert = async () => {
-    // contract.methods.safeMint(account, metadataipfs).send({ from: account});
-    //const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
-    const result = await contract.methods.burn(certId).send({ from: account });
-    console.log(result.status);
-    if (result.status == true) {
-        window.location.href = '/deletesuccess';
-    } else {
+    try{
+        const result = await contract.methods.burn(certId).send({ from: account });
+        console.log(result.status);
+        if (result.status == true) {
+            window.location.href = '/deletesuccess';
+        } else {
+            window.location.href = '/deletefail';
+        }
+    } catch (er){
         window.location.href = '/deletefail';
     }
+
 }
 (async () => {
-    if (window.ethereum) {
-        await window.ethereum.send('eth_requestAccounts');
-        window.web3 = new Web3(window.ethereum);
-
-        var accounts = await web3.eth.getAccounts();
-        account = accounts[0];
-
-        contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('delete').onclick = () => {
-        certId = document.getElementById('certId').value;
-            
-            var validate = testValues();
-            if (validate != false){
-                deleteCert();
-                document.getElementById("delete").disabled = true;
-                document.getElementById('loading').style.display = "block";
+    try{
+        if (window.ethereum) {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            window.web3 = new Web3(window.ethereum);
+            var accounts = await web3.eth.getAccounts();
+            account = accounts[0];
+    
+            contract = new web3.eth.Contract(ABI, ADDRESS);
+            document.getElementById('delete').onclick = () => {
+                certId = document.getElementById('certId').value;
+                var validate = testValues();
+                if (validate != false){
+                    deleteCert();
+                    document.getElementById("delete").disabled = true;
+                    document.getElementById('loading').style.display = "block";
+                }
             }
         }
+    } catch (error){
+        window.location.href = '/deletefail';
     }
 })();
 

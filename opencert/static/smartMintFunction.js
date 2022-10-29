@@ -483,36 +483,42 @@ const ABI = [
 const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
 
 var mintCert = async () => {
-    // contract.methods.safeMint(account, metadataipfs).send({ from: account});
-    //const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
-    const result = await contract.methods.safeMint(account, metadataipfs).send({ from: account});
-    console.log(result.status);
-    if (result.status == true) {
-        window.location.href = '/mintsuccess';
-    } else {
+    try {
+        const result = await contract.methods.safeMint(account, metadataipfs).send({ from: account});
+        console.log(result.status);
+        if (result.status == true) {
+            window.location.href = '/mintsuccess';
+        } else {
+            window.location.href = '/mintfail';
+        }
+    } catch (er) {
         window.location.href = '/mintfail';
     }
 }
 
 (async () => {
-    if (window.ethereum) {
-        await window.ethereum.send('eth_requestAccounts');
-        window.web3 = new Web3(window.ethereum);
-
-        var accounts = await web3.eth.getAccounts();
-        account = accounts[0];
-
-        contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('mint').onclick = () => {
-        metadataipfs = document.getElementById('metadataipfs').value;
-            
-            var validate = testValues();
-            if (validate != false){
-                mintCert();
-                document.getElementById("mint").disabled = true;
-                document.getElementById('loading').style.display = "block";
+    try {
+        if (window.ethereum) {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            window.web3 = new Web3(window.ethereum);
+    
+            var accounts = await web3.eth.getAccounts();
+            account = accounts[0];
+    
+            contract = new web3.eth.Contract(ABI, ADDRESS);
+            document.getElementById('mint').onclick = () => {
+            metadataipfs = document.getElementById('metadataipfs').value;
+                
+                var validate = testValues();
+                if (validate != false){
+                    mintCert();
+                    document.getElementById("mint").disabled = true;
+                    document.getElementById('loading').style.display = "block";
+                }
             }
         }
+    } catch (error){
+        window.location.href = '/mintfail';
     }
 })();
 
