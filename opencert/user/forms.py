@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """User forms."""
-from msilib.schema import _Validation_records
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, RadioField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, Regexp
