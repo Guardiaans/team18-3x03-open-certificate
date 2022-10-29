@@ -508,6 +508,8 @@ var deleteCert = async () => {
             var validate = testValues();
             if (validate != false){
                 deleteCert();
+                document.getElementById("delete").disabled = true;
+                document.getElementById('loading').style.display = "block";
             }
         }
     }

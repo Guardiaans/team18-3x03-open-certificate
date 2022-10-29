@@ -509,6 +509,8 @@ var mintCert = async () => {
             var validate = testValues();
             if (validate != false){
                 mintCert();
+                document.getElementById("mint").disabled = true;
+                document.getElementById('loading').style.display = "block";
             }
         }
     }

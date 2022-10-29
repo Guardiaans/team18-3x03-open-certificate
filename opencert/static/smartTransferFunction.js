@@ -511,6 +511,8 @@ var transferCert = async () => {
             var validate = testValues();
             if (validate != false){
                 transferCert();
+                document.getElementById("commit_transfer").disabled = true;
+                document.getElementById('loading').style.display = "block";
             }
         }
     }

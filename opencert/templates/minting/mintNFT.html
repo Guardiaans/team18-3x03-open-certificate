@@ -13,8 +13,12 @@
       <h5 class="mt-2">Certificate Metadata CID:</h5>
       <input type="text" class="form-control" id="metadataipfs" value="{{ cid2 }}" required maxlength="46" pattern=".{46,}"   required title="46 characters minimum" readonly><br/>
       <button type="button" class="btn btn-success" id="mint">Mint Cert</button>
-      <br/>
-      <br/>
+      <br/><br/>
+      <div class="d-flex justify-content-center">
+        <div id="loading" class="spinner-border text-success" style="width: 5rem; height: 5rem; display:none" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
         <div id="id_input_error"class="alert alert-danger" role="alert" style="display:none;">
             Metadata has been tampered.
       </div>
