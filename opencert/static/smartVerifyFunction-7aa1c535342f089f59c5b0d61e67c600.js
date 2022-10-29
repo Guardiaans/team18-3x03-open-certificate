@@ -1,7 +1,6 @@
 var account = null;
 var contract = null;
-var recipient = null;
-var id = null;
+var certId = null;
 
 const ABI = [
 {
@@ -480,21 +479,17 @@ const ABI = [
 }
 ]
 
+
 const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
-//const ADDRESS = "0x746032b8a9D1f24Aaa221559cb99E65c22202464";
 
-var transferCert = async () => {
-    // contract.methods.safeMint(account, metadataipfs).send({ from: account});
-    const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
-
-    if (result.status == true) {
-        window.location.href = '/transfersuccess';
-    } else {
-        window.location.href = '/transferfail';
-    }
-
+var verifyCert = async () => {
+    try {
+        const result = await contract.methods.ownerOf(certId).call({ from: account });
+        window.location.href = '/verifysuccess';
+      } catch(err) {
+        window.location.href = '/verifyfail';
+      }
 }
-
 (async () => {
     if (window.ethereum) {
         await window.ethereum.send('eth_requestAccounts');
@@ -504,39 +499,29 @@ var transferCert = async () => {
         account = accounts[0];
 
         contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('commit_transfer').onclick = () => {
-            recipient = document.getElementById('recipient_addr').value;
-            id = document.getElementById('cert_id').value;
+        document.getElementById('verify').onclick = () => {
+        certId = document.getElementById('certId').value;
             
             var validate = testValues();
             if (validate != false){
-                transferCert();
+                verifyCert();
             }
         }
     }
 })();
 
-
 // Validate values for Metamask
 function testValues(){
     var idCheck = null;
-    var rcptCheck = null;
     
-    if(isNaN(id) || id == "" || id.length <= 0 || id.length > 4){
+    if(isNaN(certId) || certId == "" || certId.length <= 0 || certId.length > 4){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{
         document.getElementById('id_input_error').style.display = "none";
     }
 
-    if(Boolean(/^0x[a-fA-F0-9]{40}$/.test(recipient) == false || recipient == "")){
-        document.getElementById('rcpt_input_error').style.display = "block";
-        rcptCheck = false;
-    }else{
-        document.getElementById('rcpt_input_error').style.display = "none";
-    }
-
-    if(idCheck == false|| rcptCheck == false){
+    if(idCheck == false){
         return false;
     }else{
         return true;
