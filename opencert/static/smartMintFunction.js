@@ -528,7 +528,6 @@ var mintCert = async () => {
 function testValues() {
   var idCheck = null;
   const isAlphaNumeric = (str) => /^[A-Za-z0-9]*$/gi.test(str);
-
   if (
     isAlphaNumeric(metadataipfs) == false ||
     metadataipfs.length > 46 ||
@@ -550,7 +549,6 @@ function testValues() {
   } else {
     document.getElementById("id_input_error").style.display = "none";
   }
-
   if (idCheck == false) {
     return false;
   } else {
