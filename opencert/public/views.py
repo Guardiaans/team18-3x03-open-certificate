@@ -24,6 +24,7 @@ from opencert.recaptcha.forms import recaptcha
 from opencert.user.forms import RegisterForm
 from opencert.user.models import User
 from opencert.utils import flash_errors
+from opencert.admin.forms import OpencertLogger, sendlogs
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 

@@ -4,7 +4,6 @@ import logging
 from logging.config import dictConfig
 import sys
 from opencert.admin.forms import sendlogs
-#from opencert.admin import Config
 # import BackgroundScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
@@ -31,10 +30,6 @@ from opencert.extensions import (
     login_manager,
     migrate,
 )
-
-# the following is a sample logging done with own settings
-# dictConfig(Config.LOGGING)
-# LOGGER = logging.getLogger(__name__)
 
 
 def create_app(config_object="opencert.settings"):
@@ -124,21 +119,6 @@ def register_commands(app):
 
 def configure_logger(app):
     """Configure loggers."""
-    # # handler = logging.StreamHandler(sys.stdout)
-    # if not app.logger.handlers:
-    #     # app.logger.addHandler(handler)
-    #     app.logger.addHandler(LOGGER)
-
-    # smtp_handler = logging.handlers.SMTPHandler(mailhost=('smtp.gmail.com', 465), fromaddr=["2020projectconfig@gmail.com"], toaddrs=["hidaniel97foo@gmail.com"], subject="Logs", credentials=("2020projectconfig@gmail.com", "oqlozkghaqmclnvu"), secure=())
-    # smtp_handler.setLevel(logging.DEBUG)
-    # formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
-    # smtp_handler.setFormatter(formatter)
-
-    # if not app.logger.handlers:
-    #     app.logger.addHandler(smtp_handler)
-
-    # Original
     handler = logging.StreamHandler(sys.stdout)
     if not app.logger.handlers:
         app.logger.addHandler(handler)
-
