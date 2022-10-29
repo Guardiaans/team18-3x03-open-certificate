@@ -51,6 +51,13 @@ def home():
     return render_template("public/home.html", form=form)
 
 
+@blueprint.route("/home", methods=["GET"])
+@login_required
+def member_home():
+    """Members Service page."""
+    return render_template("users/members.html")
+
+
 @blueprint.route("/logout/")
 @login_required
 def logout():
@@ -72,7 +79,7 @@ def login():
         # log user in
         login_user(user)
         flash("You are now logged in!")
-        return redirect(url_for("public.home"))
+        return redirect(url_for("public.member_home"))
     else:
         flash_errors(form)
 
