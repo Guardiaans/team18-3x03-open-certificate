@@ -1,5 +1,4 @@
 import os
-from unittest import result
 
 import requests
 from flask import request

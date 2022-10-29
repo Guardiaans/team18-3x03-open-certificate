@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """User views."""
-from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_required, current_user
-from opencert.user.models import User
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
+
 from opencert.user.forms import UpdateForm
+from opencert.user.models import User
 from opencert.utils import flash_errors
 
 blueprint = Blueprint("user", __name__, url_prefix="/users", static_folder="../static")
@@ -15,10 +16,11 @@ def members():
     """List members."""
     return render_template("users/members.html")
 
+
 @blueprint.route("/update", methods=["GET", "POST"])
 @login_required
 def update():
-    """Update user information"""
+    """Update user information."""
     form = UpdateForm(request.form)
     user = User.query.filter_by(username=current_user.username).first_or_404()
     # Load values to display to user
@@ -42,5 +44,5 @@ def update():
             return redirect(url_for("user.members"))
         else:
             flash_errors(form)
-            
+
     return render_template("users/updateuser.html", form=form)

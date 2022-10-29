@@ -7,23 +7,9 @@ import re
 from wsgiref.util import request_uri
 
 import requests
-from flask import (
-    Blueprint,
-    abort,
-    current_app,
-    flash,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import Blueprint, redirect, render_template, request, session, url_for
 from flask_login import login_required
-from flask_session import Session
 from werkzeug.utils import secure_filename
-
-from opencert.minting.forms import MintingForm
-from opencert.utils import flash_errors
 
 # Folder for NFT Image
 UPLOAD_IMAGE_FOLDER = "./opencert/uploads/"
@@ -61,7 +47,7 @@ blueprint = Blueprint("minting", __name__, static_folder="../static")
 @blueprint.route("/minting", methods=["GET", "POST"])
 @login_required
 def mint1():
-    "Upload Image Page"
+    """Upload Image Page."""
     if request.method == "POST":
         # Save the file to the server first
         file = request.files["file"]
@@ -75,14 +61,14 @@ def mint1():
             ):
                 return render_template("minting/mintingImageUpload.html")
             else:
-                fileLoc = os.path.join(UPLOAD_IMAGE_FOLDER, filename)
-                file.save(fileLoc)
+                file_loc = os.path.join(UPLOAD_IMAGE_FOLDER, filename)
+                file.save(file_loc)
 
                 # Upload the file to Pinata
                 url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
                 payload = {}
                 # open file reader
-                uploadimagepinatafile = open(fileLoc, "rb")
+                uploadimagepinatafile = open(file_loc, "rb")
                 files = [
                     (
                         "file",
@@ -97,8 +83,8 @@ def mint1():
                 # close file reader
                 uploadimagepinatafile.close()
                 # remove image file
-                if os.path.exists(fileLoc):
-                    os.remove(fileLoc)
+                if os.path.exists(file_loc):
+                    os.remove(file_loc)
                 else:
                     print("The file does not exist")
                 cid = json_data["IpfsHash"]
@@ -113,24 +99,24 @@ def mint1():
 @blueprint.route("/mintingMetadataUpload", methods=["GET", "POST"])
 @login_required
 def mint2():
-    "Upload Metadata Page"
+    """Upload Metadata Page."""
     m = re.compile(r"[()$%_.+@!#^&*;:{}~ `]*$")
     c = re.compile(r"[()$%_.+@!#^&*;:{}~`]*$")
     if request.method == "POST":
         # Save the file to the server first
-        imageCID = str(request.form.get("imageHash"))
-        certNum = str(request.form.get("certNum"))
+        image_cid = str(request.form.get("imageHash"))
+        cert_num = str(request.form.get("certNum"))
         breed = str(request.form.get("breed"))
         generation = str(request.form.get("generation"))
         farm = str(request.form.get("farm"))
         CITESTag = str(request.form.get("CITESTag"))
-        DOI = str(request.form.get("DOI"))
+        doi = str(request.form.get("DOI"))
 
-        # if len(imageCID) != 0 or len(certNum) != 0 or len(breed) != 0 or len(generation) != 0 or len(farm) != 0 or len(CITESTag) != 0 or len(DOI) != 0 :
-        if len(imageCID) < 46 or len(imageCID) > 46 or imageCID.isalnum() == False:
+        # if len(image_cid) != 0 or len(cert_num) != 0 or len(breed) != 0 or len(generation) != 0 or len(farm) != 0 or len(CITESTag) != 0 or len(doi) != 0 :
+        if len(image_cid) < 46 or len(image_cid) > 46 or image_cid.isalnum() == False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(certNum) < 7 or len(certNum) > 7 or certNum.isalnum() == False:
+        if len(cert_num) < 7 or len(cert_num) > 7 or cert_num.isalnum() == False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(breed) < 6 or len(breed) > 15 or c.match(breed):
@@ -145,15 +131,15 @@ def mint2():
         if len(CITESTag) < 6 or len(CITESTag) > 6 or CITESTag.isalnum() == False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(DOI) < 10 or len(DOI) > 10 or m.match(DOI):
+        if len(doi) < 10 or len(doi) > 10 or m.match(doi):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
 
         metadataString = (
             '{"description":"Arowana Certificate","external_url":"","image":"https://gateway.pinata.cloud/ipfs/'
-            + imageCID
+            + image_cid
             + '","name":"Test Patent","attributes":[{"trait_type":"Certificate Number","value":"'
-            + certNum
+            + cert_num
             + '"},{"trait_type":"Breed","value":"'
             + breed
             + '"},{"trait_type":"Generation","value":"'
@@ -163,26 +149,26 @@ def mint2():
             + '"},{"trait_type":"CITES Tag Number","value":"'
             + CITESTag
             + '"},{"trait_type":"Date Of Issue","value":"'
-            + DOI
+            + doi
             + '"}]}'
         )
 
         try:
-            with open("opencert/metadataUploads/" + imageCID + ".json", "w") as f:
+            with open("opencert/metadataUploads/" + image_cid + ".json", "w") as f:
                 f.write(metadataString)
                 f.close()
         except FileNotFoundError:
             print("The 'docs' directory does not exist")
         # Save the file to the server first
-        file = str(imageCID) + ".json"
+        file = str(image_cid) + ".json"
         filename = secure_filename(file)
-        fileLoc2 = os.path.join(UPLOAD_METADATA_FOLDER, filename)
+        file_loc2 = os.path.join(UPLOAD_METADATA_FOLDER, filename)
 
         # Upload the file to Pinata
         url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
         payload = {}
         # open file reader
-        uploadmetadatapinatafile = open(fileLoc2, "rb")
+        uploadmetadatapinatafile = open(file_loc2, "rb")
         files = [
             ("file", (filename, uploadmetadatapinatafile, "application/octet-stream"))
         ]
@@ -194,8 +180,8 @@ def mint2():
         json_data = json.loads(response.text)
         uploadmetadatapinatafile.close()
         # remove metadatafile
-        if os.path.exists(fileLoc2):
-            os.remove(fileLoc2)
+        if os.path.exists(file_loc2):
+            os.remove(file_loc2)
         else:
             print("The file does not exist")
         cid2 = json_data["IpfsHash"]
@@ -210,20 +196,20 @@ def mint2():
 @blueprint.route("/mintNFT", methods=["GET", "POST"])
 @login_required
 def mint3():
-    "Mint Arowana Cert/ NFT"
+    """Mint Arowana Cert/ NFT."""
     cid2 = session.get("cid2")
     return render_template("minting/mintNFT.html", cid2=cid2)
 
 
 @blueprint.route("/mintfail", methods=["GET"])
 def deletefail():
-    """Mint failed page"""
+    """Mint failed page."""
     session.pop("cid2", None)
     return render_template("minting/mintfail.html")
 
 
 @blueprint.route("/mintsuccess", methods=["GET"])
 def deletesucces():
-    """Mint succeeded page"""
+    """Mint succeeded page."""
     session.pop("cid2", None)
     return render_template("minting/mintsuccess.html")
