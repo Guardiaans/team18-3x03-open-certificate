@@ -85,7 +85,7 @@ def login():
     else:
         flash_errors(form)
 
-    return render_template("public/login.html", form=form)
+    return render_template("public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
 
 
 @blueprint.route("/about/")
