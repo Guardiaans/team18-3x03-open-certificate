@@ -45,6 +45,16 @@ def validate_image(stream):
     return "." + (format if format != "jpeg" else "jpg")
 
 
+# check file content
+def validate_image(stream):
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return "." + (format if format != "jpeg" else "jpg")
+
+
 blueprint = Blueprint("minting", __name__, static_folder="../static")
 
 
@@ -71,7 +81,7 @@ def mint1():
                 # Upload the file to Pinata
                 url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
                 payload = {}
-                #open file reader
+                # open file reader
                 uploadimagepinatafile = open(fileLoc, "rb")
                 files = [
                     (
@@ -84,9 +94,9 @@ def mint1():
                     "POST", url, headers=headers, data=payload, files=files
                 )
                 json_data = json.loads(response.text)
-                #close file reader
+                # close file reader
                 uploadimagepinatafile.close()
-                #remove image file
+                # remove image file
                 if os.path.exists(fileLoc):
                     os.remove(fileLoc)
                 else:
@@ -171,24 +181,26 @@ def mint2():
         # Upload the file to Pinata
         url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
         payload = {}
-        #open file reader
+        # open file reader
         uploadmetadatapinatafile = open(fileLoc2, "rb")
-        files = [("file", (filename, uploadmetadatapinatafile, "application/octet-stream"))]
+        files = [
+            ("file", (filename, uploadmetadatapinatafile, "application/octet-stream"))
+        ]
         headers = {"Authorization": "Bearer " + os.environ.get("JWT_KEY")}
         response = requests.request(
             "POST", url, headers=headers, data=payload, files=files
         )
-        #close file reader
+        # close file reader
         json_data = json.loads(response.text)
         uploadmetadatapinatafile.close()
-        #remove metadatafile
+        # remove metadatafile
         if os.path.exists(fileLoc2):
             os.remove(fileLoc2)
         else:
             print("The file does not exist")
         cid2 = json_data["IpfsHash"]
         session["cid2"] = cid2
-        session.pop('cid', None)
+        session.pop("cid", None)
         return redirect(url_for("minting.mint3"))
     else:
         cid = session.get("cid")
@@ -206,12 +218,12 @@ def mint3():
 @blueprint.route("/mintfail", methods=["GET"])
 def deletefail():
     """Mint failed page"""
-    session.pop('cid2', None)
+    session.pop("cid2", None)
     return render_template("minting/mintfail.html")
 
 
 @blueprint.route("/mintsuccess", methods=["GET"])
 def deletesucces():
     """Mint succeeded page"""
-    session.pop('cid2', None)
+    session.pop("cid2", None)
     return render_template("minting/mintsuccess.html")

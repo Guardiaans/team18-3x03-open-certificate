@@ -1,6 +1,17 @@
 {% extends "layout.html" %} {% block content %}
-<div class="container">
+<div class="container-sm">
   <h1>Welcome {{ current_user.username }}</h1>
   <h3>This is the members-only page.</h3>
+  <div class="row">
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Update Information</h5>
+          <p class="card-text">Click on the link below to update your information or change your password</p>
+          <a class="card-link" href="{{ url_for('user.update') }}">Update</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
