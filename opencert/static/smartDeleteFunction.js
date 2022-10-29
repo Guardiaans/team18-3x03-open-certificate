@@ -512,6 +512,7 @@ var deleteCert = async () => {
                     deleteCert();
                     document.getElementById("delete").disabled = true;
                     document.getElementById('loading').style.display = "block";
+                    document.getElementById("certId").disabled = "true";
                 }
             }
         }

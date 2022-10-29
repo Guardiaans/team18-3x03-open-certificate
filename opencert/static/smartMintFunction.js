@@ -514,6 +514,7 @@ var mintCert = async () => {
                     mintCert();
                     document.getElementById("mint").disabled = true;
                     document.getElementById('loading').style.display = "block";
+                    document.getElementById("metadataipfs").disabled = "true";
                 }
             }
         }

@@ -518,6 +518,8 @@ var transferCert = async () => {
                     transferCert();
                     document.getElementById("commit_transfer").disabled = true;
                     document.getElementById('loading').style.display = "block";
+                    document.getElementById("cert_id").disabled = "true";
+                    document.getElementById("recipient_addr").disabled = "true";
                 }
             }
         }
