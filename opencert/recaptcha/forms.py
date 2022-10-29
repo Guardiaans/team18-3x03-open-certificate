@@ -7,6 +7,7 @@ from flask import request
 def recaptcha():
     # get recaptcha response
     secret_response = request.form["g-recaptcha-response"]
+    print(secret_response)
     # get key from env
     SECRET_KEY = os.environ.get("RECAPTCHA_SECRET_KEY")
     RECAPTCHA_URL = os.environ.get("RECAPTCHA_VERIFY_URL")
@@ -16,6 +17,7 @@ def recaptcha():
     ).json()
 
     if verify_response["success"] == False or verify_response["score"] < 0.5:
+        print(verify_response["success"])
         return False
     print(verify_response["score"])
     return True

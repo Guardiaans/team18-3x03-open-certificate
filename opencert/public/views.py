@@ -75,6 +75,8 @@ def login():
         return redirect(url_for("public.home"))
     form = LoginForm(request.form)
     if form.validate_on_submit():  # this is where the form is validated
+        if recaptcha() is not True:
+            abort(401)
         user = User.query.filter_by(username=form.username.data).first()
         # log user in
         login_user(user)
