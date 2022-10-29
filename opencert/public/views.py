@@ -64,6 +64,7 @@ def logout():
     """Logout."""
     logout_user()
     flash("You are logged out.", "info")
+    sendlogs()
     return redirect(url_for("public.home"))
 
 
@@ -78,6 +79,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         # log user in
         login_user(user)
+        OpencertLogger()
         flash("You are now logged in!")
         return redirect(url_for("public.member_home"))
     else:

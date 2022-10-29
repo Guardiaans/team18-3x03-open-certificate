@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 import logging
+from logging.config import dictConfig
 import sys
-
+from opencert.admin.forms import sendlogs
+#from opencert.admin import Config
+# import BackgroundScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
 from flask_mail import Mail
 
@@ -28,6 +32,10 @@ from opencert.extensions import (
     migrate,
 )
 
+# the following is a sample logging done with own settings
+# dictConfig(Config.LOGGING)
+# LOGGER = logging.getLogger(__name__)
+
 
 def create_app(config_object="opencert.settings"):
     """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -43,6 +51,17 @@ def create_app(config_object="opencert.settings"):
     register_commands(app)
     configure_logger(app)
     Mail(app)
+    scheduler = BackgroundScheduler()
+        # in your case you could change seconds to hours
+    scheduler.add_job(sendlogs, trigger='interval', seconds=3600)
+    scheduler.start()
+
+    try:
+        # To keep the main thread alive
+        return app
+    except:
+        # shutdown if app occurs except 
+        scheduler.shutdown()
     return app
 
 
@@ -105,6 +124,21 @@ def register_commands(app):
 
 def configure_logger(app):
     """Configure loggers."""
+    # # handler = logging.StreamHandler(sys.stdout)
+    # if not app.logger.handlers:
+    #     # app.logger.addHandler(handler)
+    #     app.logger.addHandler(LOGGER)
+
+    # smtp_handler = logging.handlers.SMTPHandler(mailhost=('smtp.gmail.com', 465), fromaddr=["2020projectconfig@gmail.com"], toaddrs=["hidaniel97foo@gmail.com"], subject="Logs", credentials=("2020projectconfig@gmail.com", "oqlozkghaqmclnvu"), secure=())
+    # smtp_handler.setLevel(logging.DEBUG)
+    # formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+    # smtp_handler.setFormatter(formatter)
+
+    # if not app.logger.handlers:
+    #     app.logger.addHandler(smtp_handler)
+
+    # Original
     handler = logging.StreamHandler(sys.stdout)
     if not app.logger.handlers:
         app.logger.addHandler(handler)
+
