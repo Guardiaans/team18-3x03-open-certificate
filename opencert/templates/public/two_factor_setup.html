@@ -1,12 +1,21 @@
 {% extends "layout.html" %} {% block content %}
-<h1>Two Factor Authentication Setup</h1>
-<p>
-  You are almost done! Please start FreeOTP on your smartphone and scan the
-  following QR Code with it:
-</p>
-<p><img id="qrcode" src="{{ url_for('public.qrcode') }}" /></p>
-<p>
-  I'm done, take me to the
-  <a href="{{ url_for('public.login') }}">Login</a> page!
-</p>
+<div
+  class="container"
+  style="margin-top: 100px; margin-bottom: 100px; text-align: center"
+>
+  <div class="card">
+    <h5 class="card-header">Two Factor Authentication Setup</h5>
+    <div class="card-body">
+      <h5 class="card-title">You are almost done!</h5>
+      <p class="card-text">
+        Please scan the following QR Code with your google authenticator app:
+      </p>
+      <p><img id="qrcode" src="{{ url_for('public.qrcode') }}" /></p>
+      <a href="{{ url_for('public.login') }}" class="btn btn-primary"
+        >Login here</a
+      >
+    </div>
+  </div>
+</div>
+
 {% endblock %}
