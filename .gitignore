@@ -66,6 +66,8 @@ instance/
 #venv config
 pyvenv.cfg
 
+#.idea
+.idea
 # auto generated files
 opencert/static/cache_manifest.json
 
@@ -86,3 +88,6 @@ opencert/static/smartDeleteFunction.js.gz
 opencert/static/smartDeleteFunction-*.js
 opencert/static/smartDeleteFunction-*.js.gz
 record.log
+opencert/static/recaptcha-*.js
+opencert/static/recaptcha-*.js.gz
+opencert/static/recaptcha.js.gz

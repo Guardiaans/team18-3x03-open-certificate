@@ -19,6 +19,7 @@ from opencert import (
     transfer,
     user,
     verify,
+    display,
 )
 from opencert.admin.forms import sendlogs
 from opencert.extensions import (
@@ -106,6 +107,7 @@ def register_blueprints(app):
     app.register_blueprint(transfer.views.blueprint)
     app.register_blueprint(verify.views.blueprint)
     app.register_blueprint(delete.views.blueprint)
+    app.register_blueprint(display.views.blueprint)
     return None
 
 
