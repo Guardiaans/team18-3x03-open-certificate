@@ -77,6 +77,8 @@ def login():
         return redirect(url_for("public.home"))
     form = LoginForm(request.form)
     if form.validate_on_submit():  # this is where the form is validated
+        if recaptcha() is not True:
+            abort(401)
         user = User.query.filter_by(username=form.username.data).first()
         # log user in
         login_user(user)
@@ -86,7 +88,7 @@ def login():
     else:
         flash_errors(form)
 
-    return render_template("public/login.html", form=form)
+    return render_template("public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
 
 
 @blueprint.route("/about/")
@@ -102,10 +104,8 @@ def register():
     form = RegisterForm(request.form)
 
     if form.validate_on_submit():
-        check = recaptcha()
-        if check[0] == False or check[1] < 0.5:
+        if recaptcha() is not True:
             abort(401)
-        print(check)
         User.create(
             username=form.username.data,
             email=form.email.data,
@@ -190,6 +190,8 @@ def forget_password():
     form = ForgetPasswordForm(request.form)
 
     if form.validate_on_submit():
+        if recaptcha() is not True:
+            abort(401)
         email = form.email.data
         token = generate_confirmation_token(email)
         # confirm_url = url_for('email.reset_password', token=token, _external=True)
@@ -201,4 +203,4 @@ def forget_password():
         return redirect(url_for("public.home"))
     else:
         flash_errors(form)
-    return render_template("public/forget_password.html", form=form)
+    return render_template("public/forget_password.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
