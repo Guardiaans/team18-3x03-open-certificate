@@ -39,7 +39,7 @@ class LoginForm(FlaskForm):
             self.token.errors.append("Invalid token")
             return False
 
-        if not self.user.active:
+        if not self.user.email_confirmed:
             self.username.errors.append("User not activated")
             return False
         return True

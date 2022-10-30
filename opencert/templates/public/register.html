@@ -1,6 +1,7 @@
 
 {% extends "layout.html" %}
 {% block content %}
+<script src="{{url_for('static', filename='recaptcha.js')}}"></script>
 <div class="container-narrow">
   <h1 class="mt-5">Register</h1>
     <br/>
@@ -44,16 +45,12 @@
                 {{form.confirm(placeholder="Password (again)", class_="form-control")}}
             </div>
         <br>
-            <button class="g-recaptcha btn btn-primary" data-sitekey="{{ site_key }}" type="submit" data-callback='onSubmit' data-action='submit'>Register</button>
+            <button id="btn" class="g-recaptcha btn btn-primary" data-sitekey="{{ site_key }}" type="submit" data-callback='onSubmit' data-action='submit'>Register</button>
     </form>
 
     <br>
     <p><em>Already registered?</em> Click <a href="/">here</a> to login.</p>
 </div>
-<script>
-    function onSubmit(token) {
-      document.getElementById("registerForm").submit();
-    }
-  </script>
+
 {% endblock %}
 
