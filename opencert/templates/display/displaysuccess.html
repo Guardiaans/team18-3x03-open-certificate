@@ -1,10 +1,53 @@
 {% extends "layout.html" %} 
 {% block content %}
+<script defer src="{{url_for('static', filename='displayNFT.js')}}"></script>
 <div class="container-narrow">
-    <h2 class="mt-5">Succesful Display of Certificate</h2><br/>
+    <h2 class="mt-5 text-center">Succesful Display of Certificate 
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+    </svg>
+  </h2>
+    <div class="text-center">
+    <img src="" id="imageNFT" class="img-fluid" alt="Responsive image">
+    </div> <br/>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Attribute</th>
+          <th scope="col">Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Certificate</th>
+          <td id="cert"></td>
+        </tr>
+        <tr>
+          <th scope="row">Breed</th>
+          <td id="breed">Jacob</td>
+        </tr>
+        <tr>
+          <th scope="row">Generation</th>
+          <td id="gen"></td>
+        </tr>
+        <tr>
+          <th scope="row">Farm</th>
+          <td id="farm"></td>
+        </tr>
+        <tr>
+          <th scope="row">CITES Tag Number</th>
+          <td id="cites"></td>
+        </tr>
+        <tr>
+          <th scope="row">Date of Issue</th>
+          <td id="doi"></td>
+        </tr>
+      </tbody>
+    </table>
     <div class="mb-5">
         <div class="list-group">
-            <a href="display" class="list-group-item list-group-item-action"><h5>Click Here! To Display another Certificate!</h5></a>
+            <a href="display" class="list-group-item list-group-item-action bg-info"><h5>Click Here! To Display another Certificate!</h5></a>
             <a href="#" class="list-group-item list-group-item-action"><h5>Click Here! To return to home!</h5></a>
           </div>
   </div>

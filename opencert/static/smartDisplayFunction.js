@@ -484,31 +484,34 @@ const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
 var pls = null;
 
 var displayCert = async () => {
-    const result = await contract.methods.tokenURI(certId).call({ from: account });
+    try{
+        const result = await contract.methods.tokenURI(certId).call({ from: account });
 
-    function makeHttpObject() {
-        try {return new XMLHttpRequest();}
-        catch (error) {}
-        try {return new ActiveXObject("Msxml2.XMLHTTP");}
-        catch (error) {}
-        try {return new ActiveXObject("Microsoft.XMLHTTP");}
-        catch (error) {}
-        throw new Error("Could not create HTTP request object.");
-      }
-      
-      var request = makeHttpObject();
-      request.open("GET", result, true);
-      request.send(null);
-      request.onreadystatechange = function() {
-        if (request.readyState == 4)
-          var bodytext = (request.responseText);
-          var metadataArray = bodytext.split(",");
-          var image = metadataArray[2];
-          var imagelink = image.match(/image":(.*$)/)[1];
-          let ret = imagelink.replaceAll('"', '')
-          window.open(ret);
-          console.log(ret);
-      };
+        function makeHttpObject() {
+            try {return new XMLHttpRequest();}
+            catch (error) {}
+            try {return new ActiveXObject("Msxml2.XMLHTTP");}
+            catch (error) {}
+            try {return new ActiveXObject("Microsoft.XMLHTTP");}
+            catch (error) {}
+            throw new Error("Could not create HTTP request object.");
+          }
+          
+          var request = makeHttpObject();
+          request.open("GET", result, true);
+          request.send(null);
+          request.onreadystatechange = function() {
+            if (request.readyState == 4)
+              var bodytext = (request.responseText);
+              var picture = JSON.parse(bodytext);
+              localStorage.setItem("pic2", picture.image);
+              localStorage.setItem("attribute", bodytext);
+          };
+          window.location.href = '/displaysuccess';
+    } catch (err){
+        window.location.href = '/displayfail';
+    }
+
       
     //if (result.status == true) {
     //    window.location.href = '/displaysuccess';
@@ -518,30 +521,35 @@ var displayCert = async () => {
     //}
 }
 (async () => {
-    if (window.ethereum) {
-        await window.ethereum.send('eth_requestAccounts');
-        window.web3 = new Web3(window.ethereum);
+    try{
+        if (window.ethereum) {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            window.web3 = new Web3(window.ethereum);
 
-        var accounts = await web3.eth.getAccounts();
-        account = accounts[0];
+            var accounts = await web3.eth.getAccounts();
+            account = accounts[0];
 
-        contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('display').onclick = () => {
-        certId = document.getElementById('certId').value;
-            
-            var validate = testValues();
-            if (validate != false){
-                displayCert();
+            contract = new web3.eth.Contract(ABI, ADDRESS);
+            document.getElementById('display').onclick = () => {
+            certId = document.getElementById('certId').value;
+                
+                var validate = testValues();
+                if (validate != false){
+                    displayCert();
+                }
             }
         }
+    } catch (error){
+        window.location.href = '/displayfail';
     }
+
 })();
 
 // Validate values for Metamask
 function testValues(){
     var idCheck = null;
     
-    if(isNaN(certId) || certId == ""){
+    if(isNaN(certId) || certId == "" || certId.length <= 0 || certId.length > 4){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{
