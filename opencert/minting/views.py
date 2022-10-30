@@ -7,9 +7,10 @@ import re
 from wsgiref.util import request_uri
 
 import requests
-from flask import Blueprint, redirect, render_template, request, session, url_for
+from flask import Blueprint, abort, redirect, render_template, request, session, url_for
 from flask_login import login_required
 from werkzeug.utils import secure_filename
+from opencert.recaptcha.forms import recaptcha
 
 # Folder for NFT Image
 UPLOAD_IMAGE_FOLDER = "./opencert/uploads/"
@@ -49,6 +50,8 @@ blueprint = Blueprint("minting", __name__, static_folder="../static")
 def mint1():
     """Upload Image Page."""
     if request.method == "POST":
+        if recaptcha() is not True:
+            abort(401)
         # Save the file to the server first
         file = request.files["file"]
         filename = secure_filename(file.filename)
@@ -93,7 +96,7 @@ def mint1():
         else:
             return render_template("minting/mintingImageUpload.html")
     else:
-        return render_template("minting/mintingImageUpload.html")
+        return render_template("minting/mintingImageUpload.html", site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
 
 
 @blueprint.route("/mintingMetadataUpload", methods=["GET", "POST"])
@@ -103,6 +106,8 @@ def mint2():
     m = re.compile(r"[()$%_.+@!#^&*;:{}~ `]*$")
     c = re.compile(r"[()$%_.+@!#^&*;:{}~`]*$")
     if request.method == "POST":
+        if recaptcha() is not True:
+            abort(401)
         # Save the file to the server first
         image_cid = str(request.form.get("imageHash"))
         cert_num = str(request.form.get("certNum"))
@@ -190,7 +195,7 @@ def mint2():
         return redirect(url_for("minting.mint3"))
     else:
         cid = session.get("cid")
-        return render_template("minting/mintingMetadataUpload.html", cid=cid)
+        return render_template("minting/mintingMetadataUpload.html", cid=cid, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
 
 
 @blueprint.route("/mintNFT", methods=["GET", "POST"])
