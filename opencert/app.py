@@ -28,6 +28,8 @@ from opencert.extensions import (
     migrate,
 )
 
+from opencert.user.models import Role
+
 
 def create_app(config_object="opencert.settings"):
     """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -43,6 +45,26 @@ def create_app(config_object="opencert.settings"):
     register_commands(app)
     configure_logger(app)
     Mail(app)
+
+    with app.app_context():
+        # Insert Admin role into Role table
+        admin_role = Role.query.filter_by(name="admin").first()
+        if admin_role is None:
+            admin_role = Role(name="admin")
+            db.session.add(admin_role)
+            db.session.commit()
+        # Insert Buyer and seller roles into Role table
+        buyer_role = Role.query.filter_by(name="buyer").first()
+        if buyer_role is None:
+            buyer_role = Role(name="buyer")
+            db.session.add(buyer_role)
+            db.session.commit()
+        seller_role = Role.query.filter_by(name="seller").first()
+        if seller_role is None:
+            seller_role = Role(name="seller")
+            db.session.add(seller_role)
+            db.session.commit()
+
     return app
 
 

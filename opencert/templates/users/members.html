@@ -1,18 +1,12 @@
 {% extends "layout.html" %} {% block content %}
 <div class="jumbotron">
-  <div class="container">
-    <h1 class="display-1">Welcome {{current_user.username}} to opencert</h1>
-    <p>
-      The Open Certificate Authority is a free and open source certificate
-      authority.
-    </p>
-  </div>
-</div>
-<div class="jumbotron">
   <section id="services" class="services section-bg">
     <div class="container">
       <div class="section-title">
-        <h2 class="mt-5 text-center">Services</h2>
+        <h2 class="display-5 text-center">
+          Welcome {{current_user.username}} to opencert
+        </h2>
+        <h3 class="text-center">Services</h3>
         <p>
           We seek to solve issues of trust and transparency in the digital world
           by providing a way to verify the authenticity of digital documents.
@@ -22,6 +16,7 @@
       </div>
 
       <div class="row text-center">
+        {% if current_user.role_id[2] %}
         <div class="card mx-auto" style="max-width: 15%">
           <div class="text-center">
             <svg
@@ -49,6 +44,7 @@
             <a href="/minting" class="btn btn-primary">Start Minting</a>
           </div>
         </div>
+        {% endif %}
         <div class="card mx-auto" style="max-width: 15%">
           <!-- <img class="card-img-top" src="..." alt="Card image cap" /> -->
           <div style="text-align: center">
