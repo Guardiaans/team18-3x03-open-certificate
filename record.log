@@ -1,0 +1,507 @@
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.22:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 320-333-514
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "GET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "[36mGET /static/build/66104b766c3d0462b3c5.woff2 HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:27] "GET /_debug_toolbar/static/css/toolbar.css?0.3305660477690495 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:28] "[36mGET /static/build/favicon-36131e511cbaacdc9e850bf826d4d54c.ico HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:28] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:28] "[32mGET /logout/ HTTP/1.1[0m" 302 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "GET /_debug_toolbar/static/css/toolbar.css?0.5108992281954401 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:29] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:30] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:31] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:31] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:31] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:31] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:31] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:31] "GET /_debug_toolbar/static/css/toolbar.css?0.5952697819046353 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:31] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:34] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:34] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:34] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:34] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:34] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:34] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:35] "GET /_debug_toolbar/static/css/toolbar.css?0.9008374492563775 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:35] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+DEBUG:opencert:debug log info
+INFO:opencert:Info log information
+WARNING:opencert:Warning log info
+ERROR:opencert:Error log info
+CRITICAL:opencert:Critical log info
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:52] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:52] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:53] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:53] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:53] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:53] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:53] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:53] "GET /_debug_toolbar/static/css/toolbar.css?0.9504328734490015 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [29/Oct/2022 23:58:53] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\hidan\\OneDrive\\Desktop\\3203\\team18-3x03-open-certificate\\opencert\\public\\views.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 320-333-514
+INFO:werkzeug: * Detected change in 'C:\\Users\\hidan\\OneDrive\\Desktop\\3203\\team18-3x03-open-certificate\\opencert\\public\\views.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 320-333-514
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.22:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 320-333-514
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /static/build/66104b766c3d0462b3c5.woff2 HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "GET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "GET /_debug_toolbar/static/css/toolbar.css?0.3139487726141126 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:34] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:35] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:35] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "[32mGET /logout/ HTTP/1.1[0m" 302 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "GET /_debug_toolbar/static/css/toolbar.css?0.3070081439388723 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:40] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:42] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:42] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:42] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:42] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:42] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:42] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:42] "GET /_debug_toolbar/static/css/toolbar.css?0.059640096272151055 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:43] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:45] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:45] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:46] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:46] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:46] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:46] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:46] "GET /_debug_toolbar/static/css/toolbar.css?0.08528786321070636 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:46] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:57] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:57] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:58] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:58] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:58] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:58] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:58] "GET /_debug_toolbar/static/css/toolbar.css?0.4753955099051248 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:02:58] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:02] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:02] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:03] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:03] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:03] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:03] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:03] "GET /_debug_toolbar/static/css/toolbar.css?0.10939109920633538 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:03] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+DEBUG:opencert:debug log info
+INFO:opencert:Info log information
+WARNING:opencert:Warning log info
+ERROR:opencert:Error log info
+CRITICAL:opencert:Critical log info
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "GET /_debug_toolbar/static/css/toolbar.css?0.8382819864858544 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:10] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:11] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:11] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:12] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:12] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:12] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:12] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:12] "GET /_debug_toolbar/static/css/toolbar.css?0.19250183124305353 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:12] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:18] "[32mGET /logout/ HTTP/1.1[0m" 302 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:18] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:18] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:18] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:18] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:18] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:18] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:19] "GET /_debug_toolbar/static/css/toolbar.css?0.5020399511287961 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 00:03:19] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "testprint" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:52:42.089929+08:00 (in 2.997029 seconds)
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "testprint" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:23.368312+08:00 (in 2.999001 seconds)
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "testprint" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:36.084611+08:00 (in 2.997999 seconds)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.22:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "testprint" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:37.901639+08:00 (in 2.998029 seconds)
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 320-333-514
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:36 +08)" (scheduled at 2022-10-30 01:53:36.084611+08:00)
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:39.084611+08:00 (in 2.985309 seconds)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:39 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:37 +08)" (scheduled at 2022-10-30 01:53:37.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:37 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:40.901639+08:00 (in 2.987893 seconds)
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:42.084611+08:00 (in 2.985723 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:42 +08)" (scheduled at 2022-10-30 01:53:39.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:42 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:43.901639+08:00 (in 2.982601 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:43 +08)" (scheduled at 2022-10-30 01:53:40.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:43 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:45.084611+08:00 (in 2.980826 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:45 +08)" (scheduled at 2022-10-30 01:53:42.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:45 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:46.901639+08:00 (in 2.996815 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:46 +08)" (scheduled at 2022-10-30 01:53:43.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:46 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:48.084611+08:00 (in 2.999016 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:48 +08)" (scheduled at 2022-10-30 01:53:45.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:48 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:49.901639+08:00 (in 2.984257 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:49 +08)" (scheduled at 2022-10-30 01:53:46.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:49 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:51.084611+08:00 (in 2.989269 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:51 +08)" (scheduled at 2022-10-30 01:53:48.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:51 +08)" executed successfully
+INFO:opencert:Hello from the home page!
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:52.901639+08:00 (in 2.991134 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:52 +08)" (scheduled at 2022-10-30 01:53:49.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:52 +08)" executed successfully
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:49] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "GET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "GET /_debug_toolbar/static/css/toolbar.css?0.1336142962148339 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:53:50] "[36mGET /static/build/favicon-36131e511cbaacdc9e850bf826d4d54c.ico HTTP/1.1[0m" 304 -
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:54.084611+08:00 (in 2.987130 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:54 +08)" (scheduled at 2022-10-30 01:53:51.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:54 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:55.901639+08:00 (in 2.981769 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:55 +08)" (scheduled at 2022-10-30 01:53:52.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:55 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:57.084611+08:00 (in 2.987416 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:57 +08)" (scheduled at 2022-10-30 01:53:54.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:57 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:53:58.901639+08:00 (in 2.998041 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:58 +08)" (scheduled at 2022-10-30 01:53:55.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:53:58 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:00.084611+08:00 (in 2.989552 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:00 +08)" (scheduled at 2022-10-30 01:53:57.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:00 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:01.901639+08:00 (in 2.990208 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:01 +08)" (scheduled at 2022-10-30 01:53:58.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:01 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:03.084611+08:00 (in 2.978222 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:03 +08)" (scheduled at 2022-10-30 01:54:00.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:03 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:04.901639+08:00 (in 2.994164 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:04 +08)" (scheduled at 2022-10-30 01:54:01.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:04 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:06.084611+08:00 (in 2.984119 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:06 +08)" (scheduled at 2022-10-30 01:54:03.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:06 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:07.901639+08:00 (in 2.994225 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:07 +08)" (scheduled at 2022-10-30 01:54:04.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:07 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:09.084611+08:00 (in 2.996173 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:09 +08)" (scheduled at 2022-10-30 01:54:06.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:09 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:10.901639+08:00 (in 2.990198 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:10 +08)" (scheduled at 2022-10-30 01:54:07.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:10 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:12.084611+08:00 (in 2.995559 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:12 +08)" (scheduled at 2022-10-30 01:54:09.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:12 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:13.901639+08:00 (in 2.983210 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:13 +08)" (scheduled at 2022-10-30 01:54:10.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:13 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:15.084611+08:00 (in 2.992673 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:15 +08)" (scheduled at 2022-10-30 01:54:12.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:15 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:16.901639+08:00 (in 2.990241 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:16 +08)" (scheduled at 2022-10-30 01:54:13.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:16 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:18.084611+08:00 (in 2.984158 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:18 +08)" (scheduled at 2022-10-30 01:54:15.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:18 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:19.901639+08:00 (in 2.986383 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:19 +08)" (scheduled at 2022-10-30 01:54:16.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:19 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:21.084611+08:00 (in 2.988499 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:21 +08)" (scheduled at 2022-10-30 01:54:18.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:21 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:22.901639+08:00 (in 2.982171 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:22 +08)" (scheduled at 2022-10-30 01:54:19.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:22 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:24.084611+08:00 (in 2.992370 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:24 +08)" (scheduled at 2022-10-30 01:54:21.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:24 +08)" executed successfully
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:22] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:22] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:25.901639+08:00 (in 2.983707 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:25 +08)" (scheduled at 2022-10-30 01:54:22.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:25 +08)" executed successfully
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:22] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:22] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:22] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:22] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:23] "GET /_debug_toolbar/static/css/toolbar.css?0.3201318240906468 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:23] "[36mGET /static/build/favicon-36131e511cbaacdc9e850bf826d4d54c.ico HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:54:23] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:27.084611+08:00 (in 2.978032 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:27 +08)" (scheduled at 2022-10-30 01:54:24.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:27 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:28.901639+08:00 (in 2.996818 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:28 +08)" (scheduled at 2022-10-30 01:54:25.901639+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:28 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:54:30.084611+08:00 (in 2.984377 seconds)
+INFO:apscheduler.executors.default:Running job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:30 +08)" (scheduled at 2022-10-30 01:54:27.084611+08:00)
+INFO:apscheduler.executors.default:Job "testprint (trigger: interval[0:00:03], next run at: 2022-10-30 01:54:30 +08)" executed successfully
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "sendlogs" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:57:01.338316+08:00 (in 59.998997 seconds)
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "sendlogs" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:57:13.877497+08:00 (in 59.998002 seconds)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.22:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "sendlogs" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:57:15.829494+08:00 (in 59.999001 seconds)
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 320-333-514
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:16] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:16] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:16] "GET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:16] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:16] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:16] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:17] "GET /_debug_toolbar/static/css/toolbar.css?0.7264360953126956 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:17] "[36mGET /static/build/favicon-36131e511cbaacdc9e850bf826d4d54c.ico HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:17] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:18] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:19] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:19] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:19] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:19] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:19] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:19] "GET /_debug_toolbar/static/css/toolbar.css?0.425310766787927 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:19] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:23] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:23] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:23] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:23] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:23] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:23] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:24] "GET /_debug_toolbar/static/css/toolbar.css?0.0814484090718155 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:24] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "GET /_debug_toolbar/static/css/toolbar.css?0.5595712898046143 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:32] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:39] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:39] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:39] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:39] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:39] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:39] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:39] "GET /_debug_toolbar/static/css/toolbar.css?0.8615668999008663 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:40] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:47] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:47] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:47] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:47] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:47] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:47] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:48] "GET /_debug_toolbar/static/css/toolbar.css?0.9667577768035789 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:48] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:49] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:50] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:50] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:50] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:50] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:50] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:50] "GET /_debug_toolbar/static/css/toolbar.css?0.28762563773854155 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:56:50] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+INFO:apscheduler.executors.default:Running job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:57:13 +08)" (scheduled at 2022-10-30 01:57:13.877497+08:00)
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:58:13.877497+08:00 (in 59.983762 seconds)
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+INFO:apscheduler.executors.default:Running job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:57:15 +08)" (scheduled at 2022-10-30 01:57:15.829494+08:00)
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:58:15.829494+08:00 (in 59.988722 seconds)
+INFO:apscheduler.executors.default:Job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:58:13 +08)" executed successfully
+INFO:apscheduler.executors.default:Job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:58:15 +08)" executed successfully
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:43] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:44] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:44] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:44] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:44] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:44] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:44] "GET /_debug_toolbar/static/css/toolbar.css?0.42198221332854 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:44] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:48] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:48] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:49] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:49] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:49] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:49] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:49] "GET /_debug_toolbar/static/css/toolbar.css?0.4032155853999244 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:57:49] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+DEBUG:opencert:debug log info
+INFO:opencert:Info log information
+WARNING:opencert:Warning log info
+ERROR:opencert:Error log info
+CRITICAL:opencert:Critical log info
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:06] "[32mPOST /login HTTP/1.1[0m" 302 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:06] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:06] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:06] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:06] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:06] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:07] "[36mGET /static/build/66104b766c3d0462b3c5.woff2 HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:07] "GET /_debug_toolbar/static/css/toolbar.css?0.04589548158217993 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:07] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+INFO:opencert:Hello from the home page!
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:08] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:08] "[36mGET /static/build/main_css.bundle-48f35362177e5b6a3d05238882e355fd.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:09] "[36mGET /static/build/main_js.bundle-3ec4aa5d068acf1e603d658981be4c77.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:09] "[36mGET /_debug_toolbar/static/js/jquery.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:09] "[36mGET /_debug_toolbar/static/js/toolbar.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:09] "[36mGET /_debug_toolbar/static/js/jquery.tablesorter.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:09] "GET /_debug_toolbar/static/css/toolbar.css?0.2685261781592567 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Oct/2022 01:58:09] "[36mGET /_debug_toolbar/static/img/djdt_vertical.png HTTP/1.1[0m" 304 -
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:59:13.877497+08:00 (in 59.995288 seconds)
+INFO:apscheduler.executors.default:Running job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:59:13 +08)" (scheduled at 2022-10-30 01:58:13.877497+08:00)
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 01:59:15.829494+08:00 (in 59.975335 seconds)
+INFO:apscheduler.executors.default:Running job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:59:15 +08)" (scheduled at 2022-10-30 01:58:15.829494+08:00)
+INFO:apscheduler.executors.default:Job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:59:13 +08)" executed successfully
+INFO:apscheduler.executors.default:Job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 01:59:15 +08)" executed successfully
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 02:00:13.877497+08:00 (in 59.991525 seconds)
+INFO:apscheduler.executors.default:Running job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 02:00:13 +08)" (scheduled at 2022-10-30 01:59:13.877497+08:00)
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 02:00:15.829494+08:00 (in 59.987481 seconds)
+INFO:apscheduler.executors.default:Running job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 02:00:15 +08)" (scheduled at 2022-10-30 01:59:15.829494+08:00)
+INFO:apscheduler.executors.default:Job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 02:00:13 +08)" executed successfully
+INFO:apscheduler.executors.default:Job "sendlogs (trigger: interval[0:01:00], next run at: 2022-10-30 02:00:15 +08)" executed successfully
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "sendlogs" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 03:02:33.398645+08:00 (in 3599.998003 seconds)

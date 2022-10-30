@@ -24,6 +24,7 @@ from opencert.recaptcha.forms import recaptcha
 from opencert.user.forms import RegisterForm
 from opencert.user.models import User
 from opencert.utils import flash_errors
+from opencert.admin.forms import OpencertLogger, sendlogs
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 
@@ -64,6 +65,7 @@ def logout():
     """Logout."""
     logout_user()
     flash("You are logged out.", "info")
+    sendlogs()
     return redirect(url_for("public.home"))
 
 
@@ -78,6 +80,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         # log user in
         login_user(user)
+        OpencertLogger()
         flash("You are now logged in!")
         return redirect(url_for("public.member_home"))
     else:

@@ -1,0 +1,6 @@
+Hi debuggers,
+
+This are the logs that can be used to debug the system.
+
+Thanks
+Admin (Adminstrative Team)

@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 import logging
+from logging.config import dictConfig
 import sys
-
+from opencert.admin.forms import sendlogs
+# import BackgroundScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
 from flask_mail import Mail
 
@@ -43,6 +46,17 @@ def create_app(config_object="opencert.settings"):
     register_commands(app)
     configure_logger(app)
     Mail(app)
+    scheduler = BackgroundScheduler()
+        # in your case you could change seconds to hours
+    scheduler.add_job(sendlogs, trigger='interval', seconds=3600)
+    scheduler.start()
+
+    try:
+        # To keep the main thread alive
+        return app
+    except:
+        # shutdown if app occurs except 
+        scheduler.shutdown()
     return app
 
 
