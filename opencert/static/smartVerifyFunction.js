@@ -491,23 +491,28 @@ var verifyCert = async () => {
       }
 }
 (async () => {
-    if (window.ethereum) {
-        await window.ethereum.send('eth_requestAccounts');
-        window.web3 = new Web3(window.ethereum);
+    try{
+        if (window.ethereum) {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            window.web3 = new Web3(window.ethereum);
 
-        var accounts = await web3.eth.getAccounts();
-        account = accounts[0];
+            var accounts = await web3.eth.getAccounts();
+            account = accounts[0];
 
-        contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('verify').onclick = () => {
-        certId = document.getElementById('certId').value;
-            
-            var validate = testValues();
-            if (validate != false){
-                verifyCert();
+            contract = new web3.eth.Contract(ABI, ADDRESS);
+            document.getElementById('verify').onclick = () => {
+            certId = document.getElementById('certId').value;
+                
+                var validate = testValues();
+                if (validate != false){
+                    verifyCert();
+                }
             }
         }
+    } catch (error) {
+        window.location.href = '/verifyfail';
     }
+
 })();
 
 // Validate values for Metamask
