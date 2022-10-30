@@ -10,7 +10,9 @@ import requests
 from flask import Blueprint, abort, redirect, render_template, request, session, url_for
 from flask_login import login_required
 from werkzeug.utils import secure_filename
+
 from opencert.recaptcha.forms import recaptcha
+from opencert.utils import requires_access_level
 
 # Folder for NFT Image
 UPLOAD_IMAGE_FOLDER = "./opencert/uploads/"
@@ -47,6 +49,7 @@ blueprint = Blueprint("minting", __name__, static_folder="../static")
 
 @blueprint.route("/minting", methods=["GET", "POST"])
 @login_required
+@requires_access_level(3)
 def mint1():
     """Upload Image Page."""
     if request.method == "POST":
@@ -96,11 +99,15 @@ def mint1():
         else:
             return render_template("minting/mintingImageUpload.html")
     else:
-        return render_template("minting/mintingImageUpload.html", site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
+        return render_template(
+            "minting/mintingImageUpload.html",
+            site_key=os.environ.get("RECAPTCHA_SITE_KEY"),
+        )
 
 
 @blueprint.route("/mintingMetadataUpload", methods=["GET", "POST"])
 @login_required
+@requires_access_level(3)
 def mint2():
     """Upload Metadata Page."""
     m = re.compile(r"[()$%_.+@!#^&*;:{}~ `]*$")
@@ -195,11 +202,16 @@ def mint2():
         return redirect(url_for("minting.mint3"))
     else:
         cid = session.get("cid")
-        return render_template("minting/mintingMetadataUpload.html", cid=cid, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
+        return render_template(
+            "minting/mintingMetadataUpload.html",
+            cid=cid,
+            site_key=os.environ.get("RECAPTCHA_SITE_KEY"),
+        )
 
 
 @blueprint.route("/mintNFT", methods=["GET", "POST"])
 @login_required
+@requires_access_level(3)
 def mint3():
     """Mint Arowana Cert/ NFT."""
     cid2 = session.get("cid2")
@@ -207,6 +219,8 @@ def mint3():
 
 
 @blueprint.route("/mintfail", methods=["GET"])
+@login_required
+@requires_access_level(3)
 def deletefail():
     """Mint failed page."""
     session.pop("cid2", None)
@@ -214,6 +228,8 @@ def deletefail():
 
 
 @blueprint.route("/mintsuccess", methods=["GET"])
+@login_required
+@requires_access_level(3)
 def deletesucces():
     """Mint succeeded page."""
     session.pop("cid2", None)

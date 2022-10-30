@@ -17,6 +17,7 @@ from flask import (
 )
 from flask_login import current_user, login_required, login_user, logout_user
 
+from opencert.admin.forms import OpencertLogger, sendlogs
 from opencert.email.forms import generate_confirmation_token, send_email
 from opencert.extensions import login_manager
 from opencert.public.forms import ForgetPasswordForm, LoginForm
@@ -24,7 +25,6 @@ from opencert.recaptcha.forms import recaptcha
 from opencert.user.forms import RegisterForm
 from opencert.user.models import User
 from opencert.utils import flash_errors
-from opencert.admin.forms import OpencertLogger, sendlogs
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 
@@ -88,7 +88,9 @@ def login():
     else:
         flash_errors(form)
 
-    return render_template("public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
+    return render_template(
+        "public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY")
+    )
 
 
 @blueprint.route("/about/")
@@ -203,4 +205,8 @@ def forget_password():
         return redirect(url_for("public.home"))
     else:
         flash_errors(form)
-    return render_template("public/forget_password.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
+    return render_template(
+        "public/forget_password.html",
+        form=form,
+        site_key=os.environ.get("RECAPTCHA_SITE_KEY"),
+    )

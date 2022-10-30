@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 import logging
-from logging.config import dictConfig
 import sys
-from opencert.admin.forms import sendlogs
+from logging.config import dictConfig
+
 # import BackgroundScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
@@ -20,6 +20,7 @@ from opencert import (
     user,
     verify,
 )
+from opencert.admin.forms import sendlogs
 from opencert.extensions import (
     bcrypt,
     cache,
@@ -30,6 +31,7 @@ from opencert.extensions import (
     login_manager,
     migrate,
 )
+from opencert.user.models import Role
 
 
 def create_app(config_object="opencert.settings"):
@@ -46,16 +48,36 @@ def create_app(config_object="opencert.settings"):
     register_commands(app)
     configure_logger(app)
     Mail(app)
+
+    with app.app_context():
+        # Insert Admin role into Role table
+        admin_role = Role.query.filter_by(name="admin").first()
+        if admin_role is None:
+            admin_role = Role(name="admin")
+            db.session.add(admin_role)
+            db.session.commit()
+        # Insert Buyer and seller roles into Role table
+        buyer_role = Role.query.filter_by(name="buyer").first()
+        if buyer_role is None:
+            buyer_role = Role(name="buyer")
+            db.session.add(buyer_role)
+            db.session.commit()
+        seller_role = Role.query.filter_by(name="seller").first()
+        if seller_role is None:
+            seller_role = Role(name="seller")
+            db.session.add(seller_role)
+            db.session.commit()
+
     scheduler = BackgroundScheduler()
-        # in your case you could change seconds to hours
-    scheduler.add_job(sendlogs, trigger='interval', seconds=3600)
+    # in your case you could change seconds to hours
+    scheduler.add_job(sendlogs, trigger="interval", seconds=3600)
     scheduler.start()
 
     try:
         # To keep the main thread alive
         return app
     except:
-        # shutdown if app occurs except 
+        # shutdown if app occurs except
         scheduler.shutdown()
     return app
 

@@ -1,6 +1,12 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
-from opencert.email.forms import ResetPasswordForm, confirm_token, ResendConfirmationForm, generate_confirmation_token, send_email
+from opencert.email.forms import (
+    ResendConfirmationForm,
+    ResetPasswordForm,
+    confirm_token,
+    generate_confirmation_token,
+    send_email,
+)
 from opencert.user.models import User
 
 blueprint = Blueprint("email", __name__, url_prefix="/email", static_folder="../static")
@@ -42,6 +48,7 @@ def reset_password(token):
 
     return render_template("email/reset_password.html", form=form)
 
+
 @blueprint.route("/unconfirmed", methods=["GET", "POST"])
 def unconfirmed():
     """Resend confirmation email page"""
@@ -50,17 +57,28 @@ def unconfirmed():
         if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
             if user.email_confirmed == True:
-                flash("If your email exists, we will send a confirmation email to you.", "success")
+                flash(
+                    "If your email exists, we will send a confirmation email to you.",
+                    "success",
+                )
                 return redirect(url_for("public.login"))
             else:
                 token = generate_confirmation_token(form.email.data)
-                confirm_url = url_for("email.confirm_email", token=token, _external=True)
+                confirm_url = url_for(
+                    "email.confirm_email", token=token, _external=True
+                )
                 html = render_template("email/confirm.html", confirm_url=confirm_url)
                 subject = "Please confirm your email"
                 send_email(form.email.data, subject, html)
-                flash("If your email exists, we will send a confirmation email to you.", "success")
+                flash(
+                    "If your email exists, we will send a confirmation email to you.",
+                    "success",
+                )
                 return redirect(url_for("public.login"))
         else:
-            flash("If your email exists, we will send a confirmation email to you.", "success")
+            flash(
+                "If your email exists, we will send a confirmation email to you.",
+                "success",
+            )
             return redirect(url_for("public.login"))
     return render_template("email/unconfirmed.html", form=form)
