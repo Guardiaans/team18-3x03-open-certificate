@@ -98,7 +98,10 @@ def mint1():
         else:
             return render_template("minting/mintingImageUpload.html")
     else:
-        return render_template("minting/mintingImageUpload.html", site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
+        return render_template(
+            "minting/mintingImageUpload.html",
+            site_key=os.environ.get("RECAPTCHA_SITE_KEY"),
+        )
 
 
 @blueprint.route("/mintingMetadataUpload", methods=["GET", "POST"])
@@ -198,7 +201,11 @@ def mint2():
         return redirect(url_for("minting.mint3"))
     else:
         cid = session.get("cid")
-        return render_template("minting/mintingMetadataUpload.html", cid=cid, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
+        return render_template(
+            "minting/mintingMetadataUpload.html",
+            cid=cid,
+            site_key=os.environ.get("RECAPTCHA_SITE_KEY"),
+        )
 
 
 @blueprint.route("/mintNFT", methods=["GET", "POST"])
