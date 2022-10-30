@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """Helper utilities and decorators."""
-from flask import flash
 from functools import wraps
-from flask import url_for, redirect
+
+from flask import flash, redirect, url_for
 from flask_login import current_user
+
 from opencert.user.models import User
 
 

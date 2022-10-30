@@ -10,8 +10,9 @@ import requests
 from flask import Blueprint, abort, redirect, render_template, request, session, url_for
 from flask_login import login_required
 from werkzeug.utils import secure_filename
-from opencert.utils import requires_access_level
+
 from opencert.recaptcha.forms import recaptcha
+from opencert.utils import requires_access_level
 
 # Folder for NFT Image
 UPLOAD_IMAGE_FOLDER = "./opencert/uploads/"

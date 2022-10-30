@@ -24,5 +24,3 @@
 
 
 # # blueprint = Blueprint("admin", __name__, static_folder="../static")
-
-

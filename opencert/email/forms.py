@@ -9,7 +9,7 @@ from flask_mail import Message
 from flask_wtf import FlaskForm
 from itsdangerous import URLSafeTimedSerializer
 from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired, EqualTo, Length, Email
+from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 from opencert import app
 from opencert.user.models import User
@@ -70,12 +70,14 @@ class ResetPasswordForm(FlaskForm):
             return False
         return True
 
+
 class ResendConfirmationForm(FlaskForm):
-    """ Form for resending of confirmation email"""
+    """Form for resending of confirmation email"""
+
     email = StringField(
         "Email", validators=[DataRequired(), Email(), Length(min=6, max=40)]
     )
-    
+
     def __init__(self, *args, **kwargs):
         """Create instance."""
         super(ResendConfirmationForm, self).__init__(*args, **kwargs)
@@ -86,9 +88,9 @@ class ResendConfirmationForm(FlaskForm):
         initial_validation = super(ResendConfirmationForm, self).validate()
         if not initial_validation:
             return False
-        
+
         self.user = User.query.filter_by(email=self.email.data).first()
         if self.user is None:
-                return False
+            return False
 
         return True

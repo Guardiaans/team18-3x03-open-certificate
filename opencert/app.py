@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 import logging
-from logging.config import dictConfig
 import sys
-from opencert.admin.forms import sendlogs
+from logging.config import dictConfig
 
 # import BackgroundScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -21,6 +20,7 @@ from opencert import (
     user,
     verify,
 )
+from opencert.admin.forms import sendlogs
 from opencert.extensions import (
     bcrypt,
     cache,
@@ -31,7 +31,6 @@ from opencert.extensions import (
     login_manager,
     migrate,
 )
-
 from opencert.user.models import Role
 
 
