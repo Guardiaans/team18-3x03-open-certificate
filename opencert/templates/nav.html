@@ -21,11 +21,15 @@
             <span class="sr-only">(current)</span>
           </a>
         </li>
+        {% if current_user and current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('public.member_home') }}"
+            >Services</a
+          >
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('public.about') }}">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('transfer.transfer') }}">Transfer</a>
         </li>
       </ul>
       {% if current_user and current_user.is_authenticated %}

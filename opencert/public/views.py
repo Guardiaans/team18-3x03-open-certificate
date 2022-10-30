@@ -17,6 +17,7 @@ from flask import (
 )
 from flask_login import current_user, login_required, login_user, logout_user
 
+from opencert.admin.forms import OpencertLogger, sendlogs
 from opencert.email.forms import generate_confirmation_token, send_email
 from opencert.extensions import login_manager
 from opencert.public.forms import ForgetPasswordForm, LoginForm
@@ -51,12 +52,20 @@ def home():
     return render_template("public/home.html", form=form)
 
 
+@blueprint.route("/home", methods=["GET"])
+@login_required
+def member_home():
+    """Members Service page."""
+    return render_template("users/members.html")
+
+
 @blueprint.route("/logout/")
 @login_required
 def logout():
     """Logout."""
     logout_user()
     flash("You are logged out.", "info")
+    sendlogs()
     return redirect(url_for("public.home"))
 
 
@@ -68,15 +77,20 @@ def login():
         return redirect(url_for("public.home"))
     form = LoginForm(request.form)
     if form.validate_on_submit():  # this is where the form is validated
+        if recaptcha() is not True:
+            abort(401)
         user = User.query.filter_by(username=form.username.data).first()
         # log user in
         login_user(user)
+        OpencertLogger()
         flash("You are now logged in!")
-        return redirect(url_for("public.home"))
+        return redirect(url_for("public.member_home"))
     else:
         flash_errors(form)
 
-    return render_template("public/login.html", form=form)
+    return render_template(
+        "public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY")
+    )
 
 
 @blueprint.route("/about/")
@@ -92,10 +106,8 @@ def register():
     form = RegisterForm(request.form)
 
     if form.validate_on_submit():
-        check = recaptcha()
-        if check[0] == False or check[1] < 0.5:
+        if recaptcha() is not True:
             abort(401)
-        print(check)
         User.create(
             username=form.username.data,
             email=form.email.data,
@@ -180,6 +192,8 @@ def forget_password():
     form = ForgetPasswordForm(request.form)
 
     if form.validate_on_submit():
+        if recaptcha() is not True:
+            abort(401)
         email = form.email.data
         token = generate_confirmation_token(email)
         # confirm_url = url_for('email.reset_password', token=token, _external=True)
@@ -191,4 +205,8 @@ def forget_password():
         return redirect(url_for("public.home"))
     else:
         flash_errors(form)
-    return render_template("public/forget_password.html", form=form)
+    return render_template(
+        "public/forget_password.html",
+        form=form,
+        site_key=os.environ.get("RECAPTCHA_SITE_KEY"),
+    )

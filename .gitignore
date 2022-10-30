@@ -68,3 +68,26 @@ pyvenv.cfg
 
 #.idea
 .idea
+# auto generated files
+opencert/static/cache_manifest.json
+
+opencert/static/smartMintFunction.js.gz
+opencert/static/smartMintFunction-*.js
+opencert/static/smartMintFunction-*.js.gz
+
+opencert/static/smartTransferFunction.js.gz
+opencert/static/smartTransferFunction-*.js
+opencert/static/smartTransferFunction-*.js.gz
+
+
+opencert/static/smartVerifyFunction.js.gz
+opencert/static/smartVerifyFunction-*.js
+opencert/static/smartVerifyFunction-*.js.gz
+
+opencert/static/smartDeleteFunction.js.gz
+opencert/static/smartDeleteFunction-*.js
+opencert/static/smartDeleteFunction-*.js.gz
+record.log
+opencert/static/recaptcha-*.js
+opencert/static/recaptcha-*.js.gz
+opencert/static/recaptcha.js.gz

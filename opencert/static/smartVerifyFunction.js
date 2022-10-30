@@ -483,41 +483,43 @@ const ABI = [
 const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
 
 var verifyCert = async () => {
-    // contract.methods.safeMint(account, metadataipfs).send({ from: account});
-    //const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
-    const result = await contract.methods.tokenURI(certId).send({ from: account });
-    console.log(result.status);
-    if (result.status == true) {
+    try {
+        const result = await contract.methods.ownerOf(certId).call({ from: account });
         window.location.href = '/verifysuccess';
-    } else {
+      } catch(err) {
         window.location.href = '/verifyfail';
-    }
+      }
 }
 (async () => {
-    if (window.ethereum) {
-        await window.ethereum.send('eth_requestAccounts');
-        window.web3 = new Web3(window.ethereum);
+    try{
+        if (window.ethereum) {
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            window.web3 = new Web3(window.ethereum);
 
-        var accounts = await web3.eth.getAccounts();
-        account = accounts[0];
+            var accounts = await web3.eth.getAccounts();
+            account = accounts[0];
 
-        contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('verify').onclick = () => {
-        certId = document.getElementById('certId').value;
-            
-            var validate = testValues();
-            if (validate != false){
-                verifyCert();
+            contract = new web3.eth.Contract(ABI, ADDRESS);
+            document.getElementById('verify').onclick = () => {
+            certId = document.getElementById('certId').value;
+                
+                var validate = testValues();
+                if (validate != false){
+                    verifyCert();
+                }
             }
         }
+    } catch (error) {
+        window.location.href = '/verifyfail';
     }
+
 })();
 
 // Validate values for Metamask
 function testValues(){
     var idCheck = null;
     
-    if(isNaN(certId) || certId == ""){
+    if(isNaN(certId) || certId == "" || certId.length <= 0 || certId.length > 4){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{

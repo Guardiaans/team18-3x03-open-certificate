@@ -484,35 +484,50 @@ const ADDRESS = "0x027D2D843645De2DCead1993C147AC74B7583c8d";
 //const ADDRESS = "0x746032b8a9D1f24Aaa221559cb99E65c22202464";
 
 var transferCert = async () => {
-    // contract.methods.safeMint(account, metadataipfs).send({ from: account});
-    const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
+    try{
+        const result = await contract.methods.safeTransferFrom(account, recipient, id).send({ from: account });
 
-    if (result.status == true) {
-        window.location.href = '/transfersuccess';
-    } else {
+        if (result.status == true) {
+            window.location.href = '/transfersuccess';
+        } else {
+            window.location.href = '/transferfail';
+        }
+    } catch (er){
         window.location.href = '/transferfail';
     }
+
 
 }
 
 (async () => {
-    if (window.ethereum) {
-        await window.ethereum.send('eth_requestAccounts');
-        window.web3 = new Web3(window.ethereum);
-
-        var accounts = await web3.eth.getAccounts();
-        account = accounts[0];
-
-        contract = new web3.eth.Contract(ABI, ADDRESS);
-        document.getElementById('commit_transfer').onclick = () => {
-            recipient = document.getElementById('recipient_addr').value;
-            id = document.getElementById('cert_id').value;
-            
-            var validate = testValues();
-            if (validate != false){
-                transferCert();
+    try {
+        if (window.ethereum) {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            window.web3 = new Web3(window.ethereum);
+    
+            var accounts = await web3.eth.getAccounts();
+            account = accounts[0];
+    
+            contract = new web3.eth.Contract(ABI, ADDRESS);
+            document.getElementById('commit_transfer').onclick = () => {
+                recipient = document.getElementById('recipient_addr').value;
+                id = document.getElementById('cert_id').value;
+                
+                var validate = testValues();
+                if (validate != false){
+                    transferCert();
+                    document.getElementById("commit_transfer").disabled = true;
+                    document.getElementById('loading').style.display = "block";
+                    document.getElementById("cert_id").disabled = "true";
+                    document.getElementById("recipient_addr").disabled = "true";
+                }
             }
         }
+    } catch (error){
+        if (error.code === 4001){
+            window.location.href = '/transferfail';
+        }
+
     }
 })();
 
@@ -522,7 +537,7 @@ function testValues(){
     var idCheck = null;
     var rcptCheck = null;
     
-    if(isNaN(id) || id == ""){
+    if(isNaN(id) || id == "" || id.length <= 0 || id.length > 4){
         document.getElementById('id_input_error').style.display = "block";
         idCheck = false;
     }else{
