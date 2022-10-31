@@ -505,3 +505,10 @@ INFO:apscheduler.scheduler:Added job "sendlogs" to job store "default"
 INFO:apscheduler.scheduler:Scheduler started
 DEBUG:apscheduler.scheduler:Looking for jobs to run
 DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-10-30 03:02:33.398645+08:00 (in 3599.998003 seconds)
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "sendlogs" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2022-11-01 03:44:02.288585+08:00 (in 3599.998408 seconds)
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 146-106-543
