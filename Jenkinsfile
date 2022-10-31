@@ -51,7 +51,7 @@ pipeline {
 				script {
 					def scannerHome = tool 'SonarQube';
 					withSonarQubeEnv('SonarQube') {
-					sh "${scannerHome}/bin/sonar-scanner -Dsonar.javascript.node.maxspace=2560 -Dsonar.projectKey=OPENCERT -Dsonar.sources=./opencert"
+					sh "${scannerHome}/bin/sonar-scanner -Dsonar.javascript.node.maxspace=2560 -Dsonar.projectKey=OPENCERT -Dsonar.sources=."
 					}
 				}
 				echo '========== SONARQUBE SCAN SUCCESSFUL =========='
