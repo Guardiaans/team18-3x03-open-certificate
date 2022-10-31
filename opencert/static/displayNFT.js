@@ -4,14 +4,14 @@ try{
     newImg.onload = function() {
         _img.src = this.src;
     }
-    newImg.src = localStorage.getItem("pic2");
+    newImg.src = sessionStorage.getItem("pic2");
 }catch(error){
     window.location.href = '/displayfail';
 }
 
 
 try{
-    var attribute = localStorage.getItem("attribute");
+    var attribute = sessionStorage.getItem("attribute");
 
     var a = JSON.parse(attribute);
     b = a.attributes;

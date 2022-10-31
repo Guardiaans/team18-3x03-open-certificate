@@ -504,8 +504,10 @@ var displayCert = async () => {
             if (request.readyState == 4)
               var bodytext = (request.responseText);
               var picture = JSON.parse(bodytext);
-              localStorage.setItem("pic2", picture.image);
-              localStorage.setItem("attribute", bodytext);
+              sessionStorage.removeItem("pic2");
+              sessionStorage.removeItem("attribute");
+              sessionStorage.setItem("pic2", picture.image);
+              sessionStorage.setItem("attribute", bodytext);
           };
           window.location.href = '/displaysuccess';
     } catch (err){
