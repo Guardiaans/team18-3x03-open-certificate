@@ -33,7 +33,7 @@ from opencert.extensions import (
     migrate,
 )
 from opencert.user.models import Role
-
+from flask_cors import CORS
 
 def create_app(config_object="opencert.settings"):
     """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -97,6 +97,7 @@ def register_extensions(app):
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     flask_static_digest.init_app(app)
+    CORS(app)
     return None
 
 

@@ -4,15 +4,14 @@ try{
     newImg.onload = function() {
         _img.src = this.src;
     }
-    newImg.src = localStorage.getItem("pic2");
+    newImg.src = sessionStorage.getItem("pic2");
 }catch(error){
     window.location.href = '/displayfail';
 }
 
 
 try{
-    var attribute = localStorage.getItem("attribute");
-
+    var attribute = sessionStorage.getItem("attribute");
     var a = JSON.parse(attribute);
     b = a.attributes;
     certNum = b[0].value;
@@ -27,6 +26,8 @@ try{
     document.getElementById("farm").innerHTML = farm;
     document.getElementById("cites").innerHTML = c;
     document.getElementById("doi").innerHTML = d;
+    sessionStorage.removeItem("pic2");
+    sessionStorage.removeItem("attribute");
 }catch(er){
     window.location.href = '/displayfail';
 }
