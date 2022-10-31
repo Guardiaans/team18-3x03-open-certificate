@@ -486,7 +486,6 @@ var pls = null;
 var displayCert = async () => {
     try{
         const result = await contract.methods.tokenURI(certId).call({ from: account });
-
         function makeHttpObject() {
             try {return new XMLHttpRequest();}
             catch (error) {}
@@ -496,31 +495,32 @@ var displayCert = async () => {
             catch (error) {}
             throw new Error("Could not create HTTP request object.");
           }
-          
+
           var request = makeHttpObject();
           request.open("GET", result, true);
           request.send(null);
           request.onreadystatechange = function() {
-            if (request.readyState == 4)
+            if (request.readyState == 4 && request.responseText!=null)
               var bodytext = (request.responseText);
               var picture = JSON.parse(bodytext);
               sessionStorage.removeItem("pic2");
               sessionStorage.removeItem("attribute");
               sessionStorage.setItem("pic2", picture.image);
               sessionStorage.setItem("attribute", bodytext);
+              window.location.href = '/displaysuccess';
           };
-          window.location.href = '/displaysuccess';
+          
     } catch (err){
         window.location.href = '/displayfail';
     }
 
       
-    //if (result.status == true) {
+    // if (result.status == true) {
     //    window.location.href = '/displaysuccess';
     //    console.log(result);
-    //} else {
+    // } else {
     //    window.location.href = '/displayfail';
-    //}
+    // }
 }
 (async () => {
     try{
@@ -537,7 +537,12 @@ var displayCert = async () => {
                 
                 var validate = testValues();
                 if (validate != false){
-                    displayCert();
+                    try{
+                        displayCert();
+                    } catch (e){
+                        window.location.href = '/displayfail';
+                    }
+                    
                 }
             }
         }
