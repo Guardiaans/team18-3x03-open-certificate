@@ -51,23 +51,27 @@ def create_app(config_object="opencert.settings"):
     Mail(app)
 
     with app.app_context():
-        # Insert Admin role into Role table
-        admin_role = Role.query.filter_by(name="admin").first()
-        if admin_role is None:
-            admin_role = Role(name="admin")
-            db.session.add(admin_role)
-            db.session.commit()
-        # Insert Buyer and seller roles into Role table
-        buyer_role = Role.query.filter_by(name="buyer").first()
-        if buyer_role is None:
-            buyer_role = Role(name="buyer")
-            db.session.add(buyer_role)
-            db.session.commit()
-        seller_role = Role.query.filter_by(name="seller").first()
-        if seller_role is None:
-            seller_role = Role(name="seller")
-            db.session.add(seller_role)
-            db.session.commit()
+        # check if Role table is created if not created, pass
+        try:
+            # Insert Admin role into Role table
+            admin_role = Role.query.filter_by(name="admin").first()
+            if admin_role is None:
+                admin_role = Role(name="admin")
+                db.session.add(admin_role)
+                db.session.commit()
+            # Insert Buyer and seller roles into Role table
+            buyer_role = Role.query.filter_by(name="buyer").first()
+            if buyer_role is None:
+                buyer_role = Role(name="buyer")
+                db.session.add(buyer_role)
+                db.session.commit()
+            seller_role = Role.query.filter_by(name="seller").first()
+            if seller_role is None:
+                seller_role = Role(name="seller")
+                db.session.add(seller_role)
+                db.session.commit()
+        except Exception:
+            pass
 
     scheduler = BackgroundScheduler()
     # in your case you could change seconds to hours
