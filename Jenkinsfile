@@ -53,7 +53,7 @@ pipeline {
     stage('OWASP DependencyCheck'){
       steps {
         echo '========== PERFORMING OWASP DEPENDENCY CHECK =========='
-        dependencyCheck additionalArguments: '--format HTML --format XML --disableYarnAudit --exclude ./opencert --disableAssembly', odcInstallation: 'Default'
+        dependencyCheck additionalArguments: '--disableAssembly --format HTML --format XML --disableYarnAudit --exclude ./opencert', odcInstallation: 'Default'
         echo '========== OWASP DEPENDENCY CHECK SUCCESSFUL =========='
       }
     }
