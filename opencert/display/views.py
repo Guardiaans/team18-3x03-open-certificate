@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
+
 from wsgiref.util import request_uri
 
 from flask import (
@@ -30,6 +31,7 @@ def displayfail():
 
 
 @blueprint.route("/displaysuccess", methods=["GET"])
+
 @login_required
 def displaysucces():
     """display succeeded page"""

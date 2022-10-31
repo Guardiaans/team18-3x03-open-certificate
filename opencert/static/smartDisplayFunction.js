@@ -495,7 +495,6 @@ var displayCert = async () => {
             catch (error) {}
             throw new Error("Could not create HTTP request object.");
           }
-
           var request = makeHttpObject();
           request.open("GET", result, true);
           request.send(null);
@@ -509,18 +508,11 @@ var displayCert = async () => {
               sessionStorage.setItem("attribute", bodytext);
               window.location.href = '/displaysuccess';
           };
-          
     } catch (err){
         window.location.href = '/displayfail';
     }
 
       
-    // if (result.status == true) {
-    //    window.location.href = '/displaysuccess';
-    //    console.log(result);
-    // } else {
-    //    window.location.href = '/displayfail';
-    // }
 }
 (async () => {
     try{

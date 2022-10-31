@@ -12,7 +12,6 @@ try{
 
 try{
     var attribute = sessionStorage.getItem("attribute");
-
     var a = JSON.parse(attribute);
     b = a.attributes;
     certNum = b[0].value;
