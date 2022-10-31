@@ -25,38 +25,38 @@ pipeline {
         stage('Build') {
             steps {
                 echo '========== BUILDING OPENCERT =========='
-        sh 'apk update'
-        sh 'apk add build-base'
-        sh 'apk add npm'
-        sh 'pip3 install --no-cache --upgrade pip setuptools'
-        sh 'pip3 install -r ./requirements/prod.txt'
-        sh 'flask db init || true'
-        sh 'flask db migrate'
-        sh 'flask db upgrade'
-        sh 'npm install'
-        sh 'npm run-script build'
-        echo '========== BUILDING SUCCESFUL =========='
-      }
+				sh 'apk update'
+				sh 'apk add build-base'
+				sh 'apk add npm'
+				sh 'pip3 install --no-cache --upgrade pip setuptools'
+				sh 'pip3 install -r ./requirements/prod.txt'
+				sh 'flask db init || true'
+				sh 'flask db migrate'
+				sh 'flask db upgrade'
+				sh 'npm install'
+				sh 'npm run-script build'
+				echo '========== BUILDING SUCCESFUL =========='
+			}	
         }
-    stage('SonarQube Quality Check'){
-      steps {
-        echo '========== PERFORMING SONARQUBE SCAN =========='
-        script {
-          def scannerHome = tool 'SonarQube';
-          withSonarQubeEnv('SonarQube') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.javascript.node.maxspace=2560 -Dsonar.projectKey=OPENCERT -Dsonar.sources=./opencert"
-          }
-        }
-        echo '========== SONARQUBE SCAN SUCCESSFUL =========='
-      }
-    }
-    stage('OWASP DependencyCheck'){
-      steps {
-        echo '========== PERFORMING OWASP DEPENDENCY CHECK =========='
-        dependencyCheck additionalArguments: '--disableAssembly --format HTML --format XML --disableYarnAudit --exclude ./opencert', odcInstallation: 'Default'
-        echo '========== OWASP DEPENDENCY CHECK SUCCESSFUL =========='
-      }
-    }
+		stage('OWASP DependencyCheck'){
+			steps {
+			echo '========== PERFORMING OWASP DEPENDENCY CHECK =========='
+			dependencyCheck additionalArguments: '--disableAssembly --format HTML --format XML --disableYarnAudit --exclude ./opencert', odcInstallation: 'Default'
+			echo '========== OWASP DEPENDENCY CHECK SUCCESSFUL =========='
+			}
+		}
+		stage('SonarQube Quality Check'){
+			steps {
+				echo '========== PERFORMING SONARQUBE SCAN =========='
+				script {
+					def scannerHome = tool 'SonarQube';
+					withSonarQubeEnv('SonarQube') {
+					sh "${scannerHome}/bin/sonar-scanner -Dsonar.javascript.node.maxspace=2560 -Dsonar.projectKey=OPENCERT -Dsonar.sources=./opencert"
+					}
+				}
+				echo '========== SONARQUBE SCAN SUCCESSFUL =========='
+			}
+		}
     }
   post {
     success {
