@@ -8,7 +8,7 @@ from opencert.email.forms import (
     send_email,
 )
 from opencert.user.models import User
-
+from opencert.utils import flash_errors
 blueprint = Blueprint("email", __name__, url_prefix="/email", static_folder="../static")
 
 
@@ -40,12 +40,12 @@ def reset_password(token):
     form = ResetPasswordForm(request.form)
     if request.method == "POST":
         user = User.query.filter_by(email=email).first_or_404()
-        if user and form.validate_on_submit:
+        if user and form.validate_on_submit():
             user.password = form.password.data
             User.update(user)
             flash("You have successfully udpated", "success")
             return redirect(url_for("public.home"))
-
+    flash_errors(form)
     return render_template("email/reset_password.html", form=form)
 
 

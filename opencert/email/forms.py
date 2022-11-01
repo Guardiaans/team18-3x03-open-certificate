@@ -9,7 +9,7 @@ from flask_mail import Message
 from flask_wtf import FlaskForm
 from itsdangerous import URLSafeTimedSerializer
 from wtforms import PasswordField, StringField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Regexp
 
 from opencert import app
 from opencert.user.models import User
@@ -51,11 +51,11 @@ def send_email(to, subject, template):
 class ResetPasswordForm(FlaskForm):
     "Forget password form"
     password = PasswordField(
-        "Password", validators=[DataRequired(), Length(min=6, max=40)]
+        "Password", validators=[DataRequired(),Regexp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$", message="Need 1 upper and lower, 1 special"), Length(min=8, max=40)]
     )
     confirm = PasswordField(
         "Verify password",
-        [DataRequired(), EqualTo("password", message="Passwords must match")],
+        [DataRequired(), EqualTo("password", message="Passwords must match")]
     )
 
     def __init__(self, *args, **kwargs):
