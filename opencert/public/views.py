@@ -196,7 +196,6 @@ def forget_password():
             abort(401)
         email = form.email.data
         token = generate_confirmation_token(email)
-        # confirm_url = url_for('email.reset_password', token=token, _external=True)
         html = render_template("email/link_reset_password.html", token=token)
         subject = "Password Reset"
         send_email(email, subject, html)
