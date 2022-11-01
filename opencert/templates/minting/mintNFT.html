@@ -24,6 +24,7 @@
   <br />
   <p class="lead">Mint Certificate</p>
   <form id="MintingForm2" class="form form-minting3" method="POST" action="">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <h5 class="mt-2">Certificate Metadata CID:</h5>
     <input
       type="text"

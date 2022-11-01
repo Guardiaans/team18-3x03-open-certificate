@@ -7,7 +7,7 @@ from flask import current_app, flash
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired, Length
-
+from flask_login import current_user
 from opencert.user.models import User
 
 logging.basicConfig(filename="record.log", level=logging.DEBUG)
@@ -32,7 +32,7 @@ def sendlogs():
     email_sender = "2020projectconfig@gmail.com"
     email_password = "oqlozkghaqmclnvu"
     email_receiver = "openseatificate@gmail.com"
-    subject = "Logs from website"
+    subject = "Logs from website, logs for " + current_user.email
     body = """
   This are the logs collected.
   """

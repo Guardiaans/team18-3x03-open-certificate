@@ -63,9 +63,9 @@ def member_home():
 @login_required
 def logout():
     """Logout."""
+    sendlogs()
     logout_user()
     flash("You are logged out.", "info")
-    sendlogs()
     return redirect(url_for("public.home"))
 
 
@@ -83,7 +83,7 @@ def login():
         # log user in
         login_user(user)
         OpencertLogger()
-        flash("You are now logged in!")
+        flash("You are now logged in!", "success")
         return redirect(url_for("public.member_home"))
     else:
         if form.errors.items():

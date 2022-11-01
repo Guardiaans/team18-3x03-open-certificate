@@ -10,6 +10,7 @@
         </h1>
         <form>
             <div class="form-group">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <label for="cert_id">Certificate ID</label>
                 <input type="number" class="form-control" id="cert_id" aria-describedby="Certificate ID"
                     placeholder="Please enter the Certificate ID" minlength="1" maxlength="3" required>
