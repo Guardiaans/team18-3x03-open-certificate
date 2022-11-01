@@ -33,9 +33,6 @@ class RegisterForm(FlaskForm):
         "Verify password",
         [DataRequired(), EqualTo("password", message="Passwords must match")],
     )
-    user_type = RadioField(
-        "Role:", default="2", choices=[("2", "Buyer"), ("3", "Seller")]
-    )
 
     def __init__(self, *args, **kwargs):
         """Create instance."""

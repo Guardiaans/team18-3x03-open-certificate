@@ -117,7 +117,7 @@ def register():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             active=True,
-            role_id=request.form.get("user_type"),
+            role_id=2,
         )
         # flash("Thank you for registering. You can now log in.", "success")
         # Log the user in after registering
