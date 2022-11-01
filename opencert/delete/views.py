@@ -2,7 +2,6 @@
 """Public section, including homepage and signup."""
 from flask import Blueprint, render_template
 from flask_login import login_required
-
 blueprint = Blueprint("delete", __name__, static_folder="../static")
 
 
