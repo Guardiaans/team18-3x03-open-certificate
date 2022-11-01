@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """User views."""
+import os
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
@@ -45,4 +46,4 @@ def update():
         else:
             flash_errors(form)
 
-    return render_template("users/updateuser.html", form=form)
+    return render_template("users/updateuser.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))

@@ -61,9 +61,9 @@ def member_home():
 
 @blueprint.route("/logout/")
 @login_required
-def logout():
+async def logout():
     """Logout."""
-    sendlogs()
+    await sendlogs()
     logout_user()
     flash("You are logged out.", "info")
     return redirect(url_for("public.home"))

@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 """admin forms."""
 import logging
-from logging.config import dictConfig
-
-from flask import current_app, flash
-from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from flask import current_app
 from flask_login import current_user
 from opencert.user.models import User
 
@@ -27,7 +22,7 @@ import smtplib
 from email.message import EmailMessage
 
 
-def sendlogs():
+async def sendlogs():
 
     email_sender = "2020projectconfig@gmail.com"
     email_password = "oqlozkghaqmclnvu"
@@ -56,4 +51,3 @@ def sendlogs():
         server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
         server.login(email_sender, email_password)
         server.send_message(msg)
-        print("Email sent")
