@@ -17,7 +17,5 @@ def recaptcha():
     ).json()
 
     if verify_response["success"] == False or verify_response["score"] < 0.5:
-        print(verify_response["success"])
         return False
-    print(verify_response["score"])
     return True

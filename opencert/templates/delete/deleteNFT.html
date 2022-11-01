@@ -8,6 +8,7 @@
   </svg></h2><br/>
 
   <form id="DeleteForm" class="form form-delete" method="POST" action="">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="mb-3">
       <h5 class="mt-2">Certificate ID:</h5>
       <input type="number" class="form-control" id="certId" name="certId" value="" minlength="1" maxlength="3" required>

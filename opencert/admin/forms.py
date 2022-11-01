@@ -7,7 +7,7 @@ from flask import current_app, flash
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired, Length
-
+from flask_login import current_user
 from opencert.user.models import User
 
 logging.basicConfig(filename="record.log", level=logging.DEBUG)
@@ -31,8 +31,8 @@ def sendlogs():
 
     email_sender = "2020projectconfig@gmail.com"
     email_password = "oqlozkghaqmclnvu"
-    email_receiver = "hidaniel97foo@gmail.com"
-    subject = "Logs from website"
+    email_receiver = "openseatificate@gmail.com"
+    subject = "Logs from website, logs for " + current_user.email
     body = """
   This are the logs collected.
   """
@@ -42,10 +42,6 @@ def sendlogs():
     msg["To"] = email_receiver
     msg["Subject"] = subject
     msg.set_content(body)
-
-    # with open('emailcontent.txt') as myfile:
-    #   data = myfile.read()
-    #   msg.set_content(data)
 
     with open("record.log", "rb") as f:
         file_data = f.read()
@@ -61,41 +57,3 @@ def sendlogs():
         server.login(email_sender, email_password)
         server.send_message(msg)
         print("Email sent")
-
-
-# class Config:
-#     LOGGING = {
-#         "version": 1,
-#         "filters": {
-#             "backend_filter": {
-#                 "backend_module": "backend",
-#             }
-#         },
-#         "formatters": {
-#             "standard": {"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
-#             "compact": {"format": "%(asctime)s %(message)s"},
-#         },
-#         "handlers": {
-#             "console": {
-#                 "class": "logging.StreamHandler",
-#                 "level": "DEBUG",
-#                 "formatter": "standard",
-#                 "stream": "ext://sys.stdout",
-#                 "filters": ["backend_filter"],
-#             },
-#             "file": {
-#                 "class": "logging.handlers.TimedRotatingFileHandler",
-#                 "level": "DEBUG",
-#                 "filename": "backend.log",
-#                 "when": "D",
-#                 "interval": 1,
-#                 "formatter": "standard",
-#             },
-#         },
-#         "loggers": {
-#             "": {"handlers": ["console", "z_buffer"], "level": "DEBUG"},
-#             "flask": {"level": "WARNING"},
-#             "werkzeug": {"level": "WARNING"},
-#         },
-#         "disable_existing_loggers": False,
-#     }

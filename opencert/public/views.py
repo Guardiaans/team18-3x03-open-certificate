@@ -63,9 +63,9 @@ def member_home():
 @login_required
 def logout():
     """Logout."""
+    sendlogs()
     logout_user()
     flash("You are logged out.", "info")
-    sendlogs()
     return redirect(url_for("public.home"))
 
 
@@ -83,10 +83,11 @@ def login():
         # log user in
         login_user(user)
         OpencertLogger()
-        flash("You are now logged in!")
+        flash("You are now logged in!", "success")
         return redirect(url_for("public.member_home"))
     else:
-        flash_errors(form)
+        if form.errors.items():
+            flash("Login Failed", "warning")
 
     return render_template(
         "public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY")
@@ -117,7 +118,7 @@ def register():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             active=True,
-            role_id=request.form.get("user_type"),
+            role_id=2,
         )
         # flash("Thank you for registering. You can now log in.", "success")
         # Log the user in after registering
