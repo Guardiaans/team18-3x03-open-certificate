@@ -86,7 +86,8 @@ def login():
         flash("You are now logged in!")
         return redirect(url_for("public.member_home"))
     else:
-        flash_errors(form)
+        if form.errors.items():
+            flash("Login Failed", "warning")
 
     return render_template(
         "public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY")
