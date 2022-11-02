@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
 import os
+import socket
+import datetime as dt
 from io import BytesIO
 
 import pyqrcode
@@ -19,11 +21,11 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 from opencert.admin.forms import OpencertLogger, sendlogs
 from opencert.email.forms import generate_confirmation_token, send_email
-from opencert.extensions import login_manager
+from opencert.extensions import login_manager, db
 from opencert.public.forms import ForgetPasswordForm, LoginForm
 from opencert.recaptcha.forms import recaptcha
 from opencert.user.forms import RegisterForm
-from opencert.user.models import User
+from opencert.user.models import User, LoginAttempt
 from opencert.utils import flash_errors
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
@@ -38,8 +40,12 @@ def load_user(user_id):
 @blueprint.route("/", methods=["GET", "POST"])
 def home():
     """Home page."""
+
+    # Get the client IP address
+    IPAddr = socket.gethostbyname(socket.gethostname())
+    current_app.logger.info("Visiting from IP address: %s", IPAddr)
+
     form = LoginForm(request.form)
-    current_app.logger.info("Hello from the home page!")
     # Handle logging in
     if request.method == "POST":
         if form.validate_on_submit():
@@ -72,11 +78,45 @@ async def logout():
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
     """User login route."""
+    # if user is logged in we get out of here
     if current_user.is_authenticated:
-        # if user is logged in we get out of here
         return redirect(url_for("public.home"))
+
+    time_now = dt.datetime.now()
+    IPAddr = socket.gethostbyname(socket.gethostname())  # Get the client IP address
+    login_user_ip = LoginAttempt.query.filter_by(
+        ip=IPAddr
+    ).first()  # Who is the current user?
+
+    # If first time visitor, create a new record
+    if login_user_ip is None:
+        login_user_ip = LoginAttempt(ip=IPAddr, attempted_at=time_now)
+        db.session.add(login_user_ip)
+        db.session.commit()
+
+    attempt = login_user_ip.login_attempt_count
+    time_since_last_attempt = 0
+
+    current_app.logger.info(
+        f"Login attempt: {attempt} from IP address: {IPAddr}, last attempted at: {login_user_ip.attempted_at}"
+    )
+
+    # Check if the time difference is more than 15 minutes, if more than 15 minutes, reset the login attempt count
+    if login_user_ip.attempted_at is not None:
+        # current_app.logger.info(f"Current time: {time_now}")
+        last_attempt = login_user_ip.attempted_at
+        time_since_last_attempt = time_now - last_attempt
+        # current_app.logger.info(
+        #     f"Time since last attempt: {time_since_last_attempt.seconds} seconds"
+        # )
+
+        if time_since_last_attempt.seconds > 900:
+            login_user_ip.login_attempt_count = 5
+            db.session.commit()
+
+    # this is where the form is validated
     form = LoginForm(request.form)
-    if form.validate_on_submit():  # this is where the form is validated
+    if form.validate_on_submit() and login_user_ip.login_attempt_count > 0:
         if recaptcha() is not True:
             abort(401)
         user = User.query.filter_by(username=form.username.data).first()
@@ -84,11 +124,36 @@ def login():
         login_user(user)
         OpencertLogger()
         flash("You are now logged in!", "success")
+        # reset login attempt
         return redirect(url_for("public.member_home"))
+
     else:
         if form.errors.items():
-            flash("Login Failed", "warning")
-
+            if attempt <= 0:
+                minutes = round(time_since_last_attempt.seconds / 60)
+                flash(
+                    f"You have exceeded the number of login attempts! Please try again in {15 - minutes} minutes.",
+                    "danger",
+                )
+                return redirect(url_for("public.login"))
+            elif attempt == 1:
+                # get client ip address
+                flash(f"You have 1 login attempt remaining from {IPAddr}", "warning")
+                # update login attempt
+                attempt -= 1
+                login_user_ip.login_attempt_count = attempt
+                login_user_ip.attempted_at = time_now
+                db.session.commit()
+            else:
+                flash(
+                    f"Login Failed! You have {attempt} login attempts remaining",
+                    "warning",
+                )
+                # update login attempt
+                attempt -= 1
+                login_user_ip.login_attempt_count = attempt
+                login_user_ip.attempted_at = time_now
+                db.session.commit()
     return render_template(
         "public/login.html", form=form, site_key=os.environ.get("RECAPTCHA_SITE_KEY")
     )

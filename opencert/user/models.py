@@ -28,6 +28,23 @@ class Role(PkModel):
         return f"<Role({self.name})>"
 
 
+class LoginAttempt(PkModel):
+    """Login attempts by user IP address."""
+
+    __tablename__ = "login_attempts"
+    ip = Column(db.String(80), unique=True, nullable=False)
+    login_attempt_count = Column(db.Integer, unique=False, nullable=False, default=5)
+    attempted_at = Column(db.DateTime, nullable=True)
+
+    def __init__(self, ip, **kwargs):
+        """Create instance."""
+        super().__init__(ip=ip, **kwargs)
+
+    def __repr__(self):
+        """Represent instance as a unique string."""
+        return f"<LoginAttempt({self.ip})>"
+
+
 class User(UserMixin, PkModel):
     """A user of the app."""
 
