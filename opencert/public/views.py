@@ -138,7 +138,8 @@ def login():
                 return redirect(url_for("public.login"))
             elif attempt == 1:
                 # get client ip address
-                flash(f"You have 1 login attempt remaining from {IPAddr}", "warning")
+                flash(f"Invalid username, password, token or account unactivated! You have {attempt} login attempt remaining before being locked out.",
+                    "warning")
                 # update login attempt
                 attempt -= 1
                 login_user_ip.login_attempt_count = attempt
@@ -146,7 +147,7 @@ def login():
                 db.session.commit()
             else:
                 flash(
-                    f"Login Failed! You have {attempt} login attempts remaining",
+                    f"Invalid username, password, token or account unactivated! You have {attempt} login attempts remaining.",
                     "warning",
                 )
                 # update login attempt
