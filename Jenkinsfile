@@ -19,6 +19,7 @@ pipeline {
     RECAPTCHA_VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
     
     MAIL_DEFAULT_SENDER = '2020projectconfig@gmail.com'
+	DOCKERHUB_CREDENTIALS=credentials('DOCKER_HUB_CREDS')
   }
 
     stages {
@@ -71,7 +72,7 @@ pipeline {
 		}
 		stage('Login to DockerHub'){
 			steps{
-				sh 'echo $DOCKER_HUB_LOGIN | docker login -u $DOCKER_HUB_LOGIN --password-stdin'
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 		stage('Deploy to DockerHub'){
