@@ -64,6 +64,21 @@ pipeline {
 				echo '========== SONARQUBE SCAN SUCCESSFUL =========='
 			}
 		}
+		stage('Build Docker Image'){
+			steps{
+				sh 'docker-compose build flask-prod'
+			}
+		}
+		stage('Login to DockerHub'){
+			steps{
+				sh 'echo $DOCKER_HUB_LOGIN | docker login -u $DOCKER_HUB_LOGIN --password-stdin'
+			}
+		}
+		stage('Deploy to DockerHub'){
+			steps{
+				sh 'docker push 3x03t18/opencert'
+			}
+		}
     }
   post {
     success {
