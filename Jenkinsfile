@@ -38,6 +38,13 @@ pipeline {
 				echo '========== BUILDING SUCCESFUL =========='
 			}	
         }
+        stage('Automated Testing') {
+            steps {
+                echo '========== TESTING OPENCERT =========='
+                sh 'flask test'
+                echo '========== TESTING COMPLETED =========='
+            }
+        }
 		stage('OWASP DependencyCheck'){
 			steps {
 			echo '========== PERFORMING OWASP DEPENDENCY CHECK =========='
