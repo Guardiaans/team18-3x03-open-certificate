@@ -29,7 +29,7 @@ services:
       target: production
       args:
         <<: *build_args
-    image: "opencert-production"
+    image: "3x03t18/opencert"
     ports:
       - "8080:5000"
     environment:
