@@ -66,7 +66,7 @@ pipeline {
 		}
 		stage('Build Docker Image'){
 			steps{
-				sh 'docker compose build flask-prod'
+				sh 'docker-compose build flask-prod'
 			}
 		}
 		stage('Login to DockerHub'){
