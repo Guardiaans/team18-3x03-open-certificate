@@ -48,6 +48,7 @@ COPY . .
 USER root
 RUN chown -R sid:sid /app/opencert/metadataUploads
 RUN chown -R sid:sid /app/opencert/uploads
+RUN chown -R sid:sid /app/records.log
 USER sid
 
 RUN cp .env.example .env
