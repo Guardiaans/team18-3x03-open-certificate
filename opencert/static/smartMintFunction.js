@@ -479,7 +479,7 @@ const ABI = [
   },
 ];
 
-const ADDRESS = "0x8c7C2CbAD8B88eE44f7E7133D6802A4Cd2b7f8Df";
+const ADDRESS = "0x80BddE815a503EBd38Ad7f930B11Cee054C57C86";
 
 var mintCert = async () => {
   try {
