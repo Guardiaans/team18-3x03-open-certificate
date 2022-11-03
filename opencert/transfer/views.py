@@ -5,6 +5,7 @@ from flask_login import login_required
 
 blueprint = Blueprint("transfer", __name__, static_folder="../static")
 
+
 @blueprint.route("/transfer", methods=["GET", "POST"])
 @login_required
 def transfer():

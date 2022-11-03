@@ -44,14 +44,14 @@ def login():
         return redirect(url_for("user.member_home"))
 
     time_now = dt.datetime.now()
-    IPAddr = socket.gethostbyname(socket.gethostname())  # Get the client IP address
+    ip_add = socket.gethostbyname(socket.gethostname())  # Get the client IP address
     login_user_ip = LoginAttempt.query.filter_by(
-        ip=IPAddr
+        ip=ip_add
     ).first()  # Who is the current user?
 
     # If first time visitor, create a new record
     if login_user_ip is None:
-        login_user_ip = LoginAttempt(ip=IPAddr, attempted_at=time_now)
+        login_user_ip = LoginAttempt(ip=ip_add, attempted_at=time_now)
         db.session.add(login_user_ip)
         db.session.commit()
 
@@ -59,7 +59,7 @@ def login():
     time_since_last_attempt = 0
 
     current_app.logger.info(
-        f"Login attempt: {attempt} from IP address: {IPAddr}, last attempted at: {login_user_ip.attempted_at}"
+        f"Login attempt: {attempt} from IP address: {ip_add}, last attempted at: {login_user_ip.attempted_at}"
     )
 
     # Check if the time difference is more than 15 minutes, if more than 15 minutes, reset the login attempt count
@@ -100,7 +100,8 @@ def login():
             elif attempt == 1:
                 # get client ip address
                 flash(
-                    f"Invalid username, password, token or account unactivated! You have {attempt} login attempt remaining before being locked out.",
+                    f"""Invalid username, password, token or account unactivated! 
+                    You have {attempt} login attempt remaining before being locked out.""",
                     "warning",
                 )
                 # update login attempt
@@ -110,7 +111,8 @@ def login():
                 db.session.commit()
             else:
                 flash(
-                    f"Invalid username, password, token or account unactivated! You have {attempt} login attempts remaining.",
+                    f"""Invalid username, password, token or account unactivated! 
+                    You have {attempt} login attempts remaining.""",
                     "warning",
                 )
                 # update login attempt
@@ -202,8 +204,9 @@ def register():
 
 @blueprint.route("/forget_password", methods=["GET", "POST"])
 def forget_password():
-    form = ForgetPasswordForm(request.form)
+    """Forget password function."""
 
+    form = ForgetPasswordForm(request.form)
     if form.validate_on_submit():
         if recaptcha() is not True:
             abort(401)

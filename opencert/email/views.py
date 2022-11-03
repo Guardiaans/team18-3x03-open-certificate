@@ -1,4 +1,14 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+"""Email views."""
+
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 
 from opencert.email.forms import (
     ResendConfirmationForm,
@@ -15,9 +25,10 @@ blueprint = Blueprint("email", __name__, url_prefix="/email", static_folder="../
 
 @blueprint.route("/confirm/<token>")
 def confirm_email(token):
+    """Confirm email route."""
 
     email = confirm_token(token)
-    if email == False:
+    if email is False:
         flash("The confirmation link is invalid or has expired.", "danger")
         return redirect(url_for("email.unconfirmed"))
 
@@ -34,9 +45,12 @@ def confirm_email(token):
 
 @blueprint.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_password(token):
+    """Reset password route."""
+
     try:
         email = confirm_token(token)
-    except:
+    except Exception as e:
+        current_app.logger.error(e)
         flash("The confirmation link is invalid or has expired.", "danger")
     form = ResetPasswordForm(request.form)
     if request.method == "POST":
@@ -52,12 +66,12 @@ def reset_password(token):
 
 @blueprint.route("/unconfirmed", methods=["GET", "POST"])
 def unconfirmed():
-    """Resend confirmation email page"""
+    """Resend confirmation email page."""
     form = ResendConfirmationForm(request.form)
     if request.method == "POST":
         if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
-            if user.email_confirmed == True:
+            if user.email_confirmed is True:
                 flash(
                     "If your email exists, we will send a confirmation email to you.",
                     "success",

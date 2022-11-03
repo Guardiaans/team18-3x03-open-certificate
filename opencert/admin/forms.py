@@ -2,8 +2,8 @@
 """admin forms."""
 import logging
 import smtplib
-
 from email.message import EmailMessage
+
 from flask import current_app
 from flask_login import current_user
 

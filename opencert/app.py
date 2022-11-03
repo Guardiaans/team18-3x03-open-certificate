@@ -5,7 +5,7 @@ import sys
 
 # import BackgroundScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask, render_template, current_app
+from flask import Flask, current_app, render_template
 from flask_cors import CORS
 from flask_mail import Mail
 

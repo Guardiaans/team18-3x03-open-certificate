@@ -16,11 +16,13 @@ from opencert.user.models import User
 
 
 def generate_confirmation_token(email):
+    """Generate confirmation token."""
     serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY"))
     return serializer.dumps(email, salt=os.environ.get("SECURITY_PASSWORD_SALT"))
 
 
 def confirm_token(token, expiration=180):
+    """Confirm token function."""
     serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY"))
     try:
         email = serializer.loads(
@@ -33,6 +35,7 @@ def confirm_token(token, expiration=180):
 
 
 def send_email(to, subject, template):
+    """Send email function."""
     msg = Message(
         subject,
         recipients=[to],
@@ -49,13 +52,14 @@ def send_email(to, subject, template):
 
 
 class ResetPasswordForm(FlaskForm):
-    "Forget password form"
+    """Forget password form."""
+
     password = PasswordField(
         "Password",
         validators=[
             DataRequired(),
             Regexp(
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
                 message="Need 1 upper and lower, 1 special",
             ),
             Length(min=8, max=40),
@@ -80,7 +84,7 @@ class ResetPasswordForm(FlaskForm):
 
 
 class ResendConfirmationForm(FlaskForm):
-    """Form for resending of confirmation email"""
+    """Form for resending of confirmation email."""
 
     email = StringField(
         "Email", validators=[DataRequired(), Email(), Length(min=6, max=40)]

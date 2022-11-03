@@ -18,6 +18,7 @@ def flash_errors(form, category="warning"):
 # Access level 3 is seller
 def requires_access_level(*access_level):
     """Check if user has access level."""
+
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
