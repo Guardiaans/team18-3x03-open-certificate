@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
-from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField
+from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired, Email, Length
 
 from opencert.user.models import User
@@ -46,7 +45,8 @@ class LoginForm(FlaskForm):
 
 
 class ForgetPasswordForm(FlaskForm):
-    "Forget password form"
+    """Forget password form."""
+
     email = StringField(
         "Email", validators=[DataRequired(), Email(), Length(min=6, max=40)]
     )

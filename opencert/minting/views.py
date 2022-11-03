@@ -4,7 +4,6 @@ import imghdr
 import json
 import os
 import re
-from wsgiref.util import request_uri
 
 import requests
 from flask import Blueprint, abort, redirect, render_template, request, session, url_for
@@ -23,28 +22,17 @@ UPLOAD_METADATA_FOLDER = "./opencert/metadataUploads/"
 # accepted file format
 ACCEPTED_FILE_FORMAT = [".jpg", ".png"]
 
-
-# check file content
-def validate_image(stream):
-    header = stream.read(512)
-    stream.seek(0)
-    format = imghdr.what(None, header)
-    if not format:
-        return None
-    return "." + (format if format != "jpeg" else "jpg")
-
-
-# check file content
-def validate_image(stream):
-    header = stream.read(512)
-    stream.seek(0)
-    format = imghdr.what(None, header)
-    if not format:
-        return None
-    return "." + (format if format != "jpeg" else "jpg")
-
-
 blueprint = Blueprint("minting", __name__, static_folder="../static")
+
+# check file content
+def validate_image(stream):
+    """Validate image."""
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return "." + (format if format != "jpeg" else "jpg")
 
 
 @blueprint.route("/minting", methods=["GET", "POST"])
@@ -121,33 +109,32 @@ def mint2():
         breed = str(request.form.get("breed"))
         generation = str(request.form.get("generation"))
         farm = str(request.form.get("farm"))
-        CITESTag = str(request.form.get("CITESTag"))
+        cites_tag = str(request.form.get("CITESTag"))
         doi = str(request.form.get("DOI"))
 
-        # if len(image_cid) != 0 or len(cert_num) != 0 or len(breed) != 0 or len(generation) != 0 or len(farm) != 0 or len(CITESTag) != 0 or len(doi) != 0 :
-        if len(image_cid) < 46 or len(image_cid) > 46 or image_cid.isalnum() == False:
+        if len(image_cid) < 46 or len(image_cid) > 46 or image_cid.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(cert_num) < 7 or len(cert_num) > 7 or cert_num.isalnum() == False:
+        if len(cert_num) < 7 or len(cert_num) > 7 or cert_num.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(breed) < 6 or len(breed) > 15 or c.match(breed):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(generation) < 5 or len(generation) > 10 or generation.isalnum() == False:
+        if len(generation) < 5 or len(generation) > 10 or generation.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(farm) < 5 or len(farm) > 30 or c.match(farm):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(CITESTag) < 6 or len(CITESTag) > 6 or CITESTag.isalnum() == False:
+        if len(cites_tag) < 6 or len(cites_tag) > 6 or cites_tag.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(doi) < 10 or len(doi) > 10 or m.match(doi):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
 
-        metadataString = (
+        metadata_string = (
             '{"description":"Arowana Certificate","external_url":"","image":"https://gateway.pinata.cloud/ipfs/'
             + image_cid
             + '","name":"Test Patent","attributes":[{"trait_type":"Certificate Number","value":"'
@@ -159,7 +146,7 @@ def mint2():
             + '"},{"trait_type":"Farm","value":"'
             + farm
             + '"},{"trait_type":"CITES Tag Number","value":"'
-            + CITESTag
+            + cites_tag
             + '"},{"trait_type":"Date Of Issue","value":"'
             + doi
             + '"}]}'
@@ -167,7 +154,7 @@ def mint2():
 
         try:
             with open("opencert/metadataUploads/" + image_cid + ".json", "w") as f:
-                f.write(metadataString)
+                f.write(metadata_string)
                 f.close()
         except FileNotFoundError:
             print("The 'docs' directory does not exist")

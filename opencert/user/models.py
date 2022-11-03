@@ -64,17 +64,20 @@ class User(UserMixin, PkModel):
     role = relationship("Role", backref="users")
 
     def __init__(self, **kwargs):
+        """Create instance."""
         super(User, self).__init__(**kwargs)
         if self.otp_secret is None:
             # generate a random secret
             self.otp_secret = base64.b32encode(os.urandom(10)).decode("utf-8")
 
     def get_totp_uri(self):
+        """Get the TOTP URI for the user."""
         return "otpauth://totp/open-cert:{0}?secret={1}&issuer=open-cert".format(
             self.username, self.otp_secret
         )
 
     def verify_totp(self, token):
+        """Verify a TOTP token."""
         return onetimepass.valid_totp(token, self.otp_secret)
 
     @hybrid_property

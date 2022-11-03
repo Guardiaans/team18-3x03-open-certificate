@@ -5,8 +5,6 @@ from functools import wraps
 from flask import flash, redirect, url_for
 from flask_login import current_user
 
-from opencert.user.models import User
-
 
 def flash_errors(form, category="warning"):
     """Flash all errors for a form."""
@@ -19,6 +17,8 @@ def flash_errors(form, category="warning"):
 # Access level 2 is buyer
 # Access level 3 is seller
 def requires_access_level(*access_level):
+    """Check if user has access level."""
+
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
@@ -32,7 +32,7 @@ def requires_access_level(*access_level):
                     flash("You do not have access to this page", "danger")
                     return redirect(
                         url_for(
-                            "public.member_home",
+                            "user.member_home",
                         )
                     )
             return f(*args, **kwargs)

@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
 
-from wsgiref.util import request_uri
-
-from flask import (
-    Blueprint,
-    render_template,
-
-)
-from flask_login import login_required
-from opencert.display.forms import DisplayForm
+from flask import Blueprint, render_template
 from flask_cors import cross_origin
+from flask_login import login_required
 
 blueprint = Blueprint("display", __name__, static_folder="../static")
 
@@ -19,20 +12,19 @@ blueprint = Blueprint("display", __name__, static_folder="../static")
 @cross_origin()
 @login_required
 def display():
-    "display NFT Page"
+    """Display NFT Page."""
     return render_template("display/displayNFT.html")
 
 
 @blueprint.route("/displayfail", methods=["GET"])
 @login_required
 def displayfail():
-    """display failed page"""
+    """Display failed page."""
     return render_template("display/displayfail.html")
 
 
 @blueprint.route("/displaysuccess", methods=["GET"])
-
 @login_required
 def displaysucces():
-    """display succeeded page"""
+    """Display succeeded page."""
     return render_template("display/displaysuccess.html")

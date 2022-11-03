@@ -4,10 +4,10 @@
 import os
 from threading import Thread
 
-from flask import copy_current_request_context
+from flask import copy_current_request_context, current_app
 from flask_mail import Message
 from flask_wtf import FlaskForm
-from itsdangerous import URLSafeTimedSerializer
+from itsdangerous import URLSafeTimedSerializer, exc
 from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Regexp
 
@@ -16,23 +16,28 @@ from opencert.user.models import User
 
 
 def generate_confirmation_token(email):
+    """Generate confirmation token."""
     serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY"))
     return serializer.dumps(email, salt=os.environ.get("SECURITY_PASSWORD_SALT"))
 
 
 def confirm_token(token, expiration=180):
+    """Confirm token function."""
     serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY"))
     try:
+        
         email = serializer.loads(
             token, salt=os.environ.get("SECURITY_PASSWORD_SALT"), max_age=expiration
         )
-    except:
-        return False
+        return email
 
-    return email
+    except exc.SignatureExpired as e:
+        current_app.logger.error(e)
+        return False
 
 
 def send_email(to, subject, template):
+    """Send email function."""
     msg = Message(
         subject,
         recipients=[to],
@@ -49,13 +54,22 @@ def send_email(to, subject, template):
 
 
 class ResetPasswordForm(FlaskForm):
-    "Forget password form"
+    """Forget password form."""
+
     password = PasswordField(
-        "Password", validators=[DataRequired(),Regexp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$", message="Need 1 upper and lower, 1 special"), Length(min=8, max=40)]
+        "Password",
+        validators=[
+            DataRequired(),
+            Regexp(
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
+                message="Need 1 upper and lower, 1 special",
+            ),
+            Length(min=8, max=40),
+        ],
     )
     confirm = PasswordField(
         "Verify password",
-        [DataRequired(), EqualTo("password", message="Passwords must match")]
+        [DataRequired(), EqualTo("password", message="Passwords must match")],
     )
 
     def __init__(self, *args, **kwargs):
@@ -72,7 +86,7 @@ class ResetPasswordForm(FlaskForm):
 
 
 class ResendConfirmationForm(FlaskForm):
-    """Form for resending of confirmation email"""
+    """Form for resending of confirmation email."""
 
     email = StringField(
         "Email", validators=[DataRequired(), Email(), Length(min=6, max=40)]

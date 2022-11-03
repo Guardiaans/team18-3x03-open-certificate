@@ -2,7 +2,7 @@
 """User forms."""
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, RadioField, StringField
+from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, Regexp
 
 from .models import User
@@ -21,19 +21,37 @@ class RegisterForm(FlaskForm):
         "Wallet Address", validators=[DataRequired(), Length(min=6, max=40)]
     )
     first_name = StringField(
-        "First Name", validators=[DataRequired(),Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+        "First Name",
+        validators=[
+            DataRequired(),
+            Regexp(
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="First name should only use alphabetical characters!",
-            ), Length(min=1, max=20)]
+            ),
+            Length(min=1, max=20),
+        ],
     )
     last_name = StringField(
-        "Last Name", validators=[DataRequired(),Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+        "Last Name",
+        validators=[
+            DataRequired(),
+            Regexp(
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="Last name should only use alphabetical characters!",
-            ), Length(min=1, max=20)]
+            ),
+            Length(min=1, max=20),
+        ],
     )
     password = PasswordField(
-        "Password", validators=[DataRequired(),Regexp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$", message="Need 1 upper and lower, 1 special"), Length(min=8, max=40)]
+        "Password",
+        validators=[
+            DataRequired(),
+            Regexp(
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
+                message="Need 1 upper and lower, 1 special",
+            ),
+            Length(min=8, max=40),
+        ],
     )
     confirm = PasswordField(
         "Verify password",
@@ -70,7 +88,7 @@ class UpdateForm(FlaskForm):
         "First Name",
         validators=[
             Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="First name should only use alphabetical characters!",
             ),
             Length(min=1, max=20),
@@ -80,18 +98,33 @@ class UpdateForm(FlaskForm):
         "Last Name",
         validators=[
             Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="Last name should only use alphabetical characters!",
             ),
             Length(min=1, max=20),
         ],
     )
     curr_password = PasswordField(
-        "Current password", validators=[Optional(), Regexp(
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$$", message="Need 1 upper and lower, 1 special"), Length(min=8, max=40)]
+        "Current password",
+        validators=[
+            Optional(),
+            Regexp(
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$$",
+                message="Need 1 upper and lower, 1 special",
+            ),
+            Length(min=8, max=40),
+        ],
     )
     password = PasswordField(
-        "New password", validators=[Optional(),Regexp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$", message="Need 1 upper and lower, 1 special"), Length(min=8, max=40)]
+        "New password",
+        validators=[
+            Optional(),
+            Regexp(
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
+                message="Need 1 upper and lower, 1 special",
+            ),
+            Length(min=8, max=40),
+        ],
     )
     confirm = PasswordField(
         "Verify new password", [EqualTo("password", message="Passwords must match")]

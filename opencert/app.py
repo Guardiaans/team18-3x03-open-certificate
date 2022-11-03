@@ -2,24 +2,25 @@
 """The app module, containing the app factory function."""
 import logging
 import sys
-from logging.config import dictConfig
 
 # import BackgroundScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask, render_template
+from flask import Flask, current_app, render_template
+from flask_cors import CORS
 from flask_mail import Mail
+from sqlalchemy.exc import SQLAlchemyError
 
 from opencert import (
     auth,
     commands,
     delete,
+    display,
     email,
     minting,
     public,
     transfer,
     user,
     verify,
-    display,
 )
 from opencert.admin.forms import sendlogs
 from opencert.extensions import (
@@ -33,7 +34,7 @@ from opencert.extensions import (
     migrate,
 )
 from opencert.user.models import Role
-from flask_cors import CORS
+
 
 def create_app(config_object="opencert.settings"):
     """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -70,8 +71,9 @@ def create_app(config_object="opencert.settings"):
                 seller_role = Role(name="seller")
                 db.session.add(seller_role)
                 db.session.commit()
-        except Exception:
-            pass
+        except SQLAlchemyError as e:
+            current_app.logger.error(e)
+            current_app.logger.error("Error in creating tables")
 
     scheduler = BackgroundScheduler()
     # in your case you could change seconds to hours
@@ -81,8 +83,9 @@ def create_app(config_object="opencert.settings"):
     try:
         # To keep the main thread alive
         return app
-    except:
+    except (KeyboardInterrupt, SystemExit) as e:
         # shutdown if app occurs except
+        current_app.logger.error(e)
         scheduler.shutdown()
     return app
 

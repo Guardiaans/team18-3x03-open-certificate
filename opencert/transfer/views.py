@@ -2,11 +2,9 @@
 """Public section, including homepage and signup."""
 from flask import Blueprint, render_template
 from flask_login import login_required
-from opencert.extensions import login_manager
-from opencert.user.models import User
-from flask_login import login_required
 
 blueprint = Blueprint("transfer", __name__, static_folder="../static")
+
 
 @blueprint.route("/transfer", methods=["GET", "POST"])
 @login_required
