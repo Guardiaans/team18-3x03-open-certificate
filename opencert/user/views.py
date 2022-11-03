@@ -111,7 +111,7 @@ def login():
                 db.session.commit()
             else:
                 flash(
-                    f"""Invalid username, password, token or account unactivated! 
+                    f"""Invalid username, password, token or account unactivated!
                     You have {attempt} login attempts remaining.""",
                     "warning",
                 )

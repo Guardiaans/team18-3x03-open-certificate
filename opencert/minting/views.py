@@ -109,7 +109,7 @@ def mint2():
         breed = str(request.form.get("breed"))
         generation = str(request.form.get("generation"))
         farm = str(request.form.get("farm"))
-        CITESTag = str(request.form.get("CITESTag"))
+        cites_tag = str(request.form.get("CITESTag"))
         doi = str(request.form.get("DOI"))
 
         if len(image_cid) < 46 or len(image_cid) > 46 or image_cid.isalnum() is False:
@@ -127,14 +127,14 @@ def mint2():
         if len(farm) < 5 or len(farm) > 30 or c.match(farm):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(CITESTag) < 6 or len(CITESTag) > 6 or CITESTag.isalnum() is False:
+        if len(cites_tag) < 6 or len(cites_tag) > 6 or cites_tag.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(doi) < 10 or len(doi) > 10 or m.match(doi):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
 
-        metadataString = (
+        metadata_string = (
             '{"description":"Arowana Certificate","external_url":"","image":"https://gateway.pinata.cloud/ipfs/'
             + image_cid
             + '","name":"Test Patent","attributes":[{"trait_type":"Certificate Number","value":"'
@@ -146,7 +146,7 @@ def mint2():
             + '"},{"trait_type":"Farm","value":"'
             + farm
             + '"},{"trait_type":"CITES Tag Number","value":"'
-            + CITESTag
+            + cites_tag
             + '"},{"trait_type":"Date Of Issue","value":"'
             + doi
             + '"}]}'
@@ -154,7 +154,7 @@ def mint2():
 
         try:
             with open("opencert/metadataUploads/" + image_cid + ".json", "w") as f:
-                f.write(metadataString)
+                f.write(metadata_string)
                 f.close()
         except FileNotFoundError:
             print("The 'docs' directory does not exist")

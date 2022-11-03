@@ -25,14 +25,15 @@ def confirm_token(token, expiration=180):
     """Confirm token function."""
     serializer = URLSafeTimedSerializer(os.environ.get("SECRET_KEY"))
     try:
+        
         email = serializer.loads(
             token, salt=os.environ.get("SECURITY_PASSWORD_SALT"), max_age=expiration
         )
+        return email
+
     except exc.SignatureExpired as e:
         current_app.logger.error(e)
         return False
-
-    return email
 
 
 def send_email(to, subject, template):
