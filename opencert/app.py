@@ -2,11 +2,10 @@
 """The app module, containing the app factory function."""
 import logging
 import sys
-from logging.config import dictConfig
 
 # import BackgroundScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask, render_template
+from flask import Flask, render_template, current_app
 from flask_cors import CORS
 from flask_mail import Mail
 
@@ -72,7 +71,7 @@ def create_app(config_object="opencert.settings"):
                 db.session.add(seller_role)
                 db.session.commit()
         except Exception:
-            pass
+            current_app.logger.error("Error in creating roles")
 
     scheduler = BackgroundScheduler()
     # in your case you could change seconds to hours
@@ -82,8 +81,9 @@ def create_app(config_object="opencert.settings"):
     try:
         # To keep the main thread alive
         return app
-    except:
+    except Exception as e:
         # shutdown if app occurs except
+        current_app.logger.error(e)
         scheduler.shutdown()
     return app
 
