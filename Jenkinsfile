@@ -38,7 +38,7 @@ pipeline {
 				sh 'npm install'
 				sh 'npm run-script build'
 				sh 'touch .env'
-				sh 'echo FLASK_APP=\'autoapp.py\' > .env'
+				sh 'echo FLASK_APP=autoapp.py > .env'
 				echo '========== BUILDING SUCCESFUL =========='
 			}	
         }
