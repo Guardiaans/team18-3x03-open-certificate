@@ -37,8 +37,6 @@ pipeline {
 				sh 'flask db upgrade'
 				sh 'npm install'
 				sh 'npm run-script build'
-				sh 'touch .env'
-				sh 'echo FLASK_APP=autoapp.py >> .env'
 				echo '========== BUILDING SUCCESFUL =========='
 			}	
         }

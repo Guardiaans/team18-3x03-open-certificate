@@ -27,7 +27,7 @@ RUN npm run-script build
 FROM python:${INSTALL_PYTHON_VERSION}-slim-buster as production
 
 WORKDIR /app
-
+ENV FLASK_APP $FLASK_APP
 RUN useradd -m sid
 RUN chown -R sid:sid /app
 USER sid
