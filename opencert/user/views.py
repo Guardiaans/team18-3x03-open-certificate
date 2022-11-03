@@ -1,32 +1,30 @@
 # -*- coding: utf-8 -*-
 """User views."""
+import datetime as dt
 import os
 import socket
-import datetime as dt
 
 from flask import (
     Blueprint,
+    abort,
+    current_app,
     flash,
     redirect,
-    current_app,
     render_template,
     request,
-    url_for,
-    abort,
     session,
+    url_for,
 )
-from flask_login import current_user, login_required, login_required, login_user
-from opencert.user.forms import UpdateForm
-from opencert.user.models import User
-from opencert.utils import flash_errors
-from opencert.user.forms import RegisterForm
-from opencert.email.forms import generate_confirmation_token, send_email
-from opencert.public.forms import ForgetPasswordForm, LoginForm
+from flask_login import current_user, login_required, login_user
+
 from opencert.admin.forms import OpencertLogger
+from opencert.email.forms import generate_confirmation_token, send_email
 from opencert.extensions import db
-from opencert.public.forms import ForgetPasswordForm
+from opencert.public.forms import ForgetPasswordForm, LoginForm
 from opencert.recaptcha.forms import recaptcha
-from opencert.user.models import LoginAttempt
+from opencert.user.forms import RegisterForm, UpdateForm
+from opencert.user.models import LoginAttempt, User
+from opencert.utils import flash_errors
 
 blueprint = Blueprint("user", __name__, url_prefix="/users", static_folder="../static")
 

@@ -58,12 +58,8 @@ async def logout():
     flash("You are logged out.", "info")
     return redirect(url_for("public.home"))
 
+
 @blueprint.route("/about/")
 def about():
     """About page."""
     return render_template("public/about.html")
-
-
-
-
-

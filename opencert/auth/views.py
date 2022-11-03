@@ -1,8 +1,9 @@
 """auth views."""
-import pyqrcode
 from io import BytesIO
 
-from flask import Blueprint, render_template, session, redirect, url_for, abort
+import pyqrcode
+from flask import Blueprint, abort, redirect, render_template, session, url_for
+
 from opencert.user.models import User
 
 blueprint = Blueprint("auth", __name__, static_folder="../static")
