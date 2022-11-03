@@ -5,6 +5,7 @@ from functools import wraps
 from flask import flash, redirect, url_for
 from flask_login import current_user
 
+
 def flash_errors(form, category="warning"):
     """Flash all errors for a form."""
     for field, errors in form.errors.items():
@@ -16,6 +17,7 @@ def flash_errors(form, category="warning"):
 # Access level 2 is buyer
 # Access level 3 is seller
 def requires_access_level(*access_level):
+    """Check if user has access level."""
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
