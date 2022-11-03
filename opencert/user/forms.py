@@ -2,7 +2,7 @@
 """User forms."""
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, RadioField, StringField
+from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, Regexp
 
 from .models import User
@@ -25,7 +25,7 @@ class RegisterForm(FlaskForm):
         validators=[
             DataRequired(),
             Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="First name should only use alphabetical characters!",
             ),
             Length(min=1, max=20),
@@ -36,7 +36,7 @@ class RegisterForm(FlaskForm):
         validators=[
             DataRequired(),
             Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="Last name should only use alphabetical characters!",
             ),
             Length(min=1, max=20),
@@ -47,7 +47,7 @@ class RegisterForm(FlaskForm):
         validators=[
             DataRequired(),
             Regexp(
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
                 message="Need 1 upper and lower, 1 special",
             ),
             Length(min=8, max=40),
@@ -109,7 +109,7 @@ class UpdateForm(FlaskForm):
         validators=[
             Optional(),
             Regexp(
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$$",
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$$",
                 message="Need 1 upper and lower, 1 special",
             ),
             Length(min=8, max=40),
@@ -120,7 +120,7 @@ class UpdateForm(FlaskForm):
         validators=[
             Optional(),
             Regexp(
-                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
                 message="Need 1 upper and lower, 1 special",
             ),
             Length(min=8, max=40),
