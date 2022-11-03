@@ -4,10 +4,10 @@
 import os
 from threading import Thread
 
-from flask import copy_current_request_context
+from flask import copy_current_request_context, current_app
 from flask_mail import Message
 from flask_wtf import FlaskForm
-from itsdangerous import URLSafeTimedSerializer
+from itsdangerous import URLSafeTimedSerializer, exc
 from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Regexp
 
@@ -28,7 +28,8 @@ def confirm_token(token, expiration=180):
         email = serializer.loads(
             token, salt=os.environ.get("SECURITY_PASSWORD_SALT"), max_age=expiration
         )
-    except:
+    except exc.SignatureExpired as e:
+        current_app.logger.error(e)
         return False
 
     return email
