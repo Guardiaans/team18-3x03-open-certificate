@@ -40,32 +40,32 @@ pipeline {
 				echo '========== BUILDING SUCCESFUL =========='
 			}	
         }
-        // stage('Automated Testing') {
-        //     steps {
-        //         echo '========== TESTING OPENCERT =========='
-        //         sh 'flask test || true'
-        //         echo '========== TESTING COMPLETED =========='
-        //     }
-        // }
-		// stage('OWASP DependencyCheck'){
-		// 	steps {
-		// 	echo '========== PERFORMING OWASP DEPENDENCY CHECK =========='
-		// 	dependencyCheck additionalArguments: '--noupdate --disableAssembly --format HTML --format XML --disableYarnAudit --exclude ./opencert', odcInstallation: 'Default'
-		// 	echo '========== OWASP DEPENDENCY CHECK SUCCESSFUL =========='
-		// 	}
-		// }
-		// stage('SonarQube Quality Check'){
-		// 	steps {
-		// 		echo '========== PERFORMING SONARQUBE SCAN =========='
-		// 		script {
-		// 			def scannerHome = tool 'SonarQube';
-		// 			withSonarQubeEnv('SonarQube') {
-		// 			sh "${scannerHome}/bin/sonar-scanner -Dsonar.javascript.node.maxspace=2560 -Dsonar.projectKey=OPENCERT -Dsonar.sources=./opencert"
-		// 			}
-		// 		}
-		// 		echo '========== SONARQUBE SCAN SUCCESSFUL =========='
-		// 	}
-		// }
+        stage('Automated Testing') {
+            steps {
+                echo '========== TESTING OPENCERT =========='
+                sh 'flask test || true'
+                echo '========== TESTING COMPLETED =========='
+            }
+        }
+		stage('OWASP DependencyCheck'){
+			steps {
+			echo '========== PERFORMING OWASP DEPENDENCY CHECK =========='
+			dependencyCheck additionalArguments: '--noupdate --disableAssembly --format HTML --format XML --disableYarnAudit --exclude ./opencert', odcInstallation: 'Default'
+			echo '========== OWASP DEPENDENCY CHECK SUCCESSFUL =========='
+			}
+		}
+		stage('SonarQube Quality Check'){
+			steps {
+				echo '========== PERFORMING SONARQUBE SCAN =========='
+				script {
+					def scannerHome = tool 'SonarQube';
+					withSonarQubeEnv('SonarQube') {
+					sh "${scannerHome}/bin/sonar-scanner -Dsonar.javascript.node.maxspace=2560 -Dsonar.projectKey=OPENCERT -Dsonar.sources=./opencert"
+					}
+				}
+				echo '========== SONARQUBE SCAN SUCCESSFUL =========='
+			}
+		}
 		stage('Build Docker Image'){
 			steps{
 				sh 'docker compose build flask-prod --build-arg FLASK_APP=${FLASK_APP} \
