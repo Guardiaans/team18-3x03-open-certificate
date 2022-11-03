@@ -68,7 +68,7 @@ pipeline {
 		// }
 		stage('Build Docker Image'){
 			steps{
-				sh 'docker compose build flask-prod'
+				sh 'docker compose build flask-prod --build-arg FLASK_APP=${FLASK_APP}'
 			}
 		}
 		stage('Login to DockerHub'){
