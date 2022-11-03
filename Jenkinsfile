@@ -68,7 +68,21 @@ pipeline {
 		// }
 		stage('Build Docker Image'){
 			steps{
-				sh 'docker compose build flask-prod --build-arg FLASK_APP=${FLASK_APP}'
+				sh 'docker compose build flask-prod --build-arg FLASK_APP=${FLASK_APP} \
+													--build-arg FLASK_DEBUG=${FLASK_DEBUG} \
+													--build-arg FLASK_ENV=${FLASK_ENV} \
+													--build-arg DATABASE_URL=${DATABASE_URL} \
+													--build-arg GUNICORN_WORKERS=${GUNICORN_WORKERS} \
+													--build-arg LOG_LEVEL=${LOG_LEVEL} \
+													--build-arg SEND_FILE_MAX_AGE_DEFAULT=${SEND_FILE_MAX_AGE_DEFAULT} \
+													--build-arg SECRET_KEY=${SECRET_KEY} \
+													--build-arg SECURITY_PASSWORD_SALT=${SECURITY_PASSWORD_SALT} \
+													--build-arg JWT_KEY=${JWT_KEY} \
+													--build-arg RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY} \
+													--build-arg RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY} \
+													--build-arg RECAPTCHA_VERIFY_URL=${RECAPTCHA_VERIFY_URL} \
+													--build-arg MAIL_DEFAULT_SENDER=${MAIL_DEFAULT_SENDER} \
+													--build-arg MAIL_PASSWORD=${MAIL_PASSWORD}'
 			}
 		}
 		stage('Login to DockerHub'){
