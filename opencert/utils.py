@@ -29,7 +29,7 @@ def requires_access_level(*access_level):
                     flash("You do not have access to this page", "danger")
                     return redirect(
                         url_for(
-                            "public.member_home",
+                            "user.member_home",
                         )
                     )
             return f(*args, **kwargs)

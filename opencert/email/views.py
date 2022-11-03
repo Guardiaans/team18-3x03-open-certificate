@@ -24,12 +24,12 @@ def confirm_email(token):
     user = User.query.filter_by(email=email).first_or_404()
     if user.email_confirmed:
         flash("Account already confirmed. Please login.", "success")
-        return redirect(url_for("public.login"))
+        return redirect(url_for("user.login"))
     else:
         user.email_confirmed = True
         User.update(user)
         flash("You have confirmed your account. Thanks!", "success")
-    return redirect(url_for("public.login"))
+    return redirect(url_for("user.login"))
 
 
 @blueprint.route("/reset_password/<token>", methods=["GET", "POST"])
@@ -62,7 +62,7 @@ def unconfirmed():
                     "If your email exists, we will send a confirmation email to you.",
                     "success",
                 )
-                return redirect(url_for("public.login"))
+                return redirect(url_for("user.login"))
             else:
                 token = generate_confirmation_token(form.email.data)
                 confirm_url = url_for(
@@ -75,11 +75,11 @@ def unconfirmed():
                     "If your email exists, we will send a confirmation email to you.",
                     "success",
                 )
-                return redirect(url_for("public.login"))
+                return redirect(url_for("user.login"))
         else:
             flash(
                 "If your email exists, we will send a confirmation email to you.",
                 "success",
             )
-            return redirect(url_for("public.login"))
+            return redirect(url_for("user.login"))
     return render_template("email/unconfirmed.html", form=form)

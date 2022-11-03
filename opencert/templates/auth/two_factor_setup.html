@@ -10,8 +10,8 @@
       <p class="card-text">
         Please scan the following QR Code with your google authenticator app:
       </p>
-      <p><img id="qrcode" src="{{ url_for('public.qrcode') }}" /></p>
-      <a href="{{ url_for('public.login') }}" class="btn btn-primary"
+      <p><img id="qrcode" src="{{ url_for('auth.qrcode') }}" /></p>
+      <a href="{{ url_for('user.login') }}" class="btn btn-primary"
         >Login here</a
       >
     </div>

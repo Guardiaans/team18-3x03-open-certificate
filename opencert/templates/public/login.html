@@ -25,7 +25,7 @@
     </div>
     <button id="btn" class="g-recaptcha btn btn-primary" data-sitekey="{{ site_key }}" type="submit" data-callback='onSubmit' data-action='submit'>Login</button>
   </form>
-  <p><em>Forgot your password? Click </em><a href="{{ url_for('public.forget_password') }}">here</a>.</p>
+  <p><em>Forgot your password? Click </em><a href="{{ url_for('user.forget_password') }}">here</a>.</p>
   <p><em>Account not activated? Check your junk or spam folders or Click</em> <a href="{{ url_for('email.unconfirmed') }}">here</a>.</p>
 </div>
 
