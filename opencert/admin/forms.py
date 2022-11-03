@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """admin forms."""
 import logging
+
 from flask import current_app
 from flask_login import current_user
+
 from opencert.user.models import User
 
 logging.basicConfig(filename="record.log", level=logging.DEBUG)

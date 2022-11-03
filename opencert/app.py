@@ -7,19 +7,20 @@ from logging.config import dictConfig
 # import BackgroundScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
+from flask_cors import CORS
 from flask_mail import Mail
 
 from opencert import (
     auth,
     commands,
     delete,
+    display,
     email,
     minting,
     public,
     transfer,
     user,
     verify,
-    display,
 )
 from opencert.admin.forms import sendlogs
 from opencert.extensions import (
@@ -33,7 +34,7 @@ from opencert.extensions import (
     migrate,
 )
 from opencert.user.models import Role
-from flask_cors import CORS
+
 
 def create_app(config_object="opencert.settings"):
     """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.

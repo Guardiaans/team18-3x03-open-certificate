@@ -9,6 +9,7 @@ from opencert.email.forms import (
 )
 from opencert.user.models import User
 from opencert.utils import flash_errors
+
 blueprint = Blueprint("email", __name__, url_prefix="/email", static_folder="../static")
 
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
+import datetime as dt
 import os
 import socket
-import datetime as dt
 from io import BytesIO
 
 import pyqrcode
@@ -21,11 +21,11 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 from opencert.admin.forms import OpencertLogger, sendlogs
 from opencert.email.forms import generate_confirmation_token, send_email
-from opencert.extensions import login_manager, db
+from opencert.extensions import db, login_manager
 from opencert.public.forms import ForgetPasswordForm, LoginForm
 from opencert.recaptcha.forms import recaptcha
 from opencert.user.forms import RegisterForm
-from opencert.user.models import User, LoginAttempt
+from opencert.user.models import LoginAttempt, User
 from opencert.utils import flash_errors
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
@@ -138,8 +138,10 @@ def login():
                 return redirect(url_for("public.login"))
             elif attempt == 1:
                 # get client ip address
-                flash(f"Invalid username, password, token or account unactivated! You have {attempt} login attempt remaining before being locked out.",
-                    "warning")
+                flash(
+                    f"Invalid username, password, token or account unactivated! You have {attempt} login attempt remaining before being locked out.",
+                    "warning",
+                )
                 # update login attempt
                 attempt -= 1
                 login_user_ip.login_attempt_count = attempt

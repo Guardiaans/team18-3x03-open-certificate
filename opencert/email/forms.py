@@ -51,11 +51,19 @@ def send_email(to, subject, template):
 class ResetPasswordForm(FlaskForm):
     "Forget password form"
     password = PasswordField(
-        "Password", validators=[DataRequired(),Regexp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$", message="Need 1 upper and lower, 1 special"), Length(min=8, max=40)]
+        "Password",
+        validators=[
+            DataRequired(),
+            Regexp(
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$",
+                message="Need 1 upper and lower, 1 special",
+            ),
+            Length(min=8, max=40),
+        ],
     )
     confirm = PasswordField(
         "Verify password",
-        [DataRequired(), EqualTo("password", message="Passwords must match")]
+        [DataRequired(), EqualTo("password", message="Passwords must match")],
     )
 
     def __init__(self, *args, **kwargs):

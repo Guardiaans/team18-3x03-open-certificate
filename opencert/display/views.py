@@ -3,14 +3,11 @@
 
 from wsgiref.util import request_uri
 
-from flask import (
-    Blueprint,
-    render_template,
-
-)
-from flask_login import login_required
-from opencert.display.forms import DisplayForm
+from flask import Blueprint, render_template
 from flask_cors import cross_origin
+from flask_login import login_required
+
+from opencert.display.forms import DisplayForm
 
 blueprint = Blueprint("display", __name__, static_folder="../static")
 
@@ -31,7 +28,6 @@ def displayfail():
 
 
 @blueprint.route("/displaysuccess", methods=["GET"])
-
 @login_required
 def displaysucces():
     """display succeeded page"""
