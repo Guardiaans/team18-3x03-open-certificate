@@ -33,8 +33,8 @@ def home():
     """Home page."""
 
     # Get the client IP address
-    IPAddr = socket.gethostbyname(socket.gethostname())
-    current_app.logger.info("Visiting from IP address: %s", IPAddr)
+    ip_addr = socket.gethostbyname(socket.gethostname())
+    current_app.logger.info("Visiting from IP address: %s", ip_addr)
 
     form = LoginForm(request.form)
     # Handle logging in

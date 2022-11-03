@@ -100,7 +100,7 @@ def login():
             elif attempt == 1:
                 # get client ip address
                 flash(
-                    f"""Invalid username, password, token or account unactivated! 
+                    f"""Invalid username, password, token or account unactivated!
                     You have {attempt} login attempt remaining before being locked out.""",
                     "warning",
                 )

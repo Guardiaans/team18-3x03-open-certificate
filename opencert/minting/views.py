@@ -112,23 +112,22 @@ def mint2():
         CITESTag = str(request.form.get("CITESTag"))
         doi = str(request.form.get("DOI"))
 
-        # if len(image_cid) != 0 or len(cert_num) != 0 or len(breed) != 0 or len(generation) != 0 or len(farm) != 0 or len(CITESTag) != 0 or len(doi) != 0 :
-        if len(image_cid) < 46 or len(image_cid) > 46 or image_cid.isalnum() == False:
+        if len(image_cid) < 46 or len(image_cid) > 46 or image_cid.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(cert_num) < 7 or len(cert_num) > 7 or cert_num.isalnum() == False:
+        if len(cert_num) < 7 or len(cert_num) > 7 or cert_num.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(breed) < 6 or len(breed) > 15 or c.match(breed):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(generation) < 5 or len(generation) > 10 or generation.isalnum() == False:
+        if len(generation) < 5 or len(generation) > 10 or generation.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(farm) < 5 or len(farm) > 30 or c.match(farm):
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
-        if len(CITESTag) < 6 or len(CITESTag) > 6 or CITESTag.isalnum() == False:
+        if len(CITESTag) < 6 or len(CITESTag) > 6 or CITESTag.isalnum() is False:
             cid = session.get("cid")
             return render_template("minting/mintingMetadataUpload.html", cid=cid)
         if len(doi) < 10 or len(doi) > 10 or m.match(doi):

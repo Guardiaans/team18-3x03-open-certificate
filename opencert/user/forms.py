@@ -88,7 +88,7 @@ class UpdateForm(FlaskForm):
         "First Name",
         validators=[
             Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="First name should only use alphabetical characters!",
             ),
             Length(min=1, max=20),
@@ -98,7 +98,7 @@ class UpdateForm(FlaskForm):
         "Last Name",
         validators=[
             Regexp(
-                "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
+                r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$",
                 message="Last name should only use alphabetical characters!",
             ),
             Length(min=1, max=20),

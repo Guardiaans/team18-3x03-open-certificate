@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-"""The email module"""
+"""The email module."""
 from . import views  # noqa

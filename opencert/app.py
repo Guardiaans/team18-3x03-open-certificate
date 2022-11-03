@@ -8,6 +8,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, current_app, render_template
 from flask_cors import CORS
 from flask_mail import Mail
+from sqlalchemy.exc import SQLAlchemyError
 
 from opencert import (
     auth,
@@ -70,8 +71,9 @@ def create_app(config_object="opencert.settings"):
                 seller_role = Role(name="seller")
                 db.session.add(seller_role)
                 db.session.commit()
-        except Exception:
-            current_app.logger.error("Error in creating roles")
+        except SQLAlchemyError as e:
+            current_app.logger.error(e)
+            current_app.logger.error("Error in creating tables")
 
     scheduler = BackgroundScheduler()
     # in your case you could change seconds to hours
@@ -81,7 +83,7 @@ def create_app(config_object="opencert.settings"):
     try:
         # To keep the main thread alive
         return app
-    except Exception as e:
+    except (KeyboardInterrupt, SystemExit) as e:
         # shutdown if app occurs except
         current_app.logger.error(e)
         scheduler.shutdown()
