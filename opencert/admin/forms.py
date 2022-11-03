@@ -2,6 +2,7 @@
 """admin forms."""
 import logging
 import smtplib
+import os
 from email.message import EmailMessage
 
 from flask import current_app
@@ -23,9 +24,9 @@ def opencert_logger():
 
 async def sendlogs():
     """Send logs to admin email."""
-    email_sender = "2020projectconfig@gmail.com"
-    email_password = "oqlozkghaqmclnvu"
-    email_receiver = "openseatificate@gmail.com"
+    email_sender = os.environ.get('MAIL_DEFAULT_SENDER')
+    email_password = os.environ.get('MAIL_PASSWORD')
+    email_receiver = os.environ.get('MAIL_DEFAULT_SENDER')
     subject = "Logs from website, logs for " + current_user.email
     body = """
   This are the logs collected.

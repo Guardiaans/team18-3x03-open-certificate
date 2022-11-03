@@ -21,7 +21,6 @@ RUN npm install
 COPY webpack.config.js autoapp.py ./
 COPY opencert opencert
 COPY assets assets
-COPY .env.example .env
 RUN npm run-script build
 
 # ================================= PRODUCTION =================================
@@ -50,7 +49,7 @@ RUN chown -R sid:sid /app/opencert/metadataUploads
 RUN chown -R sid:sid /app/opencert/uploads
 USER sid
 
-RUN cp .env.example .env
+
 RUN flask db init
 RUN flask db migrate
 RUN flask db upgrade

@@ -1,26 +1,27 @@
 pipeline {
     agent any
   
-  environment{
-    FLASK_APP='autoapp.py'
-    FLASK_DEBUG=1
-    FLASK_ENV='development'
-    DATABASE_URL='sqlite:///dev.db'
-    GUNICORN_WORKERS=1
-    LOG_LEVEL='debug'
-    SEND_FILE_MAX_AGE_DEFAULT=0
-    
-    SECRET_KEY = credentials('SECRET_KEY')
-    SECURITY_PASSWORD_SALT = ('SECURITY_PASSWORD_SALT')
-      JWT_KEY = credentials('JWT_KEY')
-    
-    RECAPTCHA_SITE_KEY = credentials('RECAPTCHA_SITE_KEY')
-    RECAPTCHA_SECRET_KEY = credentials('RECAPTCHA_SECRET_KEY')
-    RECAPTCHA_VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
-    
-    MAIL_DEFAULT_SENDER = '2020projectconfig@gmail.com'
-	DOCKERHUB_CREDENTIALS=credentials('DOCKER_HUB_CREDS')
-  }
+	environment{
+		FLASK_APP='autoapp.py'
+		FLASK_DEBUG=1
+		FLASK_ENV='development'
+		DATABASE_URL='sqlite:///dev.db'
+		GUNICORN_WORKERS=1
+		LOG_LEVEL='debug'
+		SEND_FILE_MAX_AGE_DEFAULT=0
+
+		SECRET_KEY = credentials('SECRET_KEY')
+		SECURITY_PASSWORD_SALT = credentials('SECURITY_PASSWORD_SALT')
+		JWT_KEY = credentials('JWT_KEY')
+
+		RECAPTCHA_SITE_KEY = credentials('RECAPTCHA_SITE_KEY')
+		RECAPTCHA_SECRET_KEY = credentials('RECAPTCHA_SECRET_KEY')
+		RECAPTCHA_VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
+
+		MAIL_DEFAULT_SENDER = credentials('MAIL_DEFAULT_SENDER')
+		MAIL_PASSWORD = credentials('MAIL_PASSWORD')
+		DOCKERHUB_CREDENTIALS=credentials('DOCKER_HUB_CREDS')
+	}
 
     stages {
         stage('Build') {
