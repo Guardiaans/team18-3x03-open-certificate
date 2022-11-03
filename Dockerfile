@@ -5,6 +5,8 @@ ARG INSTALL_NODE_VERSION=${INSTALL_NODE_VERSION:-NODE_VERSION_NOT_SET}
 FROM node:${INSTALL_NODE_VERSION}-buster-slim AS node
 FROM python:${INSTALL_PYTHON_VERSION}-slim-buster AS builder
 
+ENV FLASK_APP $FLASK_APP
+
 WORKDIR /app
 
 COPY --from=node /usr/local/bin/ /usr/local/bin/
@@ -27,7 +29,6 @@ RUN npm run-script build
 FROM python:${INSTALL_PYTHON_VERSION}-slim-buster as production
 
 WORKDIR /app
-ENV FLASK_APP $FLASK_APP
 RUN useradd -m sid
 RUN chown -R sid:sid /app
 USER sid
