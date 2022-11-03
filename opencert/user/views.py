@@ -17,7 +17,7 @@ from flask import (
 )
 from flask_login import current_user, login_required, login_user
 
-from opencert.admin.forms import OpencertLogger
+from opencert.admin.forms import opencert_logger
 from opencert.email.forms import generate_confirmation_token, send_email
 from opencert.extensions import db
 from opencert.public.forms import ForgetPasswordForm, LoginForm
@@ -83,7 +83,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         # log user in
         login_user(user)
-        OpencertLogger()
+        opencert_logger()
         flash("You are now logged in!", "success")
         # reset login attempt
         return redirect(url_for("user.member_home"))

@@ -30,6 +30,7 @@ def two_factor_setup():
 
 @blueprint.route("/qrcode")
 def qrcode():
+    """Generate QR code for 2FA google auth."""
     if "username" not in session:
         abort(404)
     user = User.query.filter_by(username=session["username"]).first()

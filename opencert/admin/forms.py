@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 """admin forms."""
 import logging
+import smtplib
 
+from email.message import EmailMessage
 from flask import current_app
 from flask_login import current_user
-
-from opencert.user.models import User
 
 logging.basicConfig(filename="record.log", level=logging.DEBUG)
 
 
-def OpencertLogger():
+def opencert_logger():
+    """Create a logger for the opencert app."""
     # showing different logging levels
     current_app.logger.debug("debug log info")
     current_app.logger.info("Info log information")
@@ -20,12 +21,8 @@ def OpencertLogger():
     return "testing logging levels."
 
 
-import smtplib
-from email.message import EmailMessage
-
-
 async def sendlogs():
-
+    """Send logs to admin email."""
     email_sender = "2020projectconfig@gmail.com"
     email_password = "oqlozkghaqmclnvu"
     email_receiver = "openseatificate@gmail.com"

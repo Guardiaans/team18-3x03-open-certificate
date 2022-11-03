@@ -4,7 +4,6 @@ import imghdr
 import json
 import os
 import re
-from wsgiref.util import request_uri
 
 import requests
 from flask import Blueprint, abort, redirect, render_template, request, session, url_for
@@ -23,28 +22,17 @@ UPLOAD_METADATA_FOLDER = "./opencert/metadataUploads/"
 # accepted file format
 ACCEPTED_FILE_FORMAT = [".jpg", ".png"]
 
-
-# check file content
-def validate_image(stream):
-    header = stream.read(512)
-    stream.seek(0)
-    format = imghdr.what(None, header)
-    if not format:
-        return None
-    return "." + (format if format != "jpeg" else "jpg")
-
-
-# check file content
-def validate_image(stream):
-    header = stream.read(512)
-    stream.seek(0)
-    format = imghdr.what(None, header)
-    if not format:
-        return None
-    return "." + (format if format != "jpeg" else "jpg")
-
-
 blueprint = Blueprint("minting", __name__, static_folder="../static")
+
+# check file content
+def validate_image(stream):
+    """Validate image."""
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return "." + (format if format != "jpeg" else "jpg")
 
 
 @blueprint.route("/minting", methods=["GET", "POST"])
