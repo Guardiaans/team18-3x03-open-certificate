@@ -38,7 +38,9 @@
         class="list-group-item list-group-item-action bg-success text-white"
         ><h5>Click Here! To Mint another Certificate!</h5></a
       >
-      <a href="home" class="list-group-item list-group-item-action"
+      <a
+        href="{{ url_for('user.member_home') }}"
+        class="list-group-item list-group-item-action"
         ><h5>Click Here! To return to home!</h5></a
       >
     </div>
