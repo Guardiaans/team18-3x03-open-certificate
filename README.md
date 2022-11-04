@@ -1,5 +1,5 @@
+![Arowana Open Cert Banner](/demo_asset/arowana-fish.png)
 # Overview
-
 ## **About** 🐟
 
 **Welcome to Arowana Certification Platform by Team 18**
