@@ -1,4 +1,4 @@
-![Arowana Open Cert Banner](/demo_asset/arowana-fish.png)
+![Arowana Open Cert Banner](/demo_asset/arowana-fish-md.png)
 # Overview
 ## **About** 🐟
 
