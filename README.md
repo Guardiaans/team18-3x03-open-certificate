@@ -1,173 +1,50 @@
-# opencert
+# Overview
 
-arawana certs
+## **About** 🐟
 
-## Docker Quickstart
+**Welcome to Arowana Certification Platform by Team 18**
 
-This app can be run completely using `Docker` and `docker-compose`. **Using Docker is recommended, as it guarantees the application is run using compatible versions of Python and Node**.
+The **Asian Arowana** is one of the most expensive fish in the fishkeeping hobby. With prices ranging from a couple of hundreds to tens of thousands of dollars. Traditionally, upon purchasing an Asian Arowana fish, a certificate is given to indicate the breed and authenticity of its origins by a renowned farm. 
 
-There are three main services:
+The certificate is tied to a microchip that is tagged within Arowana's body. The issue arises when the said certificate is either lost or damaged; this brings the authenticity of the Arowana into question. 
 
-To run the development version of the app
+The certificate takes large precedence in importance due to various factors it has an effect on. These include the cost of the Arowana (certificate-less Arowana tend to cost a lot lesser as compared to certified Arowana); the efficiency of transactions between hobbyists (certificate helps hobbyists verify if the fish that they are getting are actually authentic); importation and exportation of Arowana due to regulations and restrictions of countries (certifications aids with the process of importation and exportation, due to certain countries allowing only a specific species of Arowana to be imported/ exported); efficient verification of the legitimacy of the Arowana, comparing between “pure” and high-quality Arowana from legitimate farms to the illegitimate Arowana that were being sold on the open market.
 
-```bash
-docker-compose up flask-dev
-```
+Arowana Open Cert aim to solve such issue by utilising blockchain technology through the medium Web3 and smart contracts (standard ERC 721), which eliminates the need for traditional paper certificates. 
 
-To run the production version of the app
+This way, hobbyists would have peace of mind when purchasing and or selling, importing/ exporting, and breeding Asian Arowana fish as they are able to verify and authenticate what they are getting through the use of the digital certificate present on the blockchain. 
 
-```bash
-docker-compose up flask-prod
-```
+In addition, this helps eliminate the fear and hassle of losing their certificate, as it can always be easily retrieved through the blockchain. This can also help mitigate problems such as illegal smuggling and fraud in the industry.
 
-The list of `environment:` variables in the `docker-compose.yml` file takes precedence over any variables specified in `.env`.
+___
 
-To run any commands using the `Flask CLI`
+## **Instructions** 📖
+### **Setup** 🖥️
+1. ### Developer Project Setup
 
-```bash
-docker-compose run --rm manage <<COMMAND>>
-```
+    - To setup the project for developement, refer [**here**](/opencert/README.md) for setting up project development and deployment. 
 
-Therefore, to initialize a database you would run
+2. ### Web application prerequisites
 
-```bash
-docker-compose run --rm manage db init
-docker-compose run --rm manage db migrate
-docker-compose run --rm manage db upgrade
-```
+   - Have Metamask extension installed on your respective browser
+   - A crypto wallet with metamask connected on Goerli Test Network
+   - Few ETH Goerli (Optional)
 
-A docker volume `node-modules` is created to store NPM packages and is reused across the dev and prod versions of the application. For the purposes of DB testing with `sqlite`, the file `dev.db` is mounted to all containers. This volume mount should be removed from `docker-compose.yml` if a production DB server is used.
+### **Web functions** 🕸️
 
-Go to `http://localhost:8080`. You will see a pretty welcome screen.
+There are 4 features the normal users will be able to use on our web application and 1 additional function used by the company adminstrator created by web admin, they are as follows:
 
-## Running locally
+**Normal User:**
+1. Display minted certificate with information such as the breed of fish, registration number etcetra.
+2. Verify minted certificate to determine the authencity of the certificate and determine who it belongs to
+3. Transfer minted certificate, transfering ownership of the minted certificate to another user.
+4. Detele/burn the minted certificate, only certificate user are able to burn are certificates belongin to themselves.
+ 
+**Company User:**
 
-Run the following commands to bootstrap your environment if you are unable to run the application using Docker
+1. Minting Arowana certificate using ETH for a purchase of genuine Arowana.
 
-```bash
-cd opencert
-pip install -r requirements/dev.txt
-npm install
-npm run-script build
-npm start  # run the webpack dev server and flask server using concurrently
-```
-
-Go to `http://localhost:5000`. You will see a pretty welcome screen.
-
-#### Database Initialization (locally)
-
-Once you have installed your DBMS, run the following to create your app's
-database tables and perform the initial migration
-
-```bash
-flask db init
-flask db migrate
-flask db upgrade
-```
-
-## Deployment
-
-When using Docker, reasonable production defaults are set in `docker-compose.yml`
-
-```text
-FLASK_ENV=production
-FLASK_DEBUG=0
-```
-
-Therefore, starting the app in "production" mode is as simple as
-
-```bash
-docker-compose up flask-prod
-```
-
-If running without Docker
-
-```bash
-export FLASK_ENV=production
-export FLASK_DEBUG=0
-export DATABASE_URL="<YOUR DATABASE URL>"
-npm run build   # build assets with webpack
-flask run       # start the flask server
-```
-
-## Shell
-
-To open the interactive shell, run
-
-```bash
-docker-compose run --rm manage db shell
-flask shell # If running locally without Docker
-```
-
-By default, you will have access to the flask `app`.
-
-## Running Tests/Linter
-
-To run all tests, run
-
-```bash
-docker-compose run --rm manage test
-flask test # If running locally without Docker
-```
-
-To run the linter, run
-
-```bash
-docker-compose run --rm manage lint
-flask lint # If running locally without Docker
-```
-
-The `lint` command will attempt to fix any linting/style errors in the code. If you only want to know if the code will pass CI and do not wish for the linter to make changes, add the `--check` argument.
-
-## Migrations
-
-Whenever a database migration needs to be made. Run the following commands
-
-```bash
-docker-compose run --rm manage db migrate
-flask db migrate # If running locally without Docker
-```
-
-This will generate a new migration script. Then run
-
-```bash
-docker-compose run --rm manage db upgrade
-flask db upgrade # If running locally without Docker
-```
-
-To apply the migration.
-
-For a full migration command reference, run `docker-compose run --rm manage db --help`.
-
-If you will deploy your application remotely (e.g on Heroku) you should add the `migrations` folder to version control.
-You can do this after `flask db migrate` by running the following commands
-
-```bash
-git add migrations/*
-git commit -m "Add migrations"
-```
-
-Make sure folder `migrations/versions` is not empty.
-
-## Asset Management
-
-Files placed inside the `assets` directory and its subdirectories
-(excluding `js` and `css`) will be copied by webpack's
-`file-loader` into the `static/build` directory. In production, the plugin
-`Flask-Static-Digest` zips the webpack content and tags them with a MD5 hash.
-As a result, you must use the `static_url_for` function when including static content,
-as it resolves the correct file name, including the MD5 hash.
-For example
-
-```html
-<link rel="shortcut icon" href="{{static_url_for('static', filename='build/favicon.ico') }}">
-```
-
-If all of your static files are managed this way, then their filenames will change whenever their
-contents do, and you can ask Flask to tell web browsers that they
-should cache all your assets forever by including the following line
-in ``.env``:
-
-```text
-SEND_FILE_MAX_AGE_DEFAULT=31556926  # one year
-```
+To be able to utilise these functions, please satisfy the prerequisites installtion.
+___
+## **Demonstration**
+### **Display Certificate**
