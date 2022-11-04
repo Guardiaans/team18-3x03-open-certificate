@@ -20,11 +20,11 @@ ___
 
 ## **Instructions** 📖
 ### **Setup** 🖥️
-1. ### Developer Project Setup
+1. ### Developer Project Setup 💻
 
     - To setup the project for developement, refer [**here**](/opencert/README.md) for setting up project development and deployment. 
 
-2. ### Web application prerequisites
+2. ### Web application prerequisites 🍎
 
    - Have Metamask extension installed on your respective browser
    - A crypto wallet with metamask connected on Goerli Test Network
@@ -44,7 +44,14 @@ There are 4 features the normal users will be able to use on our web application
 
 1. Minting Arowana certificate using ETH for a purchase of genuine Arowana.
 
-To be able to utilise these functions, please satisfy the prerequisites installtion.
+To be able to utilise these functions, you must satisfy the prerequisites installtion.
 ___
-## **Demonstration**
-### **Display Certificate**
+## **Demonstration** 🌻
+
+To use the functions, login to the web application and connect your metamask wallet for full functionality. Below will show a demo for the functions. To use the other functions, the user will require Goerli ETH on the Test network. Contact the team to test the functions.
+
+### **Display Certificate** 🪴
+![display_minted_certificate](demo_asset/display_minted_cert.gif)
+
+### **Verify Certifcate** 🪴
+![verify_minted_certificate](demo_asset/verify_minted_cert.gif)
