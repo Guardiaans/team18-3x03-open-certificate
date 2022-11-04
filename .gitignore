@@ -44,6 +44,8 @@ docs/_build
 
 # Virtualenvs
 env/
+Scripts/
+venv/
 
 # npm
 /node_modules/
@@ -51,20 +53,37 @@ env/
 # webpack-built files
 /opencert/static/build/
 
-# Configuration
+# environment variables
 .env
 
-# Development database
-
-# *.db
-Scripts
+# flask db migrations
 instance/
+migrations/
 
-#imageUploaded
-/opencert/uploads
+#venv config
+pyvenv.cfg
 
-#imageMetaDataUploaded
-/opencert/metadataUploads
+#.idea
+.idea
 
-# Migrations
-/Migrations
+# auto generated files
+opencert/static/cache_manifest.json
+opencert/static/smartMintFunction.js.gz
+opencert/static/smartMintFunction-*.js
+opencert/static/smartMintFunction-*.js.gz
+opencert/static/smartTransferFunction.js.gz
+opencert/static/smartTransferFunction-*.js
+opencert/static/smartTransferFunction-*.js.gz
+opencert/static/smartVerifyFunction.js.gz
+opencert/static/smartVerifyFunction-*.js
+opencert/static/smartVerifyFunction-*.js.gz
+opencert/static/smartDeleteFunction.js.gz
+opencert/static/smartDeleteFunction-*.js
+opencert/static/smartDeleteFunction-*.js.gz
+opencert/static/recaptcha-*.js
+opencert/static/recaptcha-*.js.gz
+opencert/static/recaptcha.js.gz
+
+# Application logging
+record.log
+

@@ -1,14 +1,28 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
-import email
 import logging
 import sys
 
-from flask import Flask, render_template
-
+# import BackgroundScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
+from flask import Flask, current_app, render_template
+from flask_cors import CORS
 from flask_mail import Mail
-from opencert import commands, public, user, auth, email, minting
+from sqlalchemy.exc import SQLAlchemyError
 
+from opencert import (
+    auth,
+    commands,
+    delete,
+    display,
+    email,
+    minting,
+    public,
+    transfer,
+    user,
+    verify,
+)
+from opencert.admin.forms import sendlogs
 from opencert.extensions import (
     bcrypt,
     cache,
@@ -19,6 +33,7 @@ from opencert.extensions import (
     login_manager,
     migrate,
 )
+from opencert.user.models import Role
 
 
 def create_app(config_object="opencert.settings"):
@@ -35,6 +50,43 @@ def create_app(config_object="opencert.settings"):
     register_commands(app)
     configure_logger(app)
     Mail(app)
+
+    with app.app_context():
+        # check if Role table is created if not created, pass
+        try:
+            # Insert Admin role into Role table
+            admin_role = Role.query.filter_by(name="admin").first()
+            if admin_role is None:
+                admin_role = Role(name="admin")
+                db.session.add(admin_role)
+                db.session.commit()
+            # Insert Buyer and seller roles into Role table
+            buyer_role = Role.query.filter_by(name="buyer").first()
+            if buyer_role is None:
+                buyer_role = Role(name="buyer")
+                db.session.add(buyer_role)
+                db.session.commit()
+            seller_role = Role.query.filter_by(name="seller").first()
+            if seller_role is None:
+                seller_role = Role(name="seller")
+                db.session.add(seller_role)
+                db.session.commit()
+        except SQLAlchemyError as e:
+            current_app.logger.error(e)
+            current_app.logger.error("Error in creating tables")
+
+    scheduler = BackgroundScheduler()
+    # in your case you could change seconds to hours
+    scheduler.add_job(sendlogs, trigger="interval", seconds=3600)
+    scheduler.start()
+
+    try:
+        # To keep the main thread alive
+        return app
+    except (KeyboardInterrupt, SystemExit) as e:
+        # shutdown if app occurs except
+        current_app.logger.error(e)
+        scheduler.shutdown()
     return app
 
 
@@ -48,6 +100,7 @@ def register_extensions(app):
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     flask_static_digest.init_app(app)
+    CORS(app)
     return None
 
 
@@ -59,6 +112,10 @@ def register_blueprints(app):
     app.register_blueprint(minting.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
     app.register_blueprint(email.views.blueprint)
+    app.register_blueprint(transfer.views.blueprint)
+    app.register_blueprint(verify.views.blueprint)
+    app.register_blueprint(delete.views.blueprint)
+    app.register_blueprint(display.views.blueprint)
     return None
 
 

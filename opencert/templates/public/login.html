@@ -1,4 +1,5 @@
 {% extends "layout.html" %} {% block content %}
+<script src="{{url_for('static', filename='recaptcha.js')}}"></script>
 <div class="container-narrow">
   <h1 class="mt-5">Login</h1>
   <br />
@@ -22,9 +23,10 @@
       {{form.token.label}} {{form.token(placeholder="OTP Token",
       class_="form-control")}}
     </div>
-    <p><input class="btn btn-primary" type="submit" value="Login" /></p>
+    <button id="btn" class="g-recaptcha btn btn-primary" data-sitekey="{{ site_key }}" type="submit" data-callback='onSubmit' data-action='submit'>Login</button>
   </form>
-  <p><em>Forgot your password?</em> Click <a href="/">here</a>.</p>
+  <p><em>Forgot your password? Click </em><a href="{{ url_for('user.forget_password') }}">here</a>.</p>
+  <p><em>Account not activated? Check your junk or spam folders or Click</em> <a href="{{ url_for('email.unconfirmed') }}">here</a>.</p>
 </div>
 
 {% endblock %}

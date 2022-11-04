@@ -1,0 +1,4 @@
+#ignore database
+/instance/
+/migrations/
+record.log

@@ -1,10 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
+<script src="{{url_for('static', filename='recaptcha.js')}}"></script>
 <div class="container-narrow">
+  <h1 class="mt-5 text-center">Mint Certificate        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+    <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zM11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+    <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293 2.354.646zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118l.137-.274z"/>
+  </svg></h1>
   <h2 class="mt-5"> Step 2</h2><br/>
   <p class="lead">Input Metadata for Certificate's attribute</p>
   <form id="MintingForm2" class="form form-minting2" method="POST" action="">
     <div class="mb-3">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <h5 class="mt-2">Certificate Image CID:</h5>
       <input type="text" class="form-control" id="imageHash" name="imageHash" value="{{ cid }}" required readonly maxlength="46" pattern=".{46,}" required title="46 characters Minimum">
       <h5 class="mt-2">Certificate Number:</h5>
@@ -20,7 +26,9 @@
       <h5 class="mt-2">Date of Issue:</h5>
       <input type="date" class="form-control" id="DOI" name="DOI" required maxlength="10" pattern=".{10,}"   required title="10 characters Minimum">
     </div>
-    <button type="submit" class="btn btn-primary">Upload Metadata</button>
+    <button id="btn" class="g-recaptcha btn btn-success" data-sitekey="{{ site_key }}" type="submit" data-callback='onSubmit' data-action='submit'>
+      Upload Metadata
+    </button>
   </form>
 </div>
 {% endblock %}

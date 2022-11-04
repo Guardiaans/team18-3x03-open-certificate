@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="{{url_for('static', filename='smartDisplayFunction.js')}}"></script>
+<div class="container-narrow">
+  <h2 class="mt-5 text-center">Display Certificate
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+    </svg>
+  </h2><br/>
+  <form id="DisplayForm" class="form form-display" method="POST" action="">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div class="mb-3">
+      <h5 class="mt-2">Certificate ID:</h5>
+      <input type="number" class="form-control" id="certId" name="certId" value="" minlength="1" maxlength="3" required>
+    </div>
+    <button type="button" class="btn btn-info" id="display">Display Certificate</button>
+    <br/>
+    <br/>
+      <div id="id_input_error"class="alert alert-danger" role="alert" style="display:none;">
+          Please enter a valid id.
+    </div>
+  </form>
+
+
+</div>
+{% endblock %}

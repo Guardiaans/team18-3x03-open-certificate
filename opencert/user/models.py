@@ -5,11 +5,7 @@ import datetime as dt
 import os
 
 import onetimepass
-
-
-from flask import (
-    current_app,
-)
+from flask import current_app
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -32,6 +28,23 @@ class Role(PkModel):
         return f"<Role({self.name})>"
 
 
+class LoginAttempt(PkModel):
+    """Login attempts by user IP address."""
+
+    __tablename__ = "login_attempts"
+    ip = Column(db.String(80), unique=True, nullable=False)
+    login_attempt_count = Column(db.Integer, unique=False, nullable=False, default=5)
+    attempted_at = Column(db.DateTime, nullable=True)
+
+    def __init__(self, ip, **kwargs):
+        """Create instance."""
+        super().__init__(ip=ip, **kwargs)
+
+    def __repr__(self):
+        """Represent instance as a unique string."""
+        return f"<LoginAttempt({self.ip})>"
+
+
 class User(UserMixin, PkModel):
     """A user of the app."""
 
@@ -51,17 +64,20 @@ class User(UserMixin, PkModel):
     role = relationship("Role", backref="users")
 
     def __init__(self, **kwargs):
+        """Create instance."""
         super(User, self).__init__(**kwargs)
         if self.otp_secret is None:
             # generate a random secret
             self.otp_secret = base64.b32encode(os.urandom(10)).decode("utf-8")
 
     def get_totp_uri(self):
+        """Get the TOTP URI for the user."""
         return "otpauth://totp/open-cert:{0}?secret={1}&issuer=open-cert".format(
             self.username, self.otp_secret
         )
 
     def verify_totp(self, token):
+        """Verify a TOTP token."""
         return onetimepass.valid_totp(token, self.otp_secret)
 
     @hybrid_property

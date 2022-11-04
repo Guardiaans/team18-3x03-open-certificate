@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="{{url_for('static', filename='smartTransferFunction.js')}}"></script>
+<div class="container-narrow">
+    <div class="jumbotron">
+        <h1 class="mt-5 text-center">Transfer Certificate                
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+          </svg>
+        </h1>
+        <form>
+            <div class="form-group">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <label for="cert_id">Certificate ID</label>
+                <input type="number" class="form-control" id="cert_id" aria-describedby="Certificate ID"
+                    placeholder="Please enter the Certificate ID" minlength="1" maxlength="3" required>
+            </div>
+            <div class="form-group">
+                <label for="recipient_addr">Recipient Wallet Address</label>
+                <input type="text" minlength="42" maxlength="42" class="form-control" id="recipient_addr" aria-describedby="Recipient Wallet Address"
+                    placeholder="Please enter the receiving wallet address" required>
+            </div>
+            <div class="form-group">
+                <button id="commit_transfer" type="button" class="btn btn-primary">Transfer</button>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center">
+            <div id="loading" class="spinner-border text-primary" style="width: 5rem; height: 5rem; display:none" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        <div class="container">
+            <div id="id_input_error"class="alert alert-danger" role="alert" style="display:none;">
+                Please enter a valid id.
+            </div>
+            <div id="rcpt_input_error"class="alert alert-danger" role="alert" style="display:none;">
+                Please enter a valid address.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
