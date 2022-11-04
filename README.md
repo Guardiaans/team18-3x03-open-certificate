@@ -1,4 +1,5 @@
-![Arowana Open Cert Banner](/demo_asset/arowana-fish-md.png)
+![Arowana Open Cert Banner](/demo_asset/arowana-fish-md.png) 
+
 # Overview
 ## **About** 🐟
 
@@ -31,6 +32,8 @@ ___
    - Few ETH Goerli (Optional)
 
 ### **Web functions** 🕸️
+
+Click [**here**](https://opencert.onthewifi.com) to visit the website! 
 
 There are 4 features the normal users will be able to use on our web application and 1 additional function used by the company adminstrator created by web admin, they are as follows:
 
