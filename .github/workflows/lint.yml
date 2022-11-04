@@ -22,7 +22,6 @@ jobs:
           pip install -r requirements/prod.txt
       - name: Install Node dependencies
         run: npm install
-      - run: cp .env.example .env
       - name: Run Node lints
         run: npm run lint
       # - name: Run Python lints
