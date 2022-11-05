@@ -538,17 +538,7 @@ function testValues() {
   } else {
     document.getElementById("id_input_error").style.display = "none";
   }
-
-  if (
-    isAlphaNumeric(metadataipfs) == false ||
-    metadataipfs.length > 46 ||
-    metadataipfs.length < 46
-  ) {
-    document.getElementById("id_input_error").style.display = "block";
-    idCheck = false;
-  } else {
-    document.getElementById("id_input_error").style.display = "none";
-  }
+  
   if (idCheck == false) {
     return false;
   } else {
